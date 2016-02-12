@@ -5,3 +5,4 @@
 * run `npm install` in this folder
 * run `npm install -g gulp`
 * run `gulp`
+* website will run at `localhost:3000`

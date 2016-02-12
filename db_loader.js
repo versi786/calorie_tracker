@@ -41,7 +41,7 @@ function createDatabase(){
 }
 
 function createTables(){
-  console.log("creating tables")
+  console.log("creating tables");
   return;
 }
 
