@@ -1,0 +1,26 @@
+html, body {
+  background-color: #eee;
+}
+body {
+  padding-top: 40px;
+}
+.container {
+  width: 300px;
+}
+
+#login-form {
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0px 0px 3px #ccc;
+  width: 300px;
+  margin: 0 auto;
+  transform: translateY(5px);
+  margin-bottom: 10px;
+}
+
+#header{
+  text-align: center;
+}
+
