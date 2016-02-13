@@ -42,6 +42,20 @@ function createDatabase(){
 
 function createTables(){
   console.log("creating tables");
+   db.query('CREATE TABLE users ( \
+      username CHARACTER(100) NOT NULL PRIMARY KEY,\
+      firstname CHARACTER(100) NOT NULL, \
+      lastname CHARACTER(100) NOT NULL, \
+      password CHARACTER(200) NOT NULL \
+    );', function(err, rows, fields){
+    if(err) {
+      throw err;
+    }
+    console.log("CREATE DASTABSE");
+    console.log(rows);
+    console.log(fields);
+  });
+
   return;
 }
 
@@ -52,15 +66,15 @@ function loadBasics(){
 
 
 console.log("[WARNING] This sometimes does not work when AWS decides to be slow");
-console.log("[WARNING] DELETING ALL EXISTING TABLES YOU HAVE 3 SECONDS TO EXIT!");
+console.log("[WARNING] Must drop all tables before running");
 setTimeout(function(){ 
   console.log("here we go");
   async.series([
-  deleteDatabase,
-  // setTimeout(createDatabase, 3000),
-  // setTimeout(useDatabase, 3000),
+  // deleteDatabase,
+  //createDatabase,
+  useDatabase,
   setTimeout(createTables, 3000),
-  setTimeout(loadBasics, 3000)
+  //setTimeout(loadBasics, 3000)
   ]);
 
 }, 3000);

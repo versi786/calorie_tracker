@@ -33,7 +33,7 @@ app.use(session({
   genid: function(req) {
     return uuid.v1();
   },
-  secret: 'AasifVersiClonebook',
+  secret: 'CIS350_group10_calorie_tracker',
   resave: false,
   saveUninitialized: false
 }));

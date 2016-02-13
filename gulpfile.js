@@ -13,7 +13,8 @@ var uglify = require('gulp-uglify');
 var cache = require('gulp-cached');
 
 gulp.task('lint', function () {
-  gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**'])
+  gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
+        '!./db_loader.js'])
         .pipe(cache('jshint'))
         .on('error', function(err) {
           console.error('JSX ERROR in ' + err.fileName);

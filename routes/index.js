@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }else{
     //render homepage for user
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express', username: req.session.user });
   }
 });
 

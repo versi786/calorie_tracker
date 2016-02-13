@@ -18,7 +18,25 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next){
   console.log(req.body);
   console.log(req.error);
-
+  if(req.body.username === '' ||
+    req.body.password === ''){
+    req.session.error = 'All fields must be filled in';
+    res.redirect('login');
+  }
+  db.query('select password from users where username = ?',
+    [req.body.username.toLowerCase()], function(err, rows, fields){
+      if(err){
+        req.session.error = 'database error';
+        res.redirect('login');
+      }else if(rows.length === 0 ||
+        SHA3(req.body.password).toString() !== rows[0].password){
+        req.session.error = 'error with username or password';
+        res.redirect('login');
+      }else{
+        req.session.user = req.body.username.toLowerCase();
+        res.redirect('/');
+      }
+    });
 });
 
 module.exports = router;
