@@ -34,7 +34,7 @@ router.post('/', function(req, res, next){
         res.redirect('login');
       }else{
         req.session.user = req.body.username.toLowerCase();
-        res.redirect('/');
+        res.redirect('/users/'+req.session.user);
       }
     });
 });
