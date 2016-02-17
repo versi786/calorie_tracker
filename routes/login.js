@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   if(req.session.error){
     res.render('login', {error: req.session.error});
     req.session.error = null;
-  }else if(req.session.user){
+  } else if(req.session.user) {
     res.redirect('/');
-  }else{
+  } else {
     res.render('login', {error: null});
   }
 });
