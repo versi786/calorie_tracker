@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container">
+    <div class="content">
+      <div class="row">
+        <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
+          <div>
+            <h2 id ="header">Edit Goals</h2>
+            <%if (error) { %>
+            <font color="red"><%= error %></font><p>
+            <% } %>
+            <form action="/edit" method="post">
+              <fieldset>
+                <div class="form-group">
+                  <label for='carbs'>Carbs:</label>
+                  <input class = "form-control" id="carbs" type="text" name="carbs">
+                </div>
+                <div class="form-group">
+                  <label for='protein'>Protein:</label>
+                  <input class = "form-control" id="protein" type="text" name="protein">
+                </div>
+                <div class="form-group">
+                  <label for='fat'>Fat:</label>
+                  <input class = "form-control" id="fat" type="text" name="fat">
+                </div>
+                <button class="btn primary" type="submit">Update Goals</button>
+              </fieldset>
+            </form>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

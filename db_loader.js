@@ -46,7 +46,11 @@ function createTables(){
       username CHARACTER(100) NOT NULL PRIMARY KEY,\
       firstname CHARACTER(100) NOT NULL, \
       lastname CHARACTER(100) NOT NULL, \
-      password CHARACTER(200) NOT NULL \
+      password CHARACTER(200) NOT NULL, \
+      calories INT \
+      carbs INT \
+      fat INT \
+      protein INT \
     );', function(err, rows, fields){
     if(err) {
       throw err;
@@ -64,6 +68,10 @@ function loadBasics(){
   return;
 }
 
+function addMacrosColumns() {
+  db.query(ALTER table users add column (carbs int));
+}
+
 
 console.log("[WARNING] This sometimes does not work when AWS decides to be slow");
 console.log("[WARNING] Must drop all tables before running");
@@ -72,10 +80,13 @@ setTimeout(function(){
   async.series([
   // deleteDatabase,
   //createDatabase,
-  useDatabase,
-  setTimeout(createTables, 3000),
+  // useDatabase,
+  // setTimeout(createTables, 3000),
   //setTimeout(loadBasics, 3000)
+  addMacrosColumns
   ]);
+
+
 
 }, 3000);
 
