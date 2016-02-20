@@ -3,14 +3,16 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
-var source = require('vinyl-source-stream'); // Used to stream bundle for further handling etc.
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var watchify = require('watchify');
 var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var uglify = require('gulp-uglify');
 var cache = require('gulp-cached');
+
+var source = require('vinyl-source-stream'); // Used to stream bundle for further handling etc.
+var buffer = require('vinyl-buffer');
+var browserify = require('browserify');
+var watchify = require('watchify');
+
 
 gulp.task('lint', function () {
   gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
