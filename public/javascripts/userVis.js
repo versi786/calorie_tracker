@@ -6,5 +6,5 @@ $(document).ready(function () {
 
 $('#new_food_entry_button').on('click', function (e) {
                       e.preventDefault();
-                     $('.alert').show();
+    $('.alert').show();
 });

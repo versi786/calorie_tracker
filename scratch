@@ -16,3 +16,4 @@ ON DELETE CASCADE;
 INSERT INTO FOOD_ENTRIES (Entry_ID, Entry_Date, username, Entry_Content) VALUES (1, 02192016, (SELECT username from users WHERE username='idontexist'), '{dinner: salad}');
 
 mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com -P 3306 -u cis350_group10 -p
+helaBroUiZAL
