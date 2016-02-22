@@ -44,10 +44,7 @@ app.use('/login', login);
 app.use('/users', users);
 app.use('/signup', signup);
 app.use('/edit', edit);
-<<<<<<< HEAD
-=======
 app.use('/public', pub);
->>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

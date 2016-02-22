@@ -10,9 +10,6 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   else {
-<<<<<<< HEAD
-    res.render('edit', {error: null});
-=======
     //db query to get current data
     db.query('select carbs, fat, protein, goals, food from users where username = ?',[req.session.user], function(err, rows, fields){
       //pass to view in json
@@ -23,8 +20,6 @@ router.get('/', function(req, res, next) {
          carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein});  
       }
     });
-    
->>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
   }
 });
 
@@ -85,8 +80,6 @@ router.post('/', function(req, res, next) {
             console.log("Updated database");
           }
         });
-<<<<<<< HEAD
-=======
       // update public goals setting
       var goals = 0;
       if(req.body.goals === 'on'){
@@ -117,9 +110,6 @@ router.post('/', function(req, res, next) {
             console.log("Updated database");
           }
         });
-
-
->>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
     } 
     else {
       req.session.error = 'database error';
