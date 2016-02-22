@@ -51,7 +51,9 @@ function createTables() {
       calories INT \
       carbs INT \
       fat INT \
-      protein INT);', function(err, rows, fields) {
+      protein INT\
+      goals BOOLEAN \
+      food BOOLEAN);', function(err, rows, fields) {
     if(err) {
       throw err;
     }
