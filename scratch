@@ -1,0 +1,18 @@
+CREATE TABLE FOOD_ENTRIES \
+(Entry_ID INT NOT NULL PRIMARY KEY, \
+Entry_Date TIMESTAMP NOT NULL, \
+username CHARACTER(100) REFERENCES users(username), \
+Entry_Content CLOB(5000) NOT NULL, \
+
+);
+
+CREATE TABLE FOOD_ENTRIES (Entry_ID INT NOT NULL PRIMARY KEY, Entry_Date INT NOT NULL, username CHARACTER(100) NOT NULL, Entry_Content TEXT(5000) NOT NULL);
+
+ALTER TABLE FOOD_ENTRIES
+ADD CONSTRAINT fk_user FOREIGN KEY (username) REFERENCES users(username)
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+INSERT INTO FOOD_ENTRIES (Entry_ID, Entry_Date, username, Entry_Content) VALUES (1, 02192016, (SELECT username from users WHERE username='idontexist'), '{dinner: salad}');
+
+mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com -P 3306 -u cis350_group10 -p

@@ -22,7 +22,7 @@ router.post('/', function(req, res, next){
   if(req.body.username === '' ||
     req.body.password === '' ||
     req.body.c_password === '' ||
-    req.body.firstname === '' || 
+    req.body.firstname === '' ||
     req.body.lastname === ''){
 
     req.session.error = 'All fields must be filled in';
@@ -61,7 +61,7 @@ router.post('/', function(req, res, next){
       res.redirect('signup');
     }
   });
-  
+
 });
 
 module.exports = router;
