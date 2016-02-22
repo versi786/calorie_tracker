@@ -7,6 +7,10 @@ var mysql = require('mysql');
 /* RENDER THE USER PAGE */
 router.get('/:username', function(req, res, next) {
 
+    // If not in user session re-direct to home-page. Still a vulernability depending on the hashing used to insert the username into the SessionID.
+    if (!req.session.username) {
+      res.redirect('../');
+    }
 
     var goalsql = 'SELECT carbs, fat, protein FROM users WHERE username = ?';
     var inserts = [req.params.username];
@@ -17,7 +21,7 @@ router.get('/:username', function(req, res, next) {
           req.session.error = 'database error';
           res.redirect('/:username');
       }
-    };
+    });
 
     // , { title: 'Express', username: req.session.user } -> render the page with variables
     res.render('users');
