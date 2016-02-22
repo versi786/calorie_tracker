@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.alert').hide();
 });
 
-$('#new_food_entry_button').on('click', function (e) {
-    // e.preventDefault();
+$('#completed_food_entry').on('click', function (e) {
+    e.preventDefault();
     $('.alert').show();
 });

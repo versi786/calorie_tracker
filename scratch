@@ -17,3 +17,5 @@ INSERT INTO FOOD_ENTRIES (Entry_ID, Entry_Date, username, Entry_Content) VALUES 
 
 mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com -P 3306 -u cis350_group10 -p
 helaBroUiZAL
+
+The next move -in jQuery I can prevent the default of the submit button. I don't want to immedietly generate a post request - only if the inputs are valid. If so continue and let the POST request happen - or do I manually need to make a post request.
