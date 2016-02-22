@@ -1,10 +1,7 @@
 'use strict';
 
-$('.btn').on('click', function () {
-    console.log( "ready!" );
-})
+var $ = require('jquery');
 
-
-// $( document ).ready(function() {
-//     console.log( "ready!" );
-// });
+$(document).ready(function () {
+    $('.alert').hide();
+});
