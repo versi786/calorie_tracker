@@ -10,7 +10,21 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   else {
+<<<<<<< HEAD
     res.render('edit', {error: null});
+=======
+    //db query to get current data
+    db.query('select carbs, fat, protein, goals, food from users where username = ?',[req.session.user], function(err, rows, fields){
+      //pass to view in json
+      if(err){
+        console.log(err);
+      }else{
+        res.render('edit', {error: null, food: rows[0].food, goals: rows[0].goals,
+         carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein});  
+      }
+    });
+    
+>>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
   }
 });
 
@@ -71,6 +85,41 @@ router.post('/', function(req, res, next) {
             console.log("Updated database");
           }
         });
+<<<<<<< HEAD
+=======
+      // update public goals setting
+      var goals = 0;
+      if(req.body.goals === 'on'){
+        goals = 1;
+      }
+      db.query('UPDATE users SET goals = ? WHERE users.username = ?', 
+        [goals, username], 
+        function(err, rows, fields){
+          if(err){
+            console.log("Error updating goals column" + err);
+          }
+          else{
+            console.log("Updated database");
+          }
+        });
+      // update public foods setting
+      var foods = 0;
+      if(req.body.food === 'on'){
+        foods = 1;
+      }
+      db.query('UPDATE users SET food = ? WHERE users.username = ?', 
+        [foods, username], 
+        function(err, rows, fields){
+          if(err){
+            console.log("Error updating food column" + err);
+          }
+          else{
+            console.log("Updated database");
+          }
+        });
+
+
+>>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
     } 
     else {
       req.session.error = 'database error';

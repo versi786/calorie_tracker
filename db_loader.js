@@ -68,6 +68,7 @@ function createTables() {
             username CHARACTER(100) NOT NULL,\
             Entry_Content TEXT(5000) NOT NULL \
             );', function(err, rows, fields) {
+
     if(err) {
       throw err;
     }
@@ -113,5 +114,11 @@ setTimeout(function() {
   //setTimeout(loadBasics, 3000)
   addMacrosColumns
   ]);
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
 }, 3000);
 

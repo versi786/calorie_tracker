@@ -14,16 +14,42 @@
               <fieldset>
                 <div class="form-group">
                   <label for='carbs'>Carbs:</label>
-                  <input class = "form-control" id="carbs" type="text" name="carbs">
+                  <input class = "form-control" id="carbs" type="text" name="carbs" value= <%= carbs %>>
                 </div>
                 <div class="form-group">
                   <label for='protein'>Protein:</label>
-                  <input class = "form-control" id="protein" type="text" name="protein">
+                  <input class = "form-control" id="protein" type="text" name="protein" value= <%= protein %>>
                 </div>
                 <div class="form-group">
                   <label for='fat'>Fat:</label>
-                  <input class = "form-control" id="fat" type="text" name="fat">
+                  <input class = "form-control" id="fat" type="text" name="fat" value= <%= fat %>>
                 </div>
+                <%if (goals == 1) { %>
+                  <div class="form-group">
+                    <label for="goals">Goals are visible on Public Page: </label>
+                    <input class = "form-control" id="goals" type="checkbox" name="goals", checked="checked">
+                  </div>
+                <% } else { %>
+                  <div class="form-group">
+                    <label for="goals">Goals are visible on Public Page: </label>
+                    <input class = "form-control" id="goals" type="checkbox" name="goals" >
+                  </div>
+                <% } %>
+
+                <%if (food == 1) { %>
+                  <div class="form-group">
+                    <label for="food">Food consumed is visible on Public Page: </label>
+                    <input class = "form-control" id="food" type="checkbox" name="food", checked="checked">
+                  </div>
+                <% } else { %>
+                  <div class="form-group">
+                    <label for="food">Food consumed is visible on Public Page:</label>
+                    <input class = "form-control" id="food" type="checkbox" name="food" >
+                  </div>
+                <% } %>
+
+
+>>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
                 <button class="btn primary" type="submit">Update Goals</button>
               </fieldset>
             </form>
