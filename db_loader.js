@@ -64,7 +64,7 @@ function createTables() {
 
   db.query('CREATE TABLE FOOD_ENTRIES ( \
             Entry_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\
-            Entry_Date INT NOT NULL,\
+            Entry_Date CHARACTER(10) NOT NULL,\
             username CHARACTER(100) NOT NULL,\
             Entry_Content TEXT(5000) NOT NULL \
             );', function(err, rows, fields) {
