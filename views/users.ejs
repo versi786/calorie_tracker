@@ -15,9 +15,9 @@
 
   <body>
 
-    <div class="alert alert-success alert-dismissable">
+    <div class="alert alert-success alert-dismissable" id="meal_logged">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            Success! message sent successfully.
+            Great job! Keep logging your meals.
     </div>
 
     <!-- NAVIGATION BAR -->
@@ -34,9 +34,7 @@
           <a class="navbar-brand" href="#">Brand</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for t
-
-        oggling -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
@@ -58,6 +56,26 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
+    <!-- Show "analytics" - currently just remaining goals -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 align="center">Fat Remaining: <%= fat %><h3>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-12">
+                <h3 align="center">Carbs Remaining: <%= carbs %><h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 align="center">Protein Remaining: <%= protein %><h3>
+            </div>
+        </div>
+    </div>
 
     <!-- Container for the New Food entry form. -->
     <div class="container-fluid" >
@@ -129,10 +147,6 @@
             </div>
         </form>
     </div>
-
-
-
-
 
      <!-- Custom JS -->
     <script src="../javascripts/userVis.js"></script>
