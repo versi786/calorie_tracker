@@ -30,3 +30,4 @@ node_modules
 npm-debug.log
 
 credentials*.json
+.DS_Store
