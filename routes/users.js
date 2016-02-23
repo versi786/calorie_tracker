@@ -11,7 +11,6 @@ router.get('/:username', function(req, res, next) {
     if (!req.session.user) {
       res.redirect('../');
     }
-    console.log(req.session.user);
 
     var goalsql = 'SELECT carbs, fat, protein FROM users WHERE username = ?';
     var inserts = [req.params.username];
@@ -32,8 +31,13 @@ router.get('/:username', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+
   console.log(req.body);
-  //console.log(req.session.error);
+
+    // Always confirm request is part of a session.
+    if (!req.session.user) {
+      res.redirect('../');
+    }
 
   // Form must be completed
   if(req.body.food_input === '' ||
@@ -47,11 +51,8 @@ router.post('/', function(req, res, next) {
     req.session.error = 'All fields must be filled in';
     res.redirect('/users/' + req.session.user);
   } else {
-        var today = new Date();
-        var mm = (today.getMonth()+1).toString();
-        var dd = today.getDay().toString();
-        var yyyy = today.getFullYear().toString();
-        var date_entry = (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]) + '-' + yyyy;
+
+        console.log('Server received valid form submission');
 
         var entry_content = {};
         entry_content.food = req.body.food_input;
@@ -67,15 +68,16 @@ router.post('/', function(req, res, next) {
                 (Entry_Date, username, Entry_Content) \
                 VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
-        var inserts = [date_entry, req.session.user, JSON.stringify(entry_content)];
+        var inserts = [req.session.today, req.session.user, JSON.stringify(entry_content)];
         sql = mysql.format(sql, inserts);
 
         // Add the new entry to the food entries table if valid
         db.query(sql, function(err, rows, fields) {
+          console.log('Heard back from the sql server');
         if(err) {
           req.session.error = 'database error';
-          res.redirect('/:username');
         }
+        res.redirect('/users/' + req.session.user);
       });
   }
 });
