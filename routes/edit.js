@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
   var username = req.session.user;
-  console.log("User editing his goals is "+ username);
+  console.log('User editing his goals is '+ username);
   console.log(req.body);
 
 //   console.log(req.body);
@@ -52,10 +52,10 @@ router.post('/', function(req, res, next) {
         [req.body.carbs, username], 
         function(err, rows, fields){
           if(err){
-            console.log("Error updating carbs column" + err);
+            console.log('Error updating carbs column' + err);
           }
           else{
-            console.log("Updated database");
+            console.log('Updated database');
           }
         });
       // update protein column
@@ -63,10 +63,10 @@ router.post('/', function(req, res, next) {
         [req.body.protein, username], 
         function(err, rows, fields){
           if(err){
-            console.log("Error updating database" + err);
+            console.log('Error updating database' + err);
           }
           else{
-            console.log("Updated protein column");
+            console.log('Updated protein column');
           }
         });
       // update fat column
@@ -74,10 +74,10 @@ router.post('/', function(req, res, next) {
         [req.body.fat, username], 
         function(err, rows, fields){
           if(err){
-            console.log("Error updating fat column" + err);
+            console.log('Error updating fat column' + err);
           }
           else{
-            console.log("Updated database");
+            console.log('Updated database');
           }
         });
       // update public goals setting
@@ -89,10 +89,10 @@ router.post('/', function(req, res, next) {
         [goals, username], 
         function(err, rows, fields){
           if(err){
-            console.log("Error updating goals column" + err);
+            console.log('Error updating goals column' + err);
           }
           else{
-            console.log("Updated database");
+            console.log('Updated database');
           }
         });
       // update public foods setting
@@ -104,10 +104,10 @@ router.post('/', function(req, res, next) {
         [foods, username], 
         function(err, rows, fields){
           if(err){
-            console.log("Error updating food column" + err);
+            console.log('Error updating food column' + err);
           }
           else{
-            console.log("Updated database");
+            console.log('Updated database');
           }
         });
     } 

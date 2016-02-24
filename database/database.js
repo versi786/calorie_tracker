@@ -15,15 +15,15 @@ var conf = {
 var connection = mysql.createConnection(conf);
 connection.connect(function(err){
     if (err){
-        console.error("couldn't connect",err);
+        console.error('couldn\'t connect',err);
     }
     else{
-        console.log("mysql connected");
+        console.log('mysql connected');
         connection.query('USE cis350_database', function(err, rows, fields){
         if(err) {
           throw err;
         }
-      console.log("Uing cis350_database");
+      console.log('Uing cis350_database');
 
       });
     }

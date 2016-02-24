@@ -16,3 +16,6 @@ ON DELETE CASCADE;
 INSERT INTO FOOD_ENTRIES (Entry_ID, Entry_Date, username, Entry_Content) VALUES (1, 02192016, (SELECT username from users WHERE username='idontexist'), '{dinner: salad}');
 
 mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com -P 3306 -u cis350_group10 -p
+helaBroUiZAL
+
+Technically our security is shit. If we just validate in the browser someone could manually sent a malicious POST object with fields that would kill our table -> so I'm wrong I'm guessing validation does need to be occuring on the server too.

@@ -8,23 +8,24 @@
         <link rel='stylesheet' href='/stylesheets/userPage.css' />
         <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
 
   <body>
 
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            Success! message sent successfully.
-        </div>
+    <div class="alert alert-success alert-dismissable" id="meal_logged">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Great job! Keep logging your meals.
+    </div>
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="new_food_entry_button">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -33,13 +34,11 @@
           <a class="navbar-brand" href="#">Brand</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for t
-
-        oggling -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
-                <button type="button" class="btn btn-primary navbar-btn">New Entry</button>
+                <button type="button" id="new_food_entry_button" class="btn btn-primary navbar-btn">New Entry</button>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -58,11 +57,31 @@
       </div><!-- /.container-fluid -->
     </nav>
 
+    <!-- Show "analytics" - currently just remaining goals -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 align="center">Fat Remaining: <%= fat %><h3>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-12">
+                <h3 align="center">Carbs Remaining: <%= carbs %><h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 align="center">Protein Remaining: <%= protein %><h3>
+            </div>
+        </div>
+    </div>
+
     <!-- Container for the New Food entry form. -->
     <div class="container-fluid" >
 
         <h1> NEW FOOD ENTRY </h1>
-        <form action='/users' method='post'>
+        <form action='/users' method='post' id='foodEntryFORM'>
             <!-- Food entry -->
             <div class="form-group row">
                 <label for="food_input" class="col-sm-2 form-control-label">Food</label>
@@ -124,29 +143,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <button id="myButton" class="btn primary" type="submit">Complete</button>
+                <button id="completed_food_entry" class="btn primary" type="submit">Complete</button>
             </div>
-
-<!--             <script>
-                $(document).ready(function () {
-                  $('.alert').hide();
-                });
-
-                $('#myButton').on('click', function (e) {
-                      e.preventDefault();
-                     $('.alert').show();
-                 });
-            </script> -->
-
-
         </form>
     </div>
 
-
-
-
-
-
+     <!-- Custom JS -->
+    <script src="../javascripts/userVis.js"></script>
 
   </body>
 </html>

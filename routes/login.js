@@ -34,6 +34,16 @@ router.post('/', function(req, res, next){
         res.redirect('login');
       }else{
         req.session.user = req.body.username.toLowerCase();
+
+        var today = new Date();
+        var mm = (today.getMonth()+1).toString();
+        var dd = today.getDate().toString();
+        var yyyy = today.getFullYear().toString();
+        var date_entry = (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]) + '-' + yyyy;
+
+        console.log(date_entry);
+        req.session.today = date_entry;
+
         res.redirect('/users/'+req.session.user);
       }
     });
