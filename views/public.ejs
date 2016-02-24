@@ -7,6 +7,17 @@
         <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
           <div>
             <h2 id ="header">Public Page</h2>
+            <%if (goals == 1) { %>
+              <p> Current Caloric Goals: <p>
+              <p> Current Calories from Carbohydrates: <%= carbs %> <p>
+              <p> Current Calories from Fat: <%= fat %> <p>
+              <p> Current Calories from Protein: <%= protein %> <p>
+            <% } else  {%>
+              <p> This user does not wish to share their caloric goals. <p>
+            <% } %>
+
+
+
               </fieldset>
             </form>
             <p></p>
