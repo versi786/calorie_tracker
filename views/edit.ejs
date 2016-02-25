@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/edit.css' />
+</head>
 <body>
     <div class="container">
     <div class="content">
@@ -26,28 +30,28 @@
                 </div>
                 <%if (goals == 1) { %>
                   <div class="form-group">
-                    <label for="goals">Goals are visible on Public Page: </label>
+                    <label for="goals">Goals are public: </label>
                     <input class = "form-control" id="goals" type="checkbox" name="goals", checked="checked">
                   </div>
                 <% } else { %>
                   <div class="form-group">
-                    <label for="goals">Goals are visible on Public Page: </label>
+                    <label for="goals">Goals are public: </label>
                     <input class = "form-control" id="goals" type="checkbox" name="goals" >
                   </div>
                 <% } %>
 
                 <%if (food == 1) { %>
                   <div class="form-group">
-                    <label for="food">Food consumed is visible on Public Page: </label>
+                    <label for="food">Food consumed is public: </label>
                     <input class = "form-control" id="food" type="checkbox" name="food", checked="checked">
                   </div>
                 <% } else { %>
                   <div class="form-group">
-                    <label for="food">Food consumed is visible on Public Page:</label>
+                    <label for="food">Food consumed is public:</label>
                     <input class = "form-control" id="food" type="checkbox" name="food" >
                   </div>
                 <% } %>
-                <button class="btn primary" type="submit">Update Goals</button>
+                <button class="btn primary" type="submit">Update</button>
               </fieldset>
             </form>
             <p></p>
