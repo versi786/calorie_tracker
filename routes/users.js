@@ -25,7 +25,8 @@ router.get('/:username', function(req, res, next) {
       }
       res.render('users', {fat: (rows[0].fat===null?0:rows[0].fat),
                           carbs: (rows[0].carbs===null?0:rows[0].carbs),
-                          protein: (rows[0].protein===null?0:rows[0].protein)}
+                          protein: (rows[0].protein===null?0:rows[0].protein),
+                          username: req.session.user}
                 );
     });
 });
