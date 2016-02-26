@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <!--  Include bootstrap from CDN-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Include bootstrap JS from CDN-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
 <body>
     <div class="container">
     <div class="content">
@@ -9,12 +15,120 @@
             <h2 id ="header">Public Page</h2>
             <%if (goals == 1) { %>
               <p> Current Caloric Goals: <p>
-              <p> Current Calories from Carbohydrates: <%= carbs %> <p>
-              <p> Current Calories from Fat: <%= fat %> <p>
-              <p> Current Calories from Protein: <%= protein %> <p>
+              <p> Current Carbohydrate Goal: <%= carbs %> <p>
+              <p> Current Fat Goals: <%= fat %> <p>
+              <p> Current Protein Goals: <%= protein %> <p>
             <% } else  {%>
               <p> This user does not wish to share their caloric goals. <p>
             <% } %>
+            <%if (food == 1) { %>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <h4>Breakfast</h4>
+                  <table class = "table table-striped">
+                    <tr>
+                      <th>Food</th>
+                      <th>Measurement</th>
+                      <th>Quantity</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Protein</th>
+                    </tr>
+                    <% for (var i = 0; i < entry.breakfast.length; i++) { %>
+                      <tr>
+                        <td><%= entry.breakfast[i].food %></td>
+                        <td><%= entry.breakfast[i].quantity_meas %></td>
+                        <td><%= entry.breakfast[i].quantity %></td>
+                        <td><%= entry.breakfast[i].carbs %></td>
+                        <td><%= entry.breakfast[i].fat %></td>
+                        <td><%= entry.breakfast[i].protein %></td>
+                      </tr>
+                    <% } %>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <h4>Lunch</h4>
+                  <table class = "table table-striped">
+                    <tr>
+                      <th>Food</th>
+                      <th>Measurement</th>
+                      <th>Quantity</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Protein</th>
+                    </tr>
+                    <% for (var i = 0; i < entry.lunch.length; i++) { %>
+                      <tr>
+                        <td><%= entry.lunch[i].food %></td>
+                        <td><%= entry.lunch[i].quantity_meas %></td>
+                        <td><%= entry.lunch[i].quantity %></td>
+                        <td><%= entry.lunch[i].carbs %></td>
+                        <td><%= entry.lunch[i].fat %></td>
+                        <td><%= entry.lunch[i].protein %></td>
+                      </tr>
+                    <% } %>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <h4>Dinner</h4>
+                  <table class = "table table-striped">
+                    <tr>
+                      <th>Food</th>
+                      <th>Measurement</th>
+                      <th>Quantity</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Protein</th>
+                    </tr>
+                    <% for (var i = 0; i < entry.dinner.length; i++) { %>
+                      <tr>
+                        <td><%= entry.dinner[i].food %></td>
+                        <td><%= entry.dinner[i].quantity_meas %></td>
+                        <td><%= entry.dinner[i].quantity %></td>
+                        <td><%= entry.dinner[i].carbs %></td>
+                        <td><%= entry.dinner[i].fat %></td>
+                        <td><%= entry.dinner[i].protein %></td>
+                      </tr>
+                    <% } %>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <h4>Snack</h4>
+                  <table class = "table table-striped">
+                    <tr>
+                      <th>Food</th>
+                      <th>Measurement</th>
+                      <th>Quantity</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Protein</th>
+                    </tr>
+                    <% for (var i = 0; i < entry.snack.length; i++) { %>
+                      <tr>
+                        <td><%= entry.snack[i].food %></td>
+                        <td><%= entry.snack[i].quantity_meas %></td>
+                        <td><%= entry.snack[i].quantity %></td>
+                        <td><%= entry.snack[i].carbs %></td>
+                        <td><%= entry.snack[i].fat %></td>
+                        <td><%= entry.snack[i].protein %></td>
+                      </tr>
+                    <% } %>
+                  </table>
+                </div>
+              </div>
+            <% } else  {%>
+              <p> This user does not wish to share their daily food entries. <p>
+            <% } %>
+
 
 
 
