@@ -44,9 +44,9 @@ router.post('/', function(req, res, next){
     if(rows.length === 0){
       console.log('Creating user ' + req.body.username);
       var password = SHA3(req.body.password).toString();
-      db.query('INSERT into users (username, password, firstname, lastname) VALUES' +
+      db.query('INSERT into users (username, password, firstname, lastname, fat, carbs, protein) VALUES' +
         '(?, ?, ?, ?)', [req.body.username.toLowerCase(), password,
-        req.body.firstname, req.body.lastname],
+        req.body.firstname, req.body.lastname, req.body.fat, req.body.carbs, req.body.protein],
         function(err, rows, fields){
           if(err){
             req.session.error = 'database error';
