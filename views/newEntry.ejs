@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!--  Custom Style sheets -->
+    <link rel='stylesheet' href='/stylesheets/userPage.css' />
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+  </head>
+  <body>
+    <div class="container">
+    <div class="content">
+      <div class="row">
+        <div id="login-form" class='col-sm-offset-4 col-sm-4'>
+          <div>
+            <h2 id ="header">New Food Entry</h2>
+            <%if (error) { %>
+            <font color="red"><%= error %></font><p>
+            <% } %>
+            <form action='/users' method='post' id='foodEntryFORM'>
+            <!-- Food entry -->
+            <fieldset>
+            <div class="form-group">
+                <label for="food_input" class="form-control-label">Food</label>
+                <div>
+                    <input type="text" class="form-control" id="food_input" placeholder="Consumable" name="food_input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity_measure" class="form-control-label">Quantity Meas.</label>
+                <div>
+                    <select class="form-control" id="quantity_measure" name="quantity_measure">
+                        <option>Servings</option>
+                        <option>Handfuls</option>
+                        <option>Tbsp.</option>
+                        <option>Tsp.</option>
+                        <option>fl. oz.</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="meal_choice" class="form-control-label">Meal</label>
+                <div>
+                    <select class="form-control" id="meal_choice" name="meal_choice">
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                        <option>Snack</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity_choose" class="form-control-label">Qty.</label>
+                <div>
+                    <select class="form-control" id="quantity_choose" name="quantity_choose">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3.</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fat_input" class="form-control-label">Fat</label>
+                <div>
+                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="protein_input" class="form-control-label">Protein</label>
+                <div>
+                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="carbs_input" class="form-control-label">Carbs</label>
+                <div>
+                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input">
+                </div>
+            </div>
+            <div class="form-group">
+                <button id="completed_food_entry" class="btn primary" type="submit">Complete</button>
+            </div>
+            </fieldset>
+        </form>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
