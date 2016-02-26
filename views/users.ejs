@@ -61,30 +61,121 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <h3 align="center">Fat Remaining: <%= fat %><h3>
             </div>
-        </div>
-        <div class="row">
-             <div class="col-sm-12">
+             <div class="col-sm-4">
                 <h3 align="center">Carbs Remaining: <%= carbs %><h3>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <h3 align="center">Protein Remaining: <%= protein %><h3>
             </div>
-        </div>
     </div>
 
-    <!-- Container for the New Food entry form. -->
-    <!-- <div class="container-fluid" >
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Breakfast</h4>
+        <table>
+          <tr>
+            <th>Food</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry.breakfast.length; i++) { %>
+            <tr>
+              <td><%= entry.breakfast[i].food %></td>
+              <td><%= entry.breakfast[i].quantity_meas %></td>
+              <td><%= entry.breakfast[i].quantity %></td>
+              <td><%= entry.breakfast[i].carbs %></td>
+              <td><%= entry.breakfast[i].fat %></td>
+              <td><%= entry.breakfast[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
 
-        <h1> NEW FOOD ENTRY </h1>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Lunch</h4>
+        <table>
+          <tr>
+            <th>Food</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry.lunch.length; i++) { %>
+            <tr>
+              <td><%= entry.lunch[i].food %></td>
+              <td><%= entry.lunch[i].quantity_meas %></td>
+              <td><%= entry.lunch[i].quantity %></td>
+              <td><%= entry.lunch[i].carbs %></td>
+              <td><%= entry.lunch[i].fat %></td>
+              <td><%= entry.lunch[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
 
-    </div> -->
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Dinner</h4>
+        <table>
+          <tr>
+            <th>Food</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry.dinner.length; i++) { %>
+            <tr>
+              <td><%= entry.dinner[i].food %></td>
+              <td><%= entry.dinner[i].quantity_meas %></td>
+              <td><%= entry.dinner[i].quantity %></td>
+              <td><%= entry.dinner[i].carbs %></td>
+              <td><%= entry.dinner[i].fat %></td>
+              <td><%= entry.dinner[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
 
-     <!-- Custom JS -->
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Snack</h4>
+        <table>
+          <tr>
+            <th>Food</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry.snack.length; i++) { %>
+            <tr>
+              <td><%= entry.snack[i].food %></td>
+              <td><%= entry.snack[i].quantity_meas %></td>
+              <td><%= entry.snack[i].quantity %></td>
+              <td><%= entry.snack[i].carbs %></td>
+              <td><%= entry.snack[i].fat %></td>
+              <td><%= entry.snack[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+
     <script src="../javascripts/userVis.js"></script>
 
   </body>
