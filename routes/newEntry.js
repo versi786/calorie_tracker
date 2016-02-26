@@ -21,10 +21,21 @@ router.post('/', function(req, res, next) {
 
   console.log(req.body);
 
-    // Always confirm request is part of a session.
-    if (!req.session.user) {
-      res.redirect('../');
-    }
+  // Always confirm request is part of a session.
+  if (!req.session.user) {
+    res.redirect('../');
+  }
+
+  //add the date to the session if it is not there;
+  if(!req.session.today){
+    var today = new Date();
+    var mm = (today.getMonth()+1).toString();
+    var dd = today.getDate().toString();
+    var yyyy = today.getFullYear().toString();
+    var date_entry = (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]) + '-' + yyyy;
+    console.log(date_entry);
+    req.session.today = date_entry;
+  }
 
   // Form must be completed
   if(req.body.food_input === '' ||
@@ -79,10 +90,11 @@ router.post('/', function(req, res, next) {
             res.redirect('/newEntry');
             return;
           }
+          console.log('new entry flag ' + newEntry_FLAG);
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here')
+            console.log('I got here adding new entry')
 
             var dayEntry = {};
             dayEntry.breakfast = [];
