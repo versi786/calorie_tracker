@@ -46,13 +46,17 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-
+    <!-- Title bar -->
+    <div class="row">
+      <div class='col-sm-offset-4 col-sm-4'>
+        <h2 id ="header">Public Page</h2>
+      </div>
+    </div>
 
       <!-- Goals View -->
       <div class="row">
         <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
           <div>
-            <h2 id ="header">Public Page</h2>
             <%if (goals == 1) { %>
               <p> Current Carbohydrate Goal: <%= carbs %> </p>
               <p> Current Fat Goals: <%= fat %> </p>
@@ -169,7 +173,11 @@
                 </div>
               </div>
             <% } else  {%>
-              <p> This user does not wish to share their daily food entries. <p>
+            <div class="row">
+              <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
+                <p> This user does not wish to share their daily food entries. </p>
+              </div>
+            </div>
             <% } %>
 
   </body>
