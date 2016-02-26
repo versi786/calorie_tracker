@@ -16,8 +16,6 @@ router.get('/', function(req, res, next) {
     var inserts = [req.params.username];
     goalsql = mysql.format(goalsql, inserts);
 
-    var fat, carbs, protein;
-
     db.query(goalsql, function(err, rows, fields) {
       if(err) {
           req.session.error = 'database error';
@@ -25,6 +23,7 @@ router.get('/', function(req, res, next) {
       }
       res.render('newEntry',{username: req.session.user,
                   error: req.session.error});
+      req.session.error = null;
     });
 });
 
@@ -78,11 +77,18 @@ router.post('/', function(req, res, next) {
           var content = {};
           content.food = req.body.food_input;
           content.quantity_meas = req.body.quantity_measure;
-          content.quantity = req.body.quantity_choose;
-          content.fat = req.body.fat_input;
-          content.protein = req.body.protein_input;
-          content.carbs = req.body.carbs_input;
 
+          try
+          {
+            content.quantity = parseInt(req.body.quantity_choose);
+            content.fat = parseInt(req.body.fat_input);
+            content.protein = parseInt(req.body.protein_input);
+            content.carbs = parseInt(req.body.carbs_input);
+          } catch (e) {
+            req.session.error = 'numerical fields must be numbers';
+            res.redirect('/newEntry');
+            return;
+          }
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
