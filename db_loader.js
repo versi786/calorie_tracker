@@ -97,9 +97,9 @@ function loadBasics() {
   return;
 }
 
-function addMacrosColumns() {
-  db.query(ALTER table users add column (carbs int));
-}
+// function addMacrosColumns() {
+//   db.query(ALTER table users add column (carbs int));
+// }
 
 
 console.log("[WARNING] This sometimes does not work when AWS decides to be slow");
@@ -110,15 +110,9 @@ setTimeout(function() {
   // deleteDatabase,
   //createDatabase,
   // useDatabase,
-  // setTimeout(createTables, 3000),
+  //setTimeout(createTables, 3000),
   //setTimeout(loadBasics, 3000)
-  addMacrosColumns
-  ]);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7c0a3ba18d550f9de20f99c192a4685353ec4dff
-}, 3000);
+  createTables
+ ]);
+});
 

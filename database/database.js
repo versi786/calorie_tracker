@@ -5,7 +5,7 @@ var fs = require('fs');
 var credentials= JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
 
 var conf = {
-  host     : 'cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com',
+  host     : 'cis350group10db.cca9bnl1w9fn.us-west-2.rds.amazonaws.com',
   user     : credentials.user,
   password : credentials.password,
   port     : '3306',
@@ -23,7 +23,7 @@ connection.connect(function(err){
         if(err) {
           throw err;
         }
-      console.log('Uing cis350_database');
+      console.log('Using cis350_database');
 
       });
     }
@@ -32,7 +32,7 @@ connection.connect(function(err){
 module.exports = connection;
 
 /** how to connect through commandline
-mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.com -P 3306 -u cis350_group10 -p
+mysql -h cis350group10db.cca9bnl1w9fn.us-west-2.rds.amazonaws.com -P 3306 -u cis350_group10 -p
 
 
 
