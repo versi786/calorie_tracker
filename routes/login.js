@@ -6,8 +6,9 @@ var SHA3 = require('crypto-js/sha3');
 /* GET login listing. */
 router.get('/', function(req, res, next) {
   if(req.session.error){
-    res.render('login', {error: req.session.error});
+    var save = req.session.error;
     req.session.error = null;
+    res.render('login', {error: save});
   } else if(req.session.user) {
     res.redirect('/');
   } else {
