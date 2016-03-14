@@ -24,6 +24,7 @@ function useDatabase() {
   console.log("USING DATABASE");
   console.log(rows);
   console.log(fields);
+  createTables();
   });
 }
 
@@ -43,39 +44,39 @@ function createDatabase() {
 function createTables() {
   console.log("creating tables");
 
-  db.query('CREATE TABLE users ( \
-      username CHARACTER(100) NOT NULL PRIMARY KEY,\
-      firstname CHARACTER(100) NOT NULL, \
-      lastname CHARACTER(100) NOT NULL, \
-      password CHARACTER(200) NOT NULL, \
-      calories INT \
-      carbs INT \
-      fat INT \
-      protein INT\
-      goals BOOLEAN \
-      food BOOLEAN);', function(err, rows, fields) {
-    if(err) {
-      throw err;
-    }
-    console.log("CREATED TABLES users");
-    console.log(rows);
-    console.log(fields);
-  });
+  // db.query('CREATE TABLE users ( \
+  //     username CHARACTER(100) NOT NULL PRIMARY KEY,\
+  //     firstname CHARACTER(100) NOT NULL, \
+  //     lastname CHARACTER(100) NOT NULL, \
+  //     password CHARACTER(200) NOT NULL, \
+  //     calories INT, \
+  //     carbs INT, \
+  //     fat INT, \
+  //     protein INT, \
+  //     goals BOOLEAN, \
+  //     food BOOLEAN);', function(err, rows, fields) {
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log("CREATED TABLES users");
+  //   console.log(rows);
+  //   console.log(fields);
+  // });
 
-  db.query('CREATE TABLE FOOD_ENTRIES ( \
-            Entry_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\
-            Entry_Date CHARACTER(10) NOT NULL,\
-            username CHARACTER(100) NOT NULL,\
-            Entry_Content TEXT(5000) NOT NULL \
-            );', function(err, rows, fields) {
+  // db.query('CREATE TABLE FOOD_ENTRIES ( \
+  //           Entry_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\
+  //           Entry_Date CHARACTER(10) NOT NULL,\
+  //           username CHARACTER(100) NOT NULL,\
+  //           Entry_Content TEXT(5000) NOT NULL \
+  //           );', function(err, rows, fields) {
 
-    if(err) {
-      throw err;
-    }
-    console.log("CREATED TABLES FOOD_ENTRIES");
-    console.log(rows);
-    console.log(fields);
-  });
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log("CREATED TABLES FOOD_ENTRIES");
+  //   console.log(rows);
+  //   console.log(fields);
+  // });
 
   db.query('ALTER TABLE FOOD_ENTRIES \
             ADD CONSTRAINT fk_user FOREIGN KEY (username) REFERENCES users(username) \
@@ -109,10 +110,10 @@ setTimeout(function() {
   async.series([
   // deleteDatabase,
   //createDatabase,
-  // useDatabase,
+  useDatabase,
   //setTimeout(createTables, 3000),
   //setTimeout(loadBasics, 3000)
-  createTables
+  //setTimeout(createTables,3000)
  ]);
 });
 

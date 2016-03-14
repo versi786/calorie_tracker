@@ -17,6 +17,7 @@ var edit = require('./routes/edit');
 var pub = require('./routes/public');
 var newEntry = require('./routes/newEntry');
 var logout = require('./routes/logout');
+var search = require('./routes/search');
 var db = require('./database/database');
 
 var app = express();
@@ -49,6 +50,7 @@ app.use('/edit', edit);
 app.use('/public', pub);
 app.use('/newEntry', newEntry);
 app.use('/logout', logout);
+app.use('/search', search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
