@@ -41,7 +41,7 @@
                 <button type="button" id="new_food_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newEntry';">New Manual Entry</button>
             </li>
             <li class="active">
-                <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newSearch';">New Search Entry</button>
+                <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/search';">New Search Entry</button>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -79,6 +79,66 @@
         <!-- search results -->
         <% if(searchTerm) { %>
           <h1> Searching for: <%= searchTerm %><h1>
+        <% }%>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <!-- search results -->
+        <% if(searchResultsArr) { %>
+          <h4>Results</h4>
+          <table class="table table-striped">
+            <tr>
+              <th>Name</th>
+              <th>Calories</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Meal</th>
+              <th>Submit</th>
+            </tr>
+            <% for (var i = 0; i < searchResultsArr.length; i++) { %>
+              <tr>
+                <form action='/search/submit' method='post'>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.item_name %>" name="item_name">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_calories %>" name="nf_calories">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_total_carbohydrate %>" name="nf_total_carbohydrate">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_total_fat %>" name="nf_total_fat">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_protein %>" name="nf_protein">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_serving_size_qty %>" name="nf_serving_size_qty">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_serving_size_unit %>" name="nf_serving_size_unit">
+                  </td>
+                  <td>
+                    <select class="form-control" id="meal_choice" name="meal_choice">
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                        <option>Snack</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button class="btn primary" type="submit">Submit</button>
+                  </td>
+                </form>
+              </tr>
+            <% } %>
+          </table>
         <% }%>
       </div>
     </div>
