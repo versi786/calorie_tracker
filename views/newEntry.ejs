@@ -3,34 +3,49 @@
   <head>
     <title>Login</title>
    <!--  Include bootstrap from CDN-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!--  Custom Style sheets -->
-    <link rel='stylesheet' href='/stylesheets/userPage.css' />
     <link rel='stylesheet' href='/stylesheets/login.css' />
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='/javascripts/parsley.js'></script>
 
     <!-- Include bootstrap JS from CDN-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container">
     <div class="content">
+
+    <div class="bs-callout bs-callout-warning hidden">
+        <h4>Holy guacamole!</h4>
+        <p>This form isn't valid</p>
+    </div>
+
+    <div class="bs-callout bs-callout-info hidden">
+      <h4>Wooooo!</h4>
+      <p>This entry looks great. You should submit it!</p>
+    </div>
+
       <div class="row">
         <div id="login-form" class='col-sm-offset-4 col-sm-4'>
           <div>
-            <h2 id ="header">New Food Entry</h2>
+            <h2 id ="header">New Diary Entry</h2>
             <%if (error) { %>
             <font color="red"><%= error %></font><p>
             <% } %>
-            <form action='/newEntry' method='post' id='foodEntryFORM'>
+
+
+            <form action='/newEntry' method='post' id='foodEntryFORM' data-parsely-validate=''>
             <!-- Food entry -->
             <fieldset>
             <div class="form-group">
                 <label for="food_input" class="form-control-label">Food</label>
                 <div>
-                    <input type="text" class="form-control" id="food_input" placeholder="Consumable" name="food_input">
+                    <input type="text" class="form-control" id="food_input" placeholder="Consumable" name="food_input" required=''
+                    maxlength='50' pattern='^[A-Za-z\s]+$'>
                 </div>
             </div>
             <div class="form-group">
@@ -48,7 +63,7 @@
             <div class="form-group">
                 <label for="meal_choice" class="form-control-label">Meal</label>
                 <div>
-                    <select class="form-control" id="meal_choice" name="meal_choice">
+                    <select class="form-control" id="meal_choice" name="meal_choice" required=''>
                         <option>Breakfast</option>
                         <option>Lunch</option>
                         <option>Dinner</option>
@@ -59,7 +74,7 @@
             <div class="form-group">
                 <label for="quantity_choose" class="form-control-label">Qty.</label>
                 <div>
-                    <select class="form-control" id="quantity_choose" name="quantity_choose">
+                    <select class="form-control" id="quantity_choose" name="quantity_choose" required=''>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -71,28 +86,44 @@
             <div class="form-group">
                 <label for="fat_input" class="form-control-label">Fat</label>
                 <div>
-                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input">
+                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input" required="" type='number' min='1' max='10000' data-parsley-trigger="focusin focusout">
                 </div>
             </div>
             <div class="form-group">
                 <label for="protein_input" class="form-control-label">Protein</label>
                 <div>
-                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input">
+                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input" required="" type='number' min='1' max='10000' data-parsley-trigger="focusin focusout">
                 </div>
             </div>
             <div class="form-group">
                 <label for="carbs_input" class="form-control-label">Carbs</label>
                 <div>
-                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input">
+                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input" required="" type='number' min='1' max='10000' data-parsley-trigger="focusin focusout">
                 </div>
             </div>
             <div class="form-group">
-                <button id="completed_food_entry" class="btn primary" type="submit">Complete</button>
+                <button id="completed_food_entry" class="btn primary" type="submit" value="validate">Complete</button>
             </div>
             </fieldset>
         </form>
+        <!-- Parsely form validation -->
+        <script type="text/javascript">
+            $(function () {
+              $('#foodEntryFORM').parsley().on('field:validated', function() {
+                var ok = $('.parsley-error').length === 0;
+                $('.bs-callout-info').toggleClass('hidden', !ok);
+                $('.bs-callout-warning').toggleClass('hidden', ok);
+              })
+              .on('form:submit', function() {
+                return true; // Don't submit form for this demo
+              });
+            });
+        </script>
+
+
             <p></p>
           </div>
+
         </div>
       </div>
     </div>

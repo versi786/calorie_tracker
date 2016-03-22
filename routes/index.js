@@ -6,9 +6,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   //if(req.session.user) req.session.user.password = null;
   console.log(req.session.user);
-  if(!req.session.user){
+  if (!req.session.user) {
     res.redirect('/login');
-  }else{
+  } else {
     //render homepage for user
     //res.render('index', { title: 'Express', username: req.session.user });
   	res.redirect('/users/'+req.session.user);
