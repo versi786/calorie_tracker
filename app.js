@@ -8,14 +8,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
-var edit = require('./routes/edit');
+var editGoalsRouter = require('./routes/edit');
+var newEntryRouter = require('./routes/newEntry');
+var sessionValidateRouter = require('./middlewares/sessionValidate');
+
 var pub = require('./routes/public');
-var newEntry = require('./routes/newEntry');
 var logout = require('./routes/logout');
 var search = require('./routes/search');
 var db = require('./database/database');
@@ -31,8 +32,10 @@ app.use(favicon(path.join(__dirname, 'public/', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   genid: function(req) {
     return uuid.v1();
@@ -42,13 +45,20 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use('/', routes);
+
 app.use('/login', login);
-app.use('/users', users);
 app.use('/signup', signup);
-app.use('/edit', edit);
+
+// All non-login/signup requests must be sessioned
+app.use(sessionValidateRouter);
+
+app.use('/', routes);
+
+app.use('/users', users);
+
+app.use('/edit', editGoalsRouter);
 app.use('/public', pub);
-app.use('/newEntry', newEntry);
+app.use('/newEntry', newEntryRouter);
 app.use('/logout', logout);
 app.use('/search', search);
 
@@ -59,7 +69,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+
+
+// ** ERROR ROUTERS **
 
 // development error handler
 // will print stacktrace
@@ -75,6 +87,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
+
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
