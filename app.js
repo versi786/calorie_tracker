@@ -16,6 +16,7 @@ var signup = require('./routes/signup');
 var edit = require('./routes/edit');
 var pub = require('./routes/public');
 var newEntry = require('./routes/newEntry');
+var newExerciseEntry = require('./routes/newExerciseEntry');
 var logout = require('./routes/logout');
 var search = require('./routes/search');
 var db = require('./database/database');
@@ -51,6 +52,7 @@ app.use('/public', pub);
 app.use('/newEntry', newEntry);
 app.use('/logout', logout);
 app.use('/search', search);
+app.use('/newExerciseEntry', newExerciseEntry);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
