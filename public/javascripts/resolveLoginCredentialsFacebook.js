@@ -28,8 +28,6 @@ function storeCredentials() {
     });
 
   });
-
-  //   var randomstring = Math.random().toString(36).slice(-8);
   console.log('Made the AJAX request');
 }
 
