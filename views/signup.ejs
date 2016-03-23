@@ -3,9 +3,11 @@
   <head>
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel='stylesheet' href='/stylesheets/login.css' />
     <!-- jQuery -->
     <script src="/javascripts/jquery-1.12.2.min.js"></script>
+    <!-- Parsley -->
+    <script src='/javascripts/parsley.js'></script>
+
   </head>
 
   <body>
@@ -15,13 +17,24 @@
     <div class="container">
       <div class="content">
 
+        <div class="alert alert-success hidden" role="alert">
+            <a href="#" class="alert-link">Looks great. Go ahead and create your account!</a>
+        </div>
+
+        <div class="alert alert-warning hidden" role="alert">
+          <a href="#" class="alert-link">Yeaaaaahh nooooooo. Something's wrong with your signup details...</a>
+        </div>
+
+        <div class="alert alert-danger hidden" role="alert">
+          <a href="#" class="alert-link">Fix your details before signing up.</a>
+        </div>
+
         <!-- Facebook Login Button -->
         <div class='row'>
           <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
           data-auto-logout-link="false" onlogin='storeCredentials();' data-scope='public_profile'>
           </div>
         </div>
-
 
         <div class="row">
           <div id="login-form" class='col-sm-offset-4 col-sm-4'>
@@ -30,39 +43,47 @@
               <%if (error) { %>
               <font color="red"><%= error %></font><p>
               <% } %>
-              <form action="/signup" method="post">
+              <form action="/signup" method="post" id="signup-form-root" data-parsley-validate>
                 <fieldset>
                   <div class="form-group">
                     <label for='username'>Username:</label>
-                    <input class = "form-control" id="username" type="text" name="username">
+                    <input class = "form-control" id="username" type="text" name="username"
+                    data-parsley-required minlength="4" maxlength="30" pattern="^[\w]+$" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='password'>Password:</label>
-                    <input class = "form-control" id="password" type="password" name="password">
+                    <input class = "form-control" id="password" type="password" name="password"
+                    data-parsley-required minlength="7" maxlength="50" pattern="^[^\s]+$" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='c_password'>Confirm Password:</label>
-                    <input class = "form-control" id="c_password" type="password" name="c_password">
+                    <input class = "form-control" id="c_password" type="password" name="c_password"
+                    data-parsley-required minlength="7" maxlength="50" pattern="^[^\s]+$" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='firstname'>First Name:</label>
-                    <input class = "form-control" id="firstname" type="text" name="firstname">
+                    <input class = "form-control" id="firstname" type="text" name="firstname"
+                    data-parsley-required minlength="2" maxlength="35" pattern="^[A-Za-z\s]+$" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='lastname'>Last Name:</label>
-                    <input class = "form-control" id="lastname" type="text" name="lastname">
+                    <input class = "form-control" id="lastname" type="text" name="lastname"
+                    data-parsley-required minlength="2" maxlength="35" pattern="^[A-Za-z\s]+$" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='firstname'>Fat Calories:</label>
-                    <input class = "form-control" id="firstname" type="text" name="fat">
+                    <input class = "form-control" id="firstname" type="text" name="fat"
+                    data-parsley-required min="100" max="50000" data-parsley-type="integer" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='firstname'>Carbohydrate Calories:</label>
-                    <input class = "form-control" id="firstname" type="text" name="carbs">
+                    <input class = "form-control" id="firstname" type="text" name="carbs"
+                    data-parsley-required min="100" max="50000" data-parsley-type="integer" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                     <label for='firstname'>Protein Calories:</label>
-                    <input class = "form-control" id="firstname" type="text" name="protein">
+                    <input class = "form-control" id="firstname" type="text" name="protein"
+                    data-parsley-required min="100" max="50000" data-parsley-type="integer" data-parsley-trigger="keyup focusout">
                   </div>
                   <div class="form-group">
                       <label for="goals">Display my goals publicly: </label>
@@ -75,6 +96,26 @@
                   <button class="btn primary" type="submit">Create Account</button>
                 </fieldset>
               </form>
+
+              <script type="text/javascript">
+                $(function () {
+                  $('#signup-form-root').parsley()
+                  .on('field:validated', function() {
+
+                    var ok = $('.parsley-error').length === 0;
+                    $('.alert-warning').toggleClass('hidden', ok);
+                    $('.alert-danger').toggleClass('hidden', true);
+                  })
+                  .on('form:submit', function() {
+                    var ok = $('.parsley-error').length === 0;
+                    $('.alert-warning').toggleClass('hidden', true);
+                    $('.alert-success').toggleClass('hidden', !ok);
+                    $('.alert-danger').toggleClass('hidden', ok);
+                    return ok;
+                  });
+                });
+              </script>
+
             </div>
           </div>
         </div>
