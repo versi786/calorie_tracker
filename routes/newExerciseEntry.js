@@ -80,7 +80,7 @@ router.post('/', function(req, res, next) {
 
           try
           {
-            content.quantity = parseInt(req.body.quantity_choose);
+            content.quantity_input = parseInt(req.body.quantity_input);
             content.fat = parseInt(req.body.fat_input);
             content.protein = parseInt(req.body.protein_input);
             content.carbs = parseInt(req.body.carbs_input);

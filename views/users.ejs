@@ -181,6 +181,32 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Exercise</h4>
+        <table class="table table-striped">
+          <tr>
+            <th>Exercise</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry2.exercises.length; i++) { %>
+            <tr>
+              <td><%= entry2.exercises[i].exercise %></td>
+              <td><%= entry2.exercises[i].quantity_meas %></td>
+              <td><%= entry2.exercises[i].quantity_input %></td>
+              <td><%= entry2.exercises[i].carbs %></td>
+              <td><%= entry2.exercises[i].fat %></td>
+              <td><%= entry2.exercises[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+
     <script src="../javascripts/userVis.js"></script>
 
   </body>
