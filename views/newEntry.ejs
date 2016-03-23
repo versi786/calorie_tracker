@@ -40,17 +40,17 @@
             <% } %>
 
 
-            <form action='/newEntry' method='post' id='foodEntryFORM' data-parsely-validate=''>
+            <form action='/newEntry' method='post' id='foodEntryFORM' data-parsely-validate>
             <!-- Food entry -->
             <fieldset>
             <div class="form-group">
-                <label for="food_input" class="form-control-label">Food</label>
+                <label for="food_input" class="form-control-label">Food | Beverage</label>
                 <div>
                     <input type="text" class="form-control" id="food_input" placeholder="Consumable" name="food_input" data-parsley-required minlength='3' maxlength='50' pattern='^[A-Za-z\s]+$' data-parsley-trigger="keyup focusout">
                 </div>
             </div>
             <div class="form-group">
-                <label for="quantity_measure" class="form-control-label">Quantity Meas.</label>
+                <label for="quantity_measure" class="form-control-label">Qty. Measure (QM)</label>
                 <div>
                     <select class="form-control" id="quantity_measure" name="quantity_measure">
                         <option>Servings</option>
@@ -85,21 +85,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="fat_input" class="form-control-label">Fat</label>
+                <label for="fat_input" class="form-control-label">Fat per QM </label>
                 <div>
-                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" data-parsley-validate-if-empty >
+                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="protein_input" class="form-control-label">Protein</label>
+                <label for="protein_input" class="form-control-label">Protein per QM</label>
                 <div>
-                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" data-parsley-validate-if-empty >
+                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="carbs_input" class="form-control-label">Carbs</label>
+                <label for="carbs_input" class="form-control-label">Carbs per QM</label>
                 <div>
-                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" data-parsley-validate-if-empty >
+                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input" data-parsley-required type='number' min='1' max='10000' data-parsley-trigger="keyup focusout" data-parsley-validation-threshold="1" >
                 </div>
             </div>
             <div class="form-group">
@@ -113,8 +113,8 @@
               $('#foodEntryFORM').parsley()
               .on('field:validated', function() {
                 // Any given field is validated - show warning if issues
+
                 var ok = $('.parsley-error').length === 0;
-                $('.alert-success').toggleClass('hidden', !ok);
                 $('.alert-warning').toggleClass('hidden', ok);
                 $('.alert-danger').toggleClass('hidden', true);
               })
