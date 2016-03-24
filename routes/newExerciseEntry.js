@@ -12,10 +12,10 @@ router.get('/', function(req, res, next) {
       res.redirect('../');
     }else{
       res.render('newExerciseEntry',{username: req.session.user,
-                  error: req.session.error});
+        error: req.session.error});
       req.session.error = null;
     }
-});
+  });
 
 router.post('/', function(req, res, next) {
 
@@ -46,8 +46,8 @@ router.post('/', function(req, res, next) {
     req.body.carbs_input === '') {
 
     req.session.error = 'All fields must be filled in';
-    res.redirect('/users/' + req.session.user);
-  } else {
+  res.redirect('/users/' + req.session.user);
+} else {
         // Form completed correctly
         console.log('Server received valid form submission');
 
@@ -98,8 +98,8 @@ router.post('/', function(req, res, next) {
             var dayEntry = {};
             dayEntry.exercises = [content];
             var sql = 'INSERT INTO exercise \
-                    (Entry_Date, username, Entry_Content) \
-                    VALUES (?, (SELECT username from users WHERE username=?), ?);';
+            (Entry_Date, username, Entry_Content) \
+            VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
             var inserts = [req.session.today, req.session.user, JSON.stringify(dayEntry)];
             sql = mysql.format(sql, inserts);
@@ -119,7 +119,7 @@ router.post('/', function(req, res, next) {
             newContent['exercises'].push(content);
 
             var updateSql = 'UPDATE exercise SET Entry_Content = ? \
-                    WHERE (Entry_Date = ?) AND (username = ?);';
+            WHERE (Entry_Date = ?) AND (username = ?);';
 
             var inserts = [JSON.stringify(newContent), req.session.today, req.session.user];
             updateSql = mysql.format(updateSql, inserts);
@@ -132,11 +132,6 @@ router.post('/', function(req, res, next) {
               res.redirect('/users/' + req.session.user);
             });
           }
-
-
-
-
-
         });
 
         // NEW ENTRY
@@ -144,7 +139,7 @@ router.post('/', function(req, res, next) {
 
 
 
-  }
-});
+      }
+    });
 
 module.exports = router;
