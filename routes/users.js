@@ -16,7 +16,12 @@ router.get('/:username', function(req, res, next) {
       //TODO distplay the error
       req.session.error = null;
     }
-
+    var date;
+    if(!req.query.date){
+      date = req.session.today;
+    }else{
+      date = req.query.date;
+    }
     var goalsql = 'SELECT carbs, fat, protein FROM users WHERE username = ?';
     var inserts = [req.params.username];
     goalsql = mysql.format(goalsql, inserts);
@@ -29,7 +34,7 @@ router.get('/:username', function(req, res, next) {
         return;
       }
       var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
-      var inserts = [req.session.today, req.session.user];
+      var inserts = [date, req.session.user];
       dailyExist = mysql.format(dailyExist, inserts);
 
       db.query(dailyExist, function(err, rows, fields) {
@@ -40,7 +45,7 @@ router.get('/:username', function(req, res, next) {
         }else{
 
           var dailyExist2 = 'SELECT * FROM exercise WHERE (Entry_Date = ?) AND (username = ?);';
-          var inserts = [req.session.today, req.session.user];
+          var inserts = [date, req.session.user];
           dailyExist2 = mysql.format(dailyExist2, inserts);
 
           db.query(dailyExist2, function(err, rows2, fields) {
@@ -116,6 +121,9 @@ router.get('/:username', function(req, res, next) {
     });
   });
 
+router.post('/date', function(req, res, next) {
+  res.redirect('/users/'+req.session.user+'?'+'date=' + req.body.date);
+});
 
 router.get('/', function(req, res, next) {
   res.redirect('/users/'+req.session.user);
