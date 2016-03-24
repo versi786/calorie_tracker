@@ -6,12 +6,25 @@ var mysql = require('mysql');
 
 /* RENDER THE USER PAGE */
 router.get('/', function(req, res, next) {
-  res.render('newEntry',{username: req.session.user,
-              error: req.session.error});
-  req.session.error = null;
+
+    // If not in user session re-direct to home-page. Still a vulernability - fairly certain the library doesn't hash when inserting data into the session-ID. If I knew the username I could manually construct a request object with the username in the sessionId.
+    if (!req.session.user) {
+      res.redirect('../');
+    }else{
+      res.render('newEntry',{username: req.session.user,
+                  error: req.session.error});
+      req.session.error = null;
+    }
 });
 
 router.post('/', function(req, res, next) {
+
+  console.log(req.body);
+
+  // Always confirm request is part of a session.
+  if (!req.session.user) {
+    res.redirect('../');
+  }
 
   //add the date to the session if it is not there;
   if(!req.session.today){
@@ -51,7 +64,7 @@ router.post('/', function(req, res, next) {
 
           console.log('Heard back from the sql server');
 
-          console.log('checked? ' + req.body.add_to_favorites)
+          // add food to favorites list
           if (req.body.add_to_favorites) {
               console.log('Adding new food to favorites');
               var sql = 'INSERT INTO favorites \
@@ -148,10 +161,7 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-<<<<<<< HEAD
         // NEW ENTRY
-=======
->>>>>>> 43058154833aa2adaeab84dc9050be1ffaa9f638
   }
 });
 
