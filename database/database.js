@@ -35,5 +35,4 @@ module.exports = connection;
 mysql -h cis350group10db.cca9bnl1w9fn.us-west-2.rds.amazonaws.com -P 3306 -u cis350_group10 -p
 
 
-
 **/

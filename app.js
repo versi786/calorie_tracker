@@ -19,6 +19,7 @@ var newEntry = require('./routes/newEntry');
 var logout = require('./routes/logout');
 var search = require('./routes/search');
 var db = require('./database/database');
+var favorites = require('./routes/favorites');
 
 var app = express();
 
@@ -51,6 +52,7 @@ app.use('/public', pub);
 app.use('/newEntry', newEntry);
 app.use('/logout', logout);
 app.use('/search', search);
+app.use('/favorites', favorites);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
