@@ -41,6 +41,12 @@
             <li class="active">
                 <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/search';">New Search Entry</button>
             </li>
+            <li class="active">
+                <button type="button" id="new_exercise_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="calculator_button" class="btn btn-primary navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -176,6 +182,33 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Exercise</h4>
+        <table class="table table-striped">
+          <tr>
+            <th>Exercise</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry2.exercises.length; i++) { %>
+            <tr>
+              <td><%= entry2.exercises[i].exercise %></td>
+              <td><%= entry2.exercises[i].quantity_meas %></td>
+              <td><%= entry2.exercises[i].quantity_input %></td>
+              <td><%= entry2.exercises[i].carbs %></td>
+              <td><%= entry2.exercises[i].fat %></td>
+              <td><%= entry2.exercises[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+
+    <script src="../javascripts/userVis.js"></script>
     <!-- <script src="../javascripts/userVis.js"></script> -->
 
   </body>
