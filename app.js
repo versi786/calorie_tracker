@@ -17,11 +17,8 @@ var newEntryRouter = require('./routes/newEntry');
 var sessionValidateRouter = require('./middlewares/sessionValidate');
 
 var pub = require('./routes/public');
-<<<<<<< HEAD
 var newEntry = require('./routes/newEntry');
 var newExerciseEntry = require('./routes/newExerciseEntry');
-=======
->>>>>>> e8f1ad18587894d39a467d5ee1620c33a2a77550
 var logout = require('./routes/logout');
 var calculator = require('./routes/calculator');
 var search = require('./routes/search');
