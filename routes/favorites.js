@@ -2,51 +2,63 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
+var SHA3 = require('crypto-js/sha3');
 var mysql = require('mysql');
-
-/* RENDER THE USER PAGE */
+/* GET. */
 router.get('/', function(req, res, next) {
-
-    // If not in user session re-direct to home-page. Still a vulernability - fairly certain the library doesn't hash when inserting data into the session-ID. If I knew the username I could manually construct a request object with the username in the sessionId.
-    if (!req.session.user) {
-      res.redirect('../');
-    }else{
-      res.render('newEntry',{username: req.session.user,
-                  error: req.session.error});
-      req.session.error = null;
-    }
+  if(!req.session.user || req.session.error){
+    var save = req.session.error;
+    req.session.error = null;
+    res.render('login', {error: save});
+  } else {
+	  var sql = 'SELECT * FROM favorites WHERE username = ?';
+	  var inserts = [req.session.user];
+	  sql = mysql.format(sql, inserts);
+	  console.log("getting favorites for " + req.session.user)
+	  db.query(sql, function(err, rows, fields) {
+	    if(err) {
+	        req.session.error = 'database error';
+	        console.log('database error');
+	        res.redirect('/');
+	        return;
+	    }
+	    else {
+	    		res.render('favorites', {rows:rows});
+	    }
+	  })
+	}
 });
 
 router.post('/', function(req, res, next) {
 
-  console.log(req.body);
+    // Always confirm request is part of a session.
+    if (!req.session.user) {
+        res.redirect('../');
+    }
 
-  // Always confirm request is part of a session.
-  if (!req.session.user) {
-    res.redirect('../');
-  }
+    //add the date to the session if it is not there;
+    if(!req.session.today){
+        var today = new Date();
+        var mm = (today.getMonth()+1).toString();
+        var dd = today.getDate().toString();
+        var yyyy = today.getFullYear().toString();
+        var date_entry = (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]) + '-' + yyyy;
+        console.log(date_entry);
+        req.session.today = date_entry;
+    }
 
-  //add the date to the session if it is not there;
-  if(!req.session.today){
-    var today = new Date();
-    var mm = (today.getMonth()+1).toString();
-    var dd = today.getDate().toString();
-    var yyyy = today.getFullYear().toString();
-    var date_entry = (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]) + '-' + yyyy;
-    console.log(date_entry);
-    req.session.today = date_entry;
-  }
-  // Form must be completed
-  if(req.body.food_input === '' ||
-    req.body.quantity_measure === '' ||
-    req.body.quantity_choose === '' ||
-    req.body.fat_input === '' ||
-    req.body.protein_input === '' ||
-    req.body.carbs_input === '' ||
+    // Form must be completed
+  if(req.body.name === '' ||
+    req.body.carbs === '' ||
+    req.body.protein === '' ||
+    req.body.fat === '' ||
+    req.body.unit === '' ||
+    req.body.serving === '' ||
     req.body.meal_choice === '') {
 
     req.session.error = 'All fields must be filled in';
-    res.redirect('/users/' + req.session.user);
+    var backURL=req.header('Referer') || '/';
+    res.redirect(backURL);
   } else {
         // Form completed correctly
         console.log('Server received valid form submission');
@@ -64,28 +76,6 @@ router.post('/', function(req, res, next) {
 
           console.log('Heard back from the sql server');
 
-          // add food to favorites list
-          if (req.body.add_to_favorites) {
-              console.log('Adding new food to favorites');
-              var sql = 'INSERT INTO favorites \
-                      (name, carbs, fat, protein, unit, serving, meal, username) \
-                      VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
-              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input, 
-                req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
-                req.body.meal_choice.toLowerCase(), req.session.user];
-              console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
-              sql = mysql.format(sql, inserts);
-              db.query(sql, function(err, rows, fields) {
-                console.log('Heard back from the sql server');
-                if(err) {
-                  req.session.error = 'database error';
-                }
-                else {
-                  console.log('Added new food to favorites');
-                }
-              });
-          }
-
           if(err) {
             req.session.error = 'database error';
           }
@@ -97,18 +87,19 @@ router.post('/', function(req, res, next) {
 
           // BUILD THE NEW FOOD ENTRY
           var content = {};
-          content.food = req.body.food_input;
-          content.quantity_meas = req.body.quantity_measure;
+          content.food = req.body.name;
+          content.quantity_meas = req.body.unit;
 
           try
           {
-            content.quantity = parseInt(req.body.quantity_choose);
-            content.fat = parseInt(req.body.fat_input);
-            content.protein = parseInt(req.body.protein_input);
-            content.carbs = parseInt(req.body.carbs_input);
+            content.quantity = parseInt(req.body.serving);
+            content.fat = parseInt(req.body.fat);
+            content.protein = parseInt(req.body.protein);
+            content.carbs = parseInt(req.body.carbs);
           } catch (e) {
             req.session.error = 'numerical fields must be numbers';
-            res.redirect('/newEntry');
+            // var backURL=req.header('Referer') || '/';
+            // res.redirect(backURL);
             return;
           }
           console.log('new entry flag ' + newEntry_FLAG);
@@ -137,6 +128,8 @@ router.post('/', function(req, res, next) {
               console.log('Heard back from the sql server');
               if(err) {
                 req.session.error = 'database error';
+                var backURL=req.header('Referer') || '/';
+                res.redirect(backURL);
               }
               res.redirect('/users/' + req.session.user);
             });
@@ -161,8 +154,7 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-        // NEW ENTRY
   }
-});
+ });
 
 module.exports = router;

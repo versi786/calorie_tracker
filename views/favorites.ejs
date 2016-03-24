@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Favorites</title>
+        <!--  Include bootstrap from CDN-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!--  Custom Style sheets -->
+        <link rel='stylesheet' href='/stylesheets/userPage.css' />
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Include bootstrap JS from CDN-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+
+      <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <!-- search results -->
+        <% if(rows) { %>
+          <h4>Favorites</h4>
+          <table class="table table-striped">
+			          <tr>
+			            <th>Food</th>
+			            <th>Carbs</th>
+			            <th>Fat</th>
+			            <th>Protein</th>
+			            <th>Servings</th>
+			            <th>Unit</th>
+			            <th>Meal</th>
+			            <th>Submit</th>
+			          </tr>
+            <% for (var i = 0; i < rows.length; i++) { %>
+              <tr>
+                <form action='/favorites' method='post'>
+                  <td>
+                    <input type="text" class="form-control" id="name" value="<%= rows[i].name %>" name="name">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="carbs" value="<%= rows[i].carbs %>" name="carbs">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="fat" value="<%= rows[i].fat %>" name="fat">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="protein" value="<%= rows[i].protein %>" name="protein">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="serving" value="<%= rows[i].serving %>" name="serving">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" id="unit" value="<%= rows[i].unit %>" name="unit">
+                  </td>
+                  <td>
+                    <select class="form-control" id="meal_choice" name="meal_choice">
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                        <option>Snack</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button class="btn primary" type="submit">Submit</button>
+                  </td>
+                </form>
+              </tr>
+            <% } %>
+          </table>
+        <% }%>
+      </div>
+</html>

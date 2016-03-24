@@ -90,6 +90,50 @@ function createTables() {
     console.log(fields);
   });
 
+<<<<<<< HEAD
+  // db.query('CREATE TABLE favorites ( \
+  //           fav_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\
+  //           name CHARACTER(100) NOT NULL,\
+  //           calories INT, \
+  //           carbs INT, \
+  //           fat INT, \
+  //           protein INT, \
+  //           username CHARACTER(100) NOT NULL,\
+  //           );', function(err, rows, fields) {
+
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log("CREATED TABLES favorites");
+  //   console.log(rows);
+  //   console.log(fields);
+  // });
+
+  // db.query('ALTER TABLE favorites \
+  //           ADD CONSTRAINT favs_fk_user FOREIGN KEY (username) REFERENCES users(username) \
+  //           ON UPDATE CASCADE \
+  //           ON DELETE CASCADE;', function(err, rows, fields) {
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log("Foreign key constraint added to favorites");
+  //   console.log(rows);
+  //   console.log(fields);
+  // });
+=======
+  db.query('ALTER TABLE exercise \
+            ADD CONSTRAINT fk_user FOREIGN KEY (username) REFERENCES users(username) \
+            ON UPDATE CASCADE \
+            ON DELETE CASCADE;', function(err, rows, fields) {
+    if(err) {
+      throw err;
+    }
+    console.log("Foreign key constraint added to exercise");
+    console.log(rows);
+    console.log(fields);
+  });
+>>>>>>> 43058154833aa2adaeab84dc9050be1ffaa9f638
+
   return;
 }
 

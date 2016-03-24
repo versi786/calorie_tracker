@@ -9,6 +9,12 @@
 
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="/stylesheets/datepicker.css">
+        <link rel="stylesheet" href="/stylesheets/users.css">
+        <script src="/javascripts/bootstrap-datepicker.js"></script>
+        <script src="/javascripts/users.js"></script>
+
   </head>
 
   <body>
@@ -41,6 +47,14 @@
             <li class="active">
                 <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/search';">New Search Entry</button>
             </li>
+            <li class="active">
+                <button type="button" id="new_fav_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
+            </li>
+                <button type="button" id="new_exercise_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="calculator_button" class="btn btn-primary navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -60,122 +74,160 @@
     <!-- Show "analytics" - currently just remaining goals -->
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-4">
-                <h3 align="center">Fat Remaining: <%= fat %><h3>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <form class="navbar-form navbar-left" action="/users/date" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" name="date" id="datepicker">
             </div>
-             <div class="col-sm-4">
-                <h3 align="center">Carbs Remaining: <%= carbs %><h3>
-            </div>
-            <div class="col-sm-4">
-                <h3 align="center">Protein Remaining: <%= protein %><h3>
-            </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h4>Breakfast</h4>
-        <table class="table table-striped">
-          <tr>
-            <th>Food</th>
-            <th>Measurement</th>
-            <th>Quantity</th>
-            <th>Carbs</th>
-            <th>Fat</th>
-            <th>Protein</th>
-          </tr>
-          <% for (var i = 0; i < entry.breakfast.length; i++) { %>
-            <tr>
-              <td><%= entry.breakfast[i].food %></td>
-              <td><%= entry.breakfast[i].quantity_meas %></td>
-              <td><%= entry.breakfast[i].quantity %></td>
-              <td><%= entry.breakfast[i].carbs %></td>
-              <td><%= entry.breakfast[i].fat %></td>
-              <td><%= entry.breakfast[i].protein %></td>
-            </tr>
-          <% } %>
-        </table>
+            <button type="submit" class="btn btn-default">Go</button>
+          </form>
+        </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h4>Lunch</h4>
-        <table class="table table-striped">
-          <tr>
-            <th>Food</th>
-            <th>Measurement</th>
-            <th>Quantity</th>
-            <th>Carbs</th>
-            <th>Fat</th>
-            <th>Protein</th>
-          </tr>
-          <% for (var i = 0; i < entry.lunch.length; i++) { %>
-            <tr>
-              <td><%= entry.lunch[i].food %></td>
-              <td><%= entry.lunch[i].quantity_meas %></td>
-              <td><%= entry.lunch[i].quantity %></td>
-              <td><%= entry.lunch[i].carbs %></td>
-              <td><%= entry.lunch[i].fat %></td>
-              <td><%= entry.lunch[i].protein %></td>
-            </tr>
-          <% } %>
-        </table>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h4>Dinner</h4>
-        <table class="table table-striped">
-          <tr>
-            <th>Food</th>
-            <th>Measurement</th>
-            <th>Quantity</th>
-            <th>Carbs</th>
-            <th>Fat</th>
-            <th>Protein</th>
-          </tr>
-          <% for (var i = 0; i < entry.dinner.length; i++) { %>
-            <tr>
-              <td><%= entry.dinner[i].food %></td>
-              <td><%= entry.dinner[i].quantity_meas %></td>
-              <td><%= entry.dinner[i].quantity %></td>
-              <td><%= entry.dinner[i].carbs %></td>
-              <td><%= entry.dinner[i].fat %></td>
-              <td><%= entry.dinner[i].protein %></td>
-            </tr>
-          <% } %>
-        </table>
+      <div class="row">
+          <div class="col-sm-4">
+              <h3 align="center">Carbs Remaining: <%= carbs %><h3>
+          </div>
+          <div class="col-sm-4">
+              <h3 align="center">Fat Remaining: <%= fat %><h3>
+          </div>
+          <div class="col-sm-4">
+              <h3 align="center">Protein Remaining: <%= protein %><h3>
+          </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h4>Snack</h4>
-        <table class="table table-striped">
-          <tr>
-            <th>Food</th>
-            <th>Measurement</th>
-            <th>Quantity</th>
-            <th>Carbs</th>
-            <th>Fat</th>
-            <th>Protein</th>
-          </tr>
-          <% for (var i = 0; i < entry.snack.length; i++) { %>
+      <hr>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4>Breakfast</h4>
+          <table class="table table-striped">
             <tr>
-              <td><%= entry.snack[i].food %></td>
-              <td><%= entry.snack[i].quantity_meas %></td>
-              <td><%= entry.snack[i].quantity %></td>
-              <td><%= entry.snack[i].carbs %></td>
-              <td><%= entry.snack[i].fat %></td>
-              <td><%= entry.snack[i].protein %></td>
+              <th>Food</th>
+              <th>Measurement</th>
+              <th>Quantity</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
             </tr>
-          <% } %>
-        </table>
+            <% for (var i = 0; i < entry.breakfast.length; i++) { %>
+              <tr>
+                <td><%= entry.breakfast[i].food %></td>
+                <td><%= entry.breakfast[i].quantity_meas %></td>
+                <td><%= entry.breakfast[i].quantity %></td>
+                <td><%= entry.breakfast[i].carbs %></td>
+                <td><%= entry.breakfast[i].fat %></td>
+                <td><%= entry.breakfast[i].protein %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
       </div>
-    </div>
 
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4>Lunch</h4>
+          <table class="table table-striped">
+            <tr>
+              <th>Food</th>
+              <th>Measurement</th>
+              <th>Quantity</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+            <% for (var i = 0; i < entry.lunch.length; i++) { %>
+              <tr>
+                <td><%= entry.lunch[i].food %></td>
+                <td><%= entry.lunch[i].quantity_meas %></td>
+                <td><%= entry.lunch[i].quantity %></td>
+                <td><%= entry.lunch[i].carbs %></td>
+                <td><%= entry.lunch[i].fat %></td>
+                <td><%= entry.lunch[i].protein %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4>Dinner</h4>
+          <table class="table table-striped">
+            <tr>
+              <th>Food</th>
+              <th>Measurement</th>
+              <th>Quantity</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+            <% for (var i = 0; i < entry.dinner.length; i++) { %>
+              <tr>
+                <td><%= entry.dinner[i].food %></td>
+                <td><%= entry.dinner[i].quantity_meas %></td>
+                <td><%= entry.dinner[i].quantity %></td>
+                <td><%= entry.dinner[i].carbs %></td>
+                <td><%= entry.dinner[i].fat %></td>
+                <td><%= entry.dinner[i].protein %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4>Snack</h4>
+          <table class="table table-striped">
+            <tr>
+              <th>Food</th>
+              <th>Measurement</th>
+              <th>Quantity</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+            <% for (var i = 0; i < entry.snack.length; i++) { %>
+              <tr>
+                <td><%= entry.snack[i].food %></td>
+                <td><%= entry.snack[i].quantity_meas %></td>
+                <td><%= entry.snack[i].quantity %></td>
+                <td><%= entry.snack[i].carbs %></td>
+                <td><%= entry.snack[i].fat %></td>
+                <td><%= entry.snack[i].protein %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4>Exercise</h4>
+          <table class="table table-striped">
+            <tr>
+              <th>Exercise</th>
+              <th>Measurement</th>
+              <th>Quantity</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+            <% for (var i = 0; i < entry2.exercises.length; i++) { %>
+              <tr>
+                <td><%= entry2.exercises[i].exercise %></td>
+                <td><%= entry2.exercises[i].quantity_meas %></td>
+                <td><%= entry2.exercises[i].quantity_input %></td>
+                <td><%= entry2.exercises[i].carbs %></td>
+                <td><%= entry2.exercises[i].fat %></td>
+                <td><%= entry2.exercises[i].protein %></td>
+              </tr>
+            <% } %>
+          </table>
+      </div>
+    </div> <!-- container fluid -->
+
+    <script src="../javascripts/userVis.js"></script>
     <!-- <script src="../javascripts/userVis.js"></script> -->
 
   </body>

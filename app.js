@@ -17,9 +17,13 @@ var newEntryRouter = require('./routes/newEntry');
 var sessionValidateRouter = require('./middlewares/sessionValidate');
 
 var pub = require('./routes/public');
+var newEntry = require('./routes/newEntry');
+var newExerciseEntry = require('./routes/newExerciseEntry');
 var logout = require('./routes/logout');
+var calculator = require('./routes/calculator');
 var search = require('./routes/search');
 var db = require('./database/database');
+var favorites = require('./routes/favorites');
 
 var app = express();
 
@@ -61,6 +65,9 @@ app.use('/public', pub);
 app.use('/newEntry', newEntryRouter);
 app.use('/logout', logout);
 app.use('/search', search);
+app.use('/favorites', favorites);
+app.use('/newExerciseEntry', newExerciseEntry);
+app.use('/calculator', calculator);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

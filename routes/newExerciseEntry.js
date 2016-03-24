@@ -11,11 +11,11 @@ router.get('/', function(req, res, next) {
     if (!req.session.user) {
       res.redirect('../');
     }else{
-      res.render('newEntry',{username: req.session.user,
-                  error: req.session.error});
+      res.render('newExerciseEntry',{username: req.session.user,
+        error: req.session.error});
       req.session.error = null;
     }
-});
+  });
 
 router.post('/', function(req, res, next) {
 
@@ -36,18 +36,18 @@ router.post('/', function(req, res, next) {
     console.log(date_entry);
     req.session.today = date_entry;
   }
+
   // Form must be completed
-  if(req.body.food_input === '' ||
+  if(req.body.exercise_input === '' ||
     req.body.quantity_measure === '' ||
     req.body.quantity_choose === '' ||
     req.body.fat_input === '' ||
     req.body.protein_input === '' ||
-    req.body.carbs_input === '' ||
-    req.body.meal_choice === '') {
+    req.body.carbs_input === '') {
 
     req.session.error = 'All fields must be filled in';
-    res.redirect('/users/' + req.session.user);
-  } else {
+  res.redirect('/users/' + req.session.user);
+} else {
         // Form completed correctly
         console.log('Server received valid form submission');
 
@@ -55,7 +55,7 @@ router.post('/', function(req, res, next) {
         var newEntry_FLAG;
         var oldEntry_object;
 
-        var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
+        var dailyExist = 'SELECT * FROM exercise WHERE (Entry_Date = ?) AND (username = ?);';
         var inserts = [req.session.today, req.session.user];
         dailyExist = mysql.format(dailyExist, inserts);
 
@@ -63,28 +63,6 @@ router.post('/', function(req, res, next) {
         db.query(dailyExist, function(err, rows, fields) {
 
           console.log('Heard back from the sql server');
-
-          // add food to favorites list
-          if (req.body.add_to_favorites) {
-              console.log('Adding new food to favorites');
-              var sql = 'INSERT INTO favorites \
-                      (name, carbs, fat, protein, unit, serving, meal, username) \
-                      VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
-              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input, 
-                req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
-                req.body.meal_choice.toLowerCase(), req.session.user];
-              console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
-              sql = mysql.format(sql, inserts);
-              db.query(sql, function(err, rows, fields) {
-                console.log('Heard back from the sql server');
-                if(err) {
-                  req.session.error = 'database error';
-                }
-                else {
-                  console.log('Added new food to favorites');
-                }
-              });
-          }
 
           if(err) {
             req.session.error = 'database error';
@@ -95,14 +73,14 @@ router.post('/', function(req, res, next) {
           oldEntry_object = ( newEntry_FLAG ? undefined : rows[0]);
           console.log(newEntry_FLAG);
 
-          // BUILD THE NEW FOOD ENTRY
+          // BUILD THE NEW EXERCISE ENTRY
           var content = {};
-          content.food = req.body.food_input;
+          content.exercise = req.body.exercise_input;
           content.quantity_meas = req.body.quantity_measure;
 
           try
           {
-            content.quantity = parseInt(req.body.quantity_choose);
+            content.quantity_input = parseInt(req.body.quantity_input);
             content.fat = parseInt(req.body.fat_input);
             content.protein = parseInt(req.body.protein_input);
             content.carbs = parseInt(req.body.carbs_input);
@@ -118,16 +96,10 @@ router.post('/', function(req, res, next) {
             console.log('I got here adding new entry')
 
             var dayEntry = {};
-            dayEntry.breakfast = [];
-            dayEntry.lunch = [];
-            dayEntry.dinner = [];
-            dayEntry.snack = [];
-            dayEntry[req.body.meal_choice.toLowerCase()].push(content);
-
-
-            var sql = 'INSERT INTO FOOD_ENTRIES \
-                    (Entry_Date, username, Entry_Content) \
-                    VALUES (?, (SELECT username from users WHERE username=?), ?);';
+            dayEntry.exercises = [content];
+            var sql = 'INSERT INTO exercise \
+            (Entry_Date, username, Entry_Content) \
+            VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
             var inserts = [req.session.today, req.session.user, JSON.stringify(dayEntry)];
             sql = mysql.format(sql, inserts);
@@ -144,10 +116,10 @@ router.post('/', function(req, res, next) {
           } else {
 
             var newContent = JSON.parse(oldEntry_object.Entry_Content);
-            newContent[req.body.meal_choice.toLowerCase()].push(content);
+            newContent['exercises'].push(content);
 
-            var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? \
-                    WHERE (Entry_Date = ?) AND (username = ?);';
+            var updateSql = 'UPDATE exercise SET Entry_Content = ? \
+            WHERE (Entry_Date = ?) AND (username = ?);';
 
             var inserts = [JSON.stringify(newContent), req.session.today, req.session.user];
             updateSql = mysql.format(updateSql, inserts);
@@ -161,8 +133,13 @@ router.post('/', function(req, res, next) {
             });
           }
         });
+
         // NEW ENTRY
-  }
-});
+
+
+
+
+      }
+    });
 
 module.exports = router;
