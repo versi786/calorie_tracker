@@ -19,3 +19,9 @@ mysql -h cis350group10db2-cluster.cluster-ctctmliw2lup.us-east-1.rds.amazonaws.c
 helaBroUiZAL
 
 Technically our security is shit. If we just validate in the browser someone could manually sent a malicious POST object with fields that would kill our table -> so I'm wrong I'm guessing validation does need to be occuring on the server too.
+
+
+First issue set
+  - Our routing is poorly designed. Fix that to incorporate Facebook login
+  - Logging in on Facebook needs to immedietly log the user in with a session - these need to be in sync
+  -

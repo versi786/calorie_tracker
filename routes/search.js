@@ -26,16 +26,13 @@ fs.readFile('credentials.json', 'utf8', function (err, data) {
     console.log(urlfront + 'chicken' + urlend);
 });
 
-
-
-
 router.get('/', function(req, res, next) {
   console.log(req.session.user);
   if(!req.session.user){
     res.redirect('/login');
   }else{
     if(!req.query.searchTerm){
-    res.render('search',{username: req.session.user, 
+    res.render('search',{username: req.session.user,
         'searchTerm': req.query.searchTerm,
         'searchResultsArr': null});
     }else{
@@ -47,12 +44,12 @@ router.get('/', function(req, res, next) {
         if (!error && response.statusCode === 200) {
             console.log(body); // Print the json response
             var resultArr = body.hits;
-            res.render('search',{username: req.session.user, 
+            res.render('search',{username: req.session.user,
             'searchTerm': req.query.searchTerm,
             'searchResultsArr': resultArr}
             );
         }
-        
+
         });
     }
   }
@@ -191,7 +188,8 @@ router.post('/submit', function(req, res, next) {
           }
         });
   }
-  
 });
+
+
 
 module.exports = router;

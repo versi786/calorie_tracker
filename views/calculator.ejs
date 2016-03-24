@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/edit.css' />
+</head>
+<body>
+    <div class="container">
+    <div class="content">
+      <div class="row">
+        <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
+          <div>
+
+            <h2 id ="header">Calculator Option 1</h2>
+            <%if (error) { %>
+            <font color="red"><%= error %></font><p>
+            <% } %>
+            <form action="/calculator" method="post">
+              <fieldset>
+                <div class="form-group">
+                  <label for='calories'>Total Amount of calories:</label>
+                  <input class = "form-control" id="calories" type="text" name="calories">
+                </div>
+                <div class="form-group">
+                  <label for='carbs'>Percentage of Carbs:</label>
+                  <input class = "form-control" id="carbsPercent" type="text" name="carbsPercent" >
+                </div>
+                <div class="form-group">
+                  <label for='protein'>Percentage of Protein:</label>
+                  <input class = "form-control" id="proteinPercent" type="text" name="proteinPercent" >
+                </div>
+                <div class="form-group">
+                  <label for='fat'> Percentage of Fat:</label>
+                  <input class = "form-control" id="fatPercent" type="text" name="fatPercent">
+                </div>
+                <button class="btn primary" type="submit">Calculate</button>
+              </fieldset>
+            </form>
+            <p></p>
+            
+          </div>
+          <% if (displayResults) { %>
+              <form action="/calculator/submit" method="post">
+                <fieldset>
+                  <div class="form-group">
+                    <label for='carbs'>Calories from Carbs:</label>
+                    <input class = "form-control" id="carbs" type="text" name="carbs" value= <%= carbs %> >
+                  </div>
+                  <div class="form-group">
+                    <label for='protein'>Calories from Protein:</label>
+                    <input class = "form-control" id="protein" type="text" name="protein"  value= <%= protein %>>
+                  </div>
+                  <div class="form-group">
+                    <label for='fat'> Calories from Fat:</label>
+                    <input class = "form-control" id="fat" type="text" name="fat" value= <%= fat %>>
+                  </div>
+                  <button class="btn primary" type="submit">Update current goals</button>
+                </fieldset>
+              </form>
+              <p></p>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

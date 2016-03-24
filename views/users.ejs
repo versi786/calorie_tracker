@@ -4,10 +4,8 @@
     <title>User Page</title>
         <!--  Include bootstrap from CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <!--  Custom Style sheets -->
-        <link rel='stylesheet' href='/stylesheets/userPage.css' />
         <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="/javascripts/jquery-1.12.2.min.js"></script>
 
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -15,10 +13,10 @@
 
   <body>
 
-    <div class="alert alert-success alert-dismissable" id="meal_logged">
+<!--     <div class="alert alert-success alert-dismissable" id="meal_logged">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Great job! Keep logging your meals.
-    </div>
+    </div> -->
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
@@ -44,7 +42,14 @@
                 <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/search';">New Search Entry</button>
             </li>
             <li class="active">
+<<<<<<< HEAD
                 <button type="button" id="new_fav_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
+=======
+                <button type="button" id="new_exercise_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="calculator_button" class="btn btn-primary navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+>>>>>>> 43058154833aa2adaeab84dc9050be1ffaa9f638
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -67,10 +72,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
-                <h3 align="center">Fat Remaining: <%= fat %><h3>
-            </div>
-             <div class="col-sm-4">
                 <h3 align="center">Carbs Remaining: <%= carbs %><h3>
+            </div>
+            <div class="col-sm-4">
+                <h3 align="center">Fat Remaining: <%= fat %><h3>
             </div>
             <div class="col-sm-4">
                 <h3 align="center">Protein Remaining: <%= protein %><h3>
@@ -181,7 +186,34 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h4>Exercise</h4>
+        <table class="table table-striped">
+          <tr>
+            <th>Exercise</th>
+            <th>Measurement</th>
+            <th>Quantity</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Protein</th>
+          </tr>
+          <% for (var i = 0; i < entry2.exercises.length; i++) { %>
+            <tr>
+              <td><%= entry2.exercises[i].exercise %></td>
+              <td><%= entry2.exercises[i].quantity_meas %></td>
+              <td><%= entry2.exercises[i].quantity_input %></td>
+              <td><%= entry2.exercises[i].carbs %></td>
+              <td><%= entry2.exercises[i].fat %></td>
+              <td><%= entry2.exercises[i].protein %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+
     <script src="../javascripts/userVis.js"></script>
+    <!-- <script src="../javascripts/userVis.js"></script> -->
 
   </body>
 </html>

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
         console.log(err);
       }else{
         res.render('edit', {error: null, food: rows[0].food, goals: rows[0].goals,
-         carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein});  
+         carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein});
       }
     });
   }
@@ -48,8 +48,8 @@ router.post('/', function(req, res, next) {
     if (rows.length === 1){
       console.log('Updating goals of ' + username);
       // update carbs column
-      db.query('UPDATE users SET carbs = ? WHERE users.username = ?', 
-        [req.body.carbs, username], 
+      db.query('UPDATE users SET carbs = ? WHERE users.username = ?',
+        [req.body.carbs, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating carbs column' + err);
@@ -59,8 +59,8 @@ router.post('/', function(req, res, next) {
           }
         });
       // update protein column
-      db.query('UPDATE users SET protein = ? WHERE users.username = ?', 
-        [req.body.protein, username], 
+      db.query('UPDATE users SET protein = ? WHERE users.username = ?',
+        [req.body.protein, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating database' + err);
@@ -70,8 +70,8 @@ router.post('/', function(req, res, next) {
           }
         });
       // update fat column
-      db.query('UPDATE users SET fat = ? WHERE users.username = ?', 
-        [req.body.fat, username], 
+      db.query('UPDATE users SET fat = ? WHERE users.username = ?',
+        [req.body.fat, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating fat column' + err);
@@ -85,8 +85,8 @@ router.post('/', function(req, res, next) {
       if(req.body.goals === 'on'){
         goals = 1;
       }
-      db.query('UPDATE users SET goals = ? WHERE users.username = ?', 
-        [goals, username], 
+      db.query('UPDATE users SET goals = ? WHERE users.username = ?',
+        [goals, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating goals column' + err);
@@ -100,8 +100,8 @@ router.post('/', function(req, res, next) {
       if(req.body.food === 'on'){
         foods = 1;
       }
-      db.query('UPDATE users SET food = ? WHERE users.username = ?', 
-        [foods, username], 
+      db.query('UPDATE users SET food = ? WHERE users.username = ?',
+        [foods, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating food column' + err);
@@ -110,13 +110,14 @@ router.post('/', function(req, res, next) {
             console.log('Updated database');
           }
         });
-    } 
+    }
     else {
       req.session.error = 'database error';
       res.redirect('edit');
     }
+    res.redirect('/');
   });
-  res.redirect('/');
+
 });
 
 module.exports = router;
