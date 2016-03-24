@@ -21,12 +21,6 @@
       <div class="alert alert-danger hidden" role="alert">
         <a href="#" class="alert-link">Login Unsuccesful -- Check your username/password</a>
       </div>
-      <!-- Facebook Login Button -->
-      <div class='row'>
-        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
-        data-auto-logout-link="false" onlogin='storeCredentials();' data-scope='public_profile'>
-        </div>
-      </div>
 
       <div class="row">
         <div id="login-form" class='col-sm-offset-4 col-sm-4'>
@@ -53,6 +47,12 @@
             <p>
               <a href = "/signup">Sign up</a>
             </p>
+          </div>
+           <!-- Facebook Login Button -->
+          <div id = "facebook_button">
+            <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
+            data-auto-logout-link="false" onlogin='storeCredentials();' data-scope='public_profile'>
+            </div>
           </div>
         </div>
 
