@@ -100,8 +100,8 @@ router.post('/submit', function(req, res, next) {
       req.session.error = 'database error';
       res.redirect('/users/' + req.session.user);
     }
+    res.redirect('/'); // ***************** MAY HAVE TO ADD SUBMIT *******************
   });
-  res.redirect('/'); // ***************** MAY HAVE TO ADD SUBMIT *******************
 });
 
 module.exports = router;
