@@ -5,16 +5,72 @@ var router = express.Router();
 var db = require('../database/database');
 var SHA3 = require('crypto-js/sha3');
 /* GET login listing. */
+
+router.post('/fblogin', function (req, res) {
+  console.log('Facebook login was reflected in server');
+  console.log(req.body.username);
+
+  /* Facebook login needs to reflect standard login pattern */
+  db.query('SELECT username from users where username=?',[req.body.username],
+    function (err, rows, fields){
+    if (err) {
+      req.session.error = 'database error';
+      res.send({redirect: '/signup'});
+    }
+    if (rows.length === 0) {
+      // User has not logged in or signed up previously with Facebook
+      console.log('Creating user ' + req.body.username);
+
+      /* Facebook login requires auto-generated password
+      this is fine for demonstration purposes - in reality this is highly insecure */
+      var password = SHA3(Math.random().toString(36).slice(-12)).toString();
+
+      // In theory neither checkbox has been filled - a banner on redirect to the user page should recommend filling in goals
+      var goals = 0;
+      var foods = 0;
+
+      db.query('INSERT into users (username, password, firstname, lastname, fat, carbs, protein, food, goals) VALUES' +
+        '(?, ?, ?, ?, ? ,? ,?, ?, ?)', [req.body.username, password,
+        req.body.firstname, req.body.lastname, 0, 0, 0, foods, goals],
+
+        function(err, rows, fields){
+          if (err) {
+            req.session.error = 'database error';
+            res.send({redirect: '/signup'});
+          } else {
+            req.session.user = req.body.username;
+            res.send({redirect: '/'});
+          }
+        });
+    } else {
+      // User exists - send to user page by routing through home
+      req.session.error = 'Username is already taken';
+      req.session.user = req.body.username;
+      res.send({redirect: '/'});
+    }
+  });
+});
+
+
+
+
+
+
+
 router.get('/', function(req, res, next) {
-  if(req.session.error){
+  if (req.session.error) {
     res.render('signup', {error: req.session.error});
     req.session.error = null;
-  }else if(req.session.user){
+  } else if (req.session.user) {
     res.redirect('/');
-  }else{
+  } else {
     res.render('signup', {error: null});
   }
 });
+
+
+
+
 
 router.post('/', function(req, res, next){
   console.log(req.body);
@@ -72,5 +128,7 @@ router.post('/', function(req, res, next){
   });
 
 });
+
+
 
 module.exports = router;

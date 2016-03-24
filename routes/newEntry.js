@@ -6,25 +6,12 @@ var mysql = require('mysql');
 
 /* RENDER THE USER PAGE */
 router.get('/', function(req, res, next) {
-
-    // If not in user session re-direct to home-page. Still a vulernability - fairly certain the library doesn't hash when inserting data into the session-ID. If I knew the username I could manually construct a request object with the username in the sessionId.
-    if (!req.session.user) {
-      res.redirect('../');
-    }else{
-      res.render('newEntry',{username: req.session.user,
-                  error: req.session.error});
-      req.session.error = null;
-    }
+  res.render('newEntry',{username: req.session.user,
+              error: req.session.error});
+  req.session.error = null;
 });
 
 router.post('/', function(req, res, next) {
-
-  console.log(req.body);
-
-  // Always confirm request is part of a session.
-  if (!req.session.user) {
-    res.redirect('../');
-  }
 
   //add the date to the session if it is not there;
   if(!req.session.today){
@@ -139,18 +126,7 @@ router.post('/', function(req, res, next) {
               res.redirect('/users/' + req.session.user);
             });
           }
-
-
-
-
-
         });
-
-        // NEW ENTRY
-
-
-
-
   }
 });
 
