@@ -73,35 +73,51 @@ router.get('/:username', function(req, res, next) {
                     };
 
                     for(var i = 0; i < entry.breakfast.length; i++){
-                      fat -= entry.breakfast[i].fat;
-                      carbs -= entry.breakfast[i].carbs;
-                      protein -= entry.breakfast[i].protein;
+                      fat -= (entry.breakfast[i].fat *
+                        entry.breakfast[i].quantity);
+                      carbs -= (entry.breakfast[i].carbs *
+                        entry.breakfast[i].quantity);
+                      protein -= (entry.breakfast[i].protein *
+                        entry.breakfast[i].quantity);
                     }
+                    
 
                     for(var i = 0; i < entry.lunch.length; i++){
-                      fat -= entry.lunch[i].fat;
-                      carbs -= entry.lunch[i].carbs;
-                      protein -= entry.lunch[i].protein;
+                      fat -= (entry.lunch[i].fat *
+                        entry.lunch[i].quantity);
+                      carbs -= (entry.lunch[i].carbs *
+                        entry.lunch[i].quantity);
+                      protein -= (entry.lunch[i].protein *
+                        entry.lunch[i].quantity);
                     }
-
+                    
                     for(var i = 0; i < entry.dinner.length; i++){
-                      fat -= entry.dinner[i].fat;
-                      carbs -= entry.dinner[i].carbs;
-                      protein -= entry.dinner[i].protein;
+                      fat -= (entry.dinner[i].fat *
+                        entry.dinner[i].quantity);
+                      carbs -= (entry.dinner[i].carbs *
+                        entry.dinner[i].quantity);
+                      protein -= (entry.dinner[i].protein *
+                        entry.dinner[i].quantity);
                     }
-
+                    
                     for(var i = 0; i < entry.snack.length; i++){
-                      fat -= entry.snack[i].fat;
-                      carbs -= entry.snack[i].carbs;
-                      protein -= entry.snack[i].protein;
+                      fat -= (entry.snack[i].fat *
+                        entry.snack[i].quantity);
+                      carbs -= (entry.snack[i].carbs *
+                        entry.snack[i].quantity);
+                      protein -= (entry.snack[i].protein *
+                        entry.snack[i].quantity);
                     }
-
+                    
                     for(var i = 0; i < entry2.exercises.length; i++){
-                      fat += entry2.exercises[i].fat;
-                      carbs += entry2.exercises[i].carbs;
-                      protein += entry2.exercises[i].protein;
+                      fat += (entry2.exercises[i].fat *
+                        entry2.exercises[i].quantity_input);
+                      carbs += (entry2.exercises[i].carbs *
+                        entry2.exercises[i].quantity_input);
+                      protein += (entry2.exercises[i].protein *
+                        entry2.exercises[i].quantity_input);
                     }
-
+                    
                     res.render('users', {fat: fat,
                       carbs: carbs,
                       protein: protein,
