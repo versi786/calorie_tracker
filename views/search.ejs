@@ -4,11 +4,10 @@
     <title>User Page</title>
         <!--  Include bootstrap from CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <!--  Custom Style sheets -->
-        <link rel='stylesheet' href='/stylesheets/userPage.css' />
         <!-- JQuery -->
         <script src="/javascripts/jquery-1.12.2.min.js"></script>
-
+        <!-- Parsley -->
+        <script src='/javascripts/parsley.js'></script>
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
@@ -102,27 +101,27 @@
             </tr>
             <% for (var i = 0; i < searchResultsArr.length; i++) { %>
               <tr>
-                <form action='/search/submit' method='post'>
+                <form action='/search/submit' method='post' id="search_form<%= i %>" data-parsley-validate>
                   <td>
                     <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.item_name %>" name="item_name">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_calories %>" name="nf_calories">
+                    <input type="text" class="form-control" id="calories_input" value="<%= searchResultsArr[i].fields.nf_calories %>" name="nf_calories">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_total_carbohydrate %>" name="nf_total_carbohydrate">
+                    <input type="text" class="form-control" id="carbs_input" value="<%= searchResultsArr[i].fields.nf_total_carbohydrate %>" name="nf_total_carbohydrate">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_total_fat %>" name="nf_total_fat">
+                    <input type="text" class="form-control" id="fat_input" value="<%= searchResultsArr[i].fields.nf_total_fat %>" name="nf_total_fat">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_protein %>" name="nf_protein">
+                    <input type="text" class="form-control" id="protein_input" value="<%= searchResultsArr[i].fields.nf_protein %>" name="nf_protein">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_serving_size_qty %>" name="nf_serving_size_qty">
+                    <input type="text" class="form-control" id="ss_input<%= i %>" value="<%= searchResultsArr[i].fields.nf_serving_size_qty %>" name="nf_serving_size_qty" data-parsley-type="integer" min="1" max="100">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_serving_size_unit %>" name="nf_serving_size_unit">
+                    <input type="text" class="form-control" id="ssu_input" value="<%= searchResultsArr[i].fields.nf_serving_size_unit %>" name="nf_serving_size_unit">
                   </td>
                   <td>
                     <select class="form-control" id="meal_choice" name="meal_choice">
@@ -136,6 +135,21 @@
                     <button class="btn primary" type="submit">Submit</button>
                   </td>
                 </form>
+
+                <script>
+                  $(function () {
+                    $('#search_form<%= i %>').parsley()
+                    .on('form:submit', function() {
+                      $('#ss_input<%= i %>').parsley().validate();
+                      if ($('#ss_input<%= i %>').parsley().isValid()) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    });
+                  });
+                </script>
+
               </tr>
             <% } %>
           </table>
