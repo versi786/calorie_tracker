@@ -8,7 +8,8 @@
         <link rel='stylesheet' href='/stylesheets/userPage.css' />
         <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+        <!-- Parsley -->
+        <script src='/javascripts/parsley.js'></script>
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
@@ -31,24 +32,24 @@
 			          </tr>
             <% for (var i = 0; i < rows.length; i++) { %>
               <tr>
-                <form action='/favorites' method='post'>
+                <form action='/favorites' method='post' id="search_form<%= i %>" data-parsley-validate>
                   <td>
-                    <input type="text" class="form-control" id="name" value="<%= rows[i].name %>" name="name">
+                    <input readonly type="text" class="form-control" id="food_input" value="<%= rows[i].name %>" name="name">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="carbs" value="<%= rows[i].carbs %>" name="carbs">
+                    <input readonly type="text" class="form-control" id="food_input" value="<%= rows[i].carbs %>" name="carbs">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="fat" value="<%= rows[i].fat %>" name="fat">
+                    <input readonly type="text" class="form-control" id="food_input" value="<%= rows[i].fat %>" name="fat">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="protein" value="<%= rows[i].protein %>" name="protein">
+                    <input readonly type="text" class="form-control" id="food_input" value="<%= rows[i].protein %>" name="protein">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="serving" value="<%= rows[i].serving %>" name="serving">
+                    <input type="text" class="form-control" id="ss_input<%= i %>" value="<%= rows[i].serving %>" name="serving" data-parsley-type="integer" min="1" max="100">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="unit" value="<%= rows[i].unit %>" name="unit">
+                    <input readonly type="text" class="form-control" id="food_input" value="<%= rows[i].unit %>" name="unit">
                   </td>
                   <td>
                     <select class="form-control" id="meal_choice" name="meal_choice">
@@ -62,6 +63,21 @@
                     <button class="btn primary" type="submit">Submit</button>
                   </td>
                 </form>
+
+                <script>
+                  $(function () {
+                    $('#search_form<%= i %>').parsley()
+                    .on('form:submit', function() {
+                      $('#ss_input<%= i %>').parsley().validate();
+                      if ($('#ss_input<%= i %>').parsley().isValid()) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    });
+                  });
+                </script>
+
               </tr>
             <% } %>
           </table>

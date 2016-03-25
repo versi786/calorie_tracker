@@ -79,7 +79,7 @@ router.post('/submit', function(req, res, next) {
         req.session.today = date_entry;
     }
 
-    // Form must be completed
+  // Form must be completed
   if(req.body.item_name === '' ||
     req.body.nf_calories === '' ||
     req.body.nf_total_carbohydrate === '' ||
@@ -93,6 +93,34 @@ router.post('/submit', function(req, res, next) {
     var backURL=req.header('Referer') || '/';
     res.redirect(backURL);
   } else {
+        var err;
+        // add food to favorites list
+        if (req.body.add_to_favorites) {
+            console.log('Adding new food to favorites');
+            var sql = 'INSERT INTO favorites \
+                    (name, carbs, fat, protein, unit, serving, meal, username) \
+                    VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
+            var inserts = [req.body.item_name, req.body.nf_total_carbohydrate,
+              req.body.nf_total_fat, 
+              req.body.nf_protein, req.body.nf_serving_size_unit,
+              req.body.nf_serving_size_qty,
+              req.body.meal_choice.toLowerCase(), req.session.user];
+            console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
+            sql = mysql.format(sql, inserts);
+            db.query(sql, function(err, rows, fields) {
+              console.log('Heard back from the sql server');
+              if(err) {
+                req.session.error = 'database error';
+              }
+              else {
+                console.log('Added new food to favorites');
+              }
+            });
+        }
+
+        if(err) {
+          req.session.error = 'database error';
+        }
         // Form completed correctly
         console.log('Server received valid form submission');
 

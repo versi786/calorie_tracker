@@ -97,6 +97,7 @@
               <th>Quantity</th>
               <th>Unit</th>
               <th>Meal</th>
+              <th>Fav?</th>
               <th>Submit</th>
             </tr>
             <% for (var i = 0; i < searchResultsArr.length; i++) { %>
@@ -121,9 +122,6 @@
                     <input type="text" class="form-control" id="ss_input<%= i %>" value="<%= searchResultsArr[i].fields.nf_serving_size_qty %>" name="nf_serving_size_qty" data-parsley-type="integer" min="1" max="100">
                   </td>
                   <td>
-<!-- <<<<<<< HEAD
-                    <input type="text" class="form-control" id="ssu_input" value="<%= searchResultsArr[i].fields.nf_serving_size_unit %>" name="nf_serving_size_unit">
-======= -->
                     <input readonly type="text" class="form-control" id="food_input" value="<%= searchResultsArr[i].fields.nf_serving_size_unit %>" name="nf_serving_size_unit">
                   </td>
                   <td>
@@ -133,6 +131,9 @@
                         <option>Dinner</option>
                         <option>Snack</option>
                     </select>
+                  </td>
+                  <td>
+                    <input id="add_to_favorites" name="add_to_favorites" class="form-control" type="checkbox" value="true"></input>
                   </td>
                   <td>
                     <button class="btn primary" type="submit">Submit</button>
