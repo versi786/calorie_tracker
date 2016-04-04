@@ -24,6 +24,7 @@ var calculator = require('./routes/calculator');
 var search = require('./routes/search');
 var db = require('./database/database');
 var favorites = require('./routes/favorites');
+var history = require('./routes/history');
 
 var app = express();
 
@@ -68,6 +69,7 @@ app.use('/search', search);
 app.use('/favorites', favorites);
 app.use('/newExerciseEntry', newExerciseEntry);
 app.use('/calculator', calculator);
+app.use('/history', history);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
