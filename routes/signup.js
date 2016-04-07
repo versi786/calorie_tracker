@@ -30,7 +30,7 @@ router.post('/fblogin', function (req, res) {
       var foods = 0;
 
       db.query('INSERT into users (username, password, firstname, lastname, fat, carbs, protein, food, goals) VALUES' +
-        '(?, ?, ?, ?, ? ,? ,?, ?, ?)', [req.body.username, password,
+        '(?, ?, ?, ?, ? ,? ,?, ?, ?, ?)', [req.body.username, password,
         req.body.firstname, req.body.lastname, 0, 0, 0, foods, goals],
 
         function(err, rows, fields){
@@ -108,10 +108,10 @@ router.post('/', function(req, res, next){
       if(req.body.food === 'on'){
         foods = 1;
       }
-      db.query('INSERT into users (username, password, firstname, lastname, fat, carbs, protein, food, goals) VALUES' +
-        '(?, ?, ?, ?, ? ,? ,?, ?, ?)', [req.body.username.toLowerCase(), password,
+      db.query('INSERT into users (username, password, firstname, lastname, fat, carbs, protein, food, goals, phoneNumber) VALUES' +
+        '(?, ?, ?, ?, ? ,? ,?, ?, ?, ?)', [req.body.username.toLowerCase(), password,
         req.body.firstname, req.body.lastname, parseInt(req.body.fat), parseInt(req.body.carbs),
-         parseInt(req.body.protein), foods, goals],
+         parseInt(req.body.protein), foods, goals, req.body.phoneNumber],
         function(err, rows, fields){
           if(err){
             req.session.error = 'database error';

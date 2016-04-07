@@ -80,6 +80,19 @@ router.post('/', function(req, res, next) {
             console.log('Updated database');
           }
         });
+
+      // update phonenumber column
+      db.query('UPDATE users SET phoneNumber = ? WHERE users.username = ?',
+        [req.body.phonenumber, username],
+        function(err, rows, fields){
+          if(err){
+            console.log('Error updating phonenumber column' + err);
+          }
+          else{
+            console.log('Updated database');
+          }
+        });
+
       // update public goals setting
       var goals = 0;
       if(req.body.goals === 'on'){
