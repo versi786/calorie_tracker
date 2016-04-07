@@ -1,5 +1,16 @@
 'use strict';
 
+
+$(function() {
+  $( "#facebook_share_button" ).click(function() {
+    alert( "Handler for .click() called." );
+    share();
+  });
+});
+
+
+
+
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '1064789293583622',
@@ -32,6 +43,18 @@ function storeCredentials() {
 }
 
 
+function share() {
+  console.log("-----------GOT HERE-----------")
+  var body = 'test';
+  FB.api('/me/feed', 'post', { message: body }, function(response) {
+    if (!response || response.error) {
+      alert('Error occured');
+    } else {
+      alert('Post ID: ' + response.id);
+    }
+  });
+}
+ 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
