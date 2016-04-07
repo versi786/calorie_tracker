@@ -1,5 +1,16 @@
 'use strict';
 
+
+$(function() {
+  $( "#facebook_share_button" ).click(function() {
+    alert( "Handler for .click() called." );
+    share();
+  });
+});
+
+
+
+
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '1064789293583622',
@@ -30,6 +41,7 @@ function storeCredentials() {
   });
   console.log('Made the AJAX request');
 }
+
 
 function share() {
   console.log("-----------GOT HERE-----------")

@@ -137,6 +137,7 @@ router.get('/:username', function(req, res, next) {
                     res.render('users', {fat: fat,
                       carbs: carbs,
                       protein: protein,
+                      calories: fat * 9 + carbs * 4 + protein * 4,
                       username: req.session.user,
                       entry: entry,
                       entry2: entry2
