@@ -100,6 +100,22 @@
               <h3 align="center">Protein Remaining: <%= protein %><h3>
           </div>
       </div>
+      <div class="row">
+          <h3 align = "center", id = "share_button">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://group10fitness.com" data-text="I have <%= calories %> calories left to eat today">Tweet</a>
+            <script>!function(d,s,id){
+              var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location)? 'http' : 'https';
+                if(!d.getElementById(id)){
+                  js = d.createElement(s);
+                  js.id = id;
+                  js.src = p + '://platform.twitter.com/widgets.js';
+                  fjs.parentNode.insertBefore(js,fjs);
+                }
+              }
+              (document, 'script', 'twitter-wjs');
+            </script>
+          </h3>
+      </div>
       <hr>
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
@@ -229,10 +245,6 @@
             <% } %>
           </table>
       </div>
-      <div id = "share_button">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://group10fitness.com" data-text="I have <%= calories %> calories left to eat today">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-          </div>
     </div> <!-- container fluid -->
 
     <script src="../javascripts/userVis.js"></script>
