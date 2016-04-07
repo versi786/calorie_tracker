@@ -22,6 +22,7 @@ router.get('/:username', function(req, res, next) {
     }else{
       date = req.query.date;
     }
+    console.log("Date" + date);
     var goalsql = 'SELECT carbs, fat, protein FROM users WHERE username = ?';
     var inserts = [req.params.username];
     goalsql = mysql.format(goalsql, inserts);
@@ -67,6 +68,21 @@ router.get('/:username', function(req, res, next) {
                       "dinner":[],
                       "snack":[],
                     };
+
+                    var breakfastEntries = entry.breakfast;
+                    var lunchEntries = entry.lunch;
+                    var dinnerEntries = entry.dinner;
+                    console.log("Lunch entries: " + lunchEntries);
+
+                    /*
+                    if (lunchEntries.length == 0) {
+                      console.log("In there");
+                      var textJob = new cronJob( '* * * * *', function(){ 
+                        client.sendMessage( { to:'2154701461', from:'2674604107',
+                         body:'Hello! Hope you’re having a good day!' }, function( err, data ) {});
+                        },  null, true);
+                    }
+                    */
 
                     var entry2 = (rows2.length===1) ? JSON.parse(rows2[0].Entry_Content) : {
                       "exercises":[],

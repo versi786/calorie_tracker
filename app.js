@@ -25,6 +25,7 @@ var search = require('./routes/search');
 var db = require('./database/database');
 var favorites = require('./routes/favorites');
 var history = require('./routes/history');
+var mysql = require('mysql');
 
 var app = express();
 
@@ -77,8 +78,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 // ** ERROR ROUTERS **
 
