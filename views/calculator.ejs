@@ -12,8 +12,8 @@
         <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
           <div>
 
-            <h2 id ="header">Calculator Option 1</h2>
-            <%if (error) { %>
+            <h2 id ="header">Calculate macronutrient calories from percentage of total calories</h2>
+            <%if (error === 'Percentages must be integers adding to 100' || error === 'Percentages must add up to 100') { %>
             <font color="red"><%= error %></font><p>
             <% } %>
             <form action="/calculator" method="post">
@@ -40,7 +40,7 @@
             <p></p>
             
           </div>
-          <% if (displayResults) { %>
+          <% if (displayCalorieResults) { %>
               <form action="/calculator/submit" method="post">
                 <fieldset>
                   <div class="form-group">
@@ -56,6 +56,53 @@
                     <input class = "form-control" id="fat" type="text" name="fat" value= <%= fat %>>
                   </div>
                   <button class="btn primary" type="submit">Update current goals</button>
+                </fieldset>
+              </form>
+              <p></p>
+            <% } %>
+        </div>
+        <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
+          <div>
+
+            <h2 id ="header">Calculate calories from grams</h2>
+            <%if (error === 'Grams must be integers') { %>
+            <font color="red"><%= error %></font><p>
+            <% } %>
+            <form action="/calculator" method="post">
+              <fieldset>
+                <div class="form-group">
+                  <label for='carbs'>Grams of Carbs:</label>
+                  <input class = "form-control" id="carbsGrams" type="text" name="carbsGrams" >
+                </div>
+                <div class="form-group">
+                  <label for='protein'>Grams of Protein:</label>
+                  <input class = "form-control" id="proteinGrams" type="text" name="proteinGrams" >
+                </div>
+                <div class="form-group">
+                  <label for='fat'>Grams of Fat:</label>
+                  <input class = "form-control" id="fatGrams" type="text" name="fatGrams">
+                </div>
+                <button class="btn primary" type="submit">Calculate</button>
+              </fieldset>
+            </form>
+            <p></p>
+            
+          </div>
+          <% if (displayGramResults) { %>
+              <form action="/calculator/submit" method="post">
+                <fieldset>
+                  <div class="form-group">
+                    <label for='carbs'>Grams of Carbs:</label>
+                    <input class = "form-control" id="carbs" type="text" name="carbs" value= <%= carbs %> >
+                  </div>
+                  <div class="form-group">
+                    <label for='protein'>Grams of Protein:</label>
+                    <input class = "form-control" id="protein" type="text" name="protein"  value= <%= protein %>>
+                  </div>
+                  <div class="form-group">
+                    <label for='fat'>Grams of Fat:</label>
+                    <input class = "form-control" id="fat" type="text" name="fat" value= <%= fat %>>
+                  </div>
                 </fieldset>
               </form>
               <p></p>

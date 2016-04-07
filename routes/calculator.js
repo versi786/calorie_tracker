@@ -9,44 +9,92 @@ router.get('/', function(req, res, next) {
   if(req.session.error){
     var save = req.session.error;
     req.session.error = null;
-    res.render('calculator', {username: req.session.user, displayResults: false, calories: "", carbs: "",
-              protein :'', fat:'', error:save});
+    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+      calories: "", carbs: "", protein :'', fat:'', error:save});
   }
   console.log(req.session.user);
   if(!req.session.user){
     res.redirect('/login');
   }
   else {
-    res.render('calculator', {username: req.session.user, displayResults: false, calories: "", carbs: "",
-              protein :'', fat:'', error:null});  
+    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+      calories: "", carbs: "", protein :'', fat:'', error:save});
   }
 });
+
+function isNormalInteger(str) {
+    var n = ~~Number(str);
+    return String(n) === str && n >= 0;
+}
 
 router.post('/', function(req, res, next) {
   var username = req.session.user;
   console.log('User opened calculator '+ username);
   console.log(req.body);
-
-  if (req.body.calories === '' ||
-    req.body.carbsPercent === '' ||
-    req.body.fatPercent === '' ||
-    req.body.proteinPercent === '') {
-      req.session.error = 'All fields must be filled in';
-      res.redirect('calculator');
-  } 
-
-  var totalCalories = parseInt(req.body.calories);
-  var carbs = JSON.stringify((parseInt(req.body.carbsPercent) / 100) * totalCalories);
-  var protein = JSON.stringify((parseInt(req.body.proteinPercent) / 100) * totalCalories);
-  var fat = JSON.stringify((parseInt(req.body.fatPercent) / 100) * totalCalories);
-  if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) == 100) {
-    console.log('About to render results');
-    res.render('calculator', {username: req.session.user, displayResults: true, calories: req.body.calories, carbs: carbs,
-              protein :protein, fat:fat, error:null});
-  } else {
-    req.session.error = 'Percentages must add up to 100';
-    res.redirect('calculator');
-    console.log('Percentages must add up to 100');
+  // if calories form was submitted
+  if (req.body.calories !== undefined &&
+    req.body.carbsPercent !== undefined &&
+    req.body.fatPercent !== undefined &&
+    req.body.proteinPercent !== undefined) {
+    // if any non numbers were entered
+    if (!isNormalInteger(req.body.calories) || 
+        !isNormalInteger(req.body.carbsPercent) || 
+        !isNormalInteger(req.body.fatPercent) || 
+        !isNormalInteger(req.body.proteinPercent)) {
+      console.log('Percentages must be integers adding to 100');
+      req.session.error = 'Percentages must be integers adding to 100';
+      res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+        error:req.session.error});
+    }
+    else {
+      console.log('no non-numbers were entered');
+      var totalCalories = parseInt(req.body.calories);
+      var carbs = JSON.stringify((parseInt(req.body.carbsPercent) / 100) * totalCalories);
+      var protein = JSON.stringify((parseInt(req.body.proteinPercent) / 100) * totalCalories);
+      var fat = JSON.stringify((parseInt(req.body.fatPercent) / 100) * totalCalories);
+      if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) == 100) {
+        console.log('About to render results');
+        res.render('calculator', {username: req.session.user, 
+          displayCalorieResults: true, 
+          displayGramResults: false, 
+          calories: req.body.calories, 
+          carbs: carbs,
+          protein: protein, 
+          fat: fat, 
+          error:null});
+      } else {
+        req.session.error = 'Percentages must add up to 100';
+        console.log('Percentages must add up to 100');
+        res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+          error:req.session.error});
+      }
+    }
+  }
+  // if grams form was submitted 
+  else if (req.body.carbsGrams !== undefined &&
+      req.body.fatGrams !== undefined &&
+      req.body.proteinGrams !== undefined) {
+        // if any non numbers were entered
+    if (!isNormalInteger(req.body.carbsGrams) || 
+        !isNormalInteger(req.body.proteinGrams) || 
+        !isNormalInteger(req.body.fatGrams)) {
+      req.session.error = 'Grams must be integers';
+      console.log('Grams must be integers');
+      res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+        error:req.session.error});
+    }
+    else {
+      var carbs = JSON.stringify((parseInt(req.body.carbsGrams)) * 4);
+      var protein = JSON.stringify((parseInt(req.body.proteinGrams)) * 4);
+      var fat = JSON.stringify((parseInt(req.body.fatGrams)) * 9);
+      res.render('calculator', {username: req.session.user, 
+        displayCalorieResults: false, 
+        displayGramResults: true, 
+        carbs: carbs,
+        protein: protein, 
+        fat: fat, 
+        error:null});
+    }
   }
 });
 
