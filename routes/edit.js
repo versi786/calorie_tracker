@@ -11,13 +11,15 @@ router.get('/', function(req, res, next) {
   }
   else {
     //db query to get current data
-    db.query('select carbs, fat, protein, goals, food from users where username = ?',[req.session.user], function(err, rows, fields){
+    db.query('select carbs, fat, protein, goals, food, phoneNumber from users where username = ?',[req.session.user], function(err, rows, fields){
       //pass to view in json
       if(err){
         console.log(err);
       }else{
+        var phoneNumber = (rows[0].phoneNumber) ? rows[0].phoneNumber : ''; 
         res.render('edit', {error: null, food: rows[0].food, goals: rows[0].goals,
-         carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein});
+         carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein,
+         phoneNumber: phoneNumber});
       }
     });
   }
