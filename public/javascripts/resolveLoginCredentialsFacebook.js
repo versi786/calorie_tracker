@@ -31,17 +31,18 @@ function storeCredentials() {
   console.log('Made the AJAX request');
 }
 
-
 function share() {
-  console.log("------GOT HERE------")
-  FB.login(function(){
-    // Note: The call will only work if you accept the permission request
-    FB.api('/me/feed', 'post', {message: 'Hello, world!'});
-      }, {scope: 'publish_actions'});
+  console.log("-----------GOT HERE-----------")
+  var body = 'test';
+  FB.api('/me/feed', 'post', { message: body }, function(response) {
+    if (!response || response.error) {
+      alert('Error occured');
+    } else {
+      alert('Post ID: ' + response.id);
+    }
+  });
 }
-
-
-
+ 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
