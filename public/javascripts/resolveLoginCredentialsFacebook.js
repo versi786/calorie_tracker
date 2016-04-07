@@ -32,6 +32,16 @@ function storeCredentials() {
 }
 
 
+function share() {
+  console.log("------GOT HERE------")
+  FB.login(function(){
+    // Note: The call will only work if you accept the permission request
+    FB.api('/me/feed', 'post', {message: 'Hello, world!'});
+      }, {scope: 'publish_actions'});
+}
+
+
+
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
