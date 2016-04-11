@@ -8,6 +8,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
+var fs = require('fs');
+var https = require('https');
+//parse arguments
+var argv = require('minimist')(process.argv.slice(2));
+//"houndify" module contains both client-side ("Houndify") and server-side ("HoundifyNode") parts of SDK
+var houndifyNode = require('houndify').HoundifyNode;
+//config file for houndify
+var configFile = argv.config || 'config';
+var config = require(__dirname + '/' + configFile);
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
@@ -71,6 +81,15 @@ app.use('/favorites', favorites);
 app.use('/newExerciseEntry', newExerciseEntry);
 app.use('/calculator', calculator);
 app.use('/history', history);
+//authenticates requests
+app.get('/houndifyAuth', houndifyNode.createAuthenticationHandler({
+  clientId:  config.clientId,
+  clientKey: config.clientKey
+}));
+
+//sends the request to Houndify backend with authentication headers
+app.get('/textSearchProxy', houndifyNode.createTextProxyHandler());
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

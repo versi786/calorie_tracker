@@ -74,7 +74,7 @@ function emails(){
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
                         console.log("Please print" + i + phoneNumber);
-                        var textJob = new cronJob( '10 19 * * *', function(){ 
+                        var textJob = new cronJob( '10 18 * * *', function(){ 
                           client.sendMessage( { to:phoneNumber, from:'2674604107',
                           body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
                           },  null, true);

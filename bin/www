@@ -7,6 +7,9 @@
 var app = require('../app');
 var debug = require('debug')('clonebook:server');
 var http = require('http');
+var https = require('https');
+var configFile = 'config';
+var config = require(__dirname + '/../' + configFile);
 
 /**
  * Get port from environment and store in Express.
@@ -19,15 +22,30 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+if(config.https){
+   //ssl credentials
+  var privateKey = fs.readFileSync(config.sslKeyFile);
+  var certificate = fs.readFileSync(config.sslCrtFile);
+  var credentials = { key: privateKey, cert: certificate };
+
+  //https server
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port, function() {
+    console.log("HTTPS server running on port", port);
+    console.log("Open https://localhost:" + port, "in the browser to view the Web SDK demo");
+  });
+}else{
+  var server = http.createServer(app);
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
