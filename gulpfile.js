@@ -7,6 +7,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var uglify = require('gulp-uglify');
 var cache = require('gulp-cached');
+var eslint = require('gulp-eslint');
 
 var source = require('vinyl-source-stream'); // Used to stream bundle for further handling etc.
 var buffer = require('vinyl-buffer');
@@ -25,6 +26,12 @@ gulp.task('lint', function () {
         })
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
+
+  gulp.task('eslint', function () {
+    return gulp.src(FILES)
+      .pipe(eslint({}))
+      .pipe(eslint.format());
+  });
         // .pipe(jshint.reporter('fail'));
 });
 

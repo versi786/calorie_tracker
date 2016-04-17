@@ -101,11 +101,10 @@ router.post('/submit', function(req, res, next) {
                     (name, carbs, fat, protein, unit, serving, meal, username) \
                     VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
             var inserts = [req.body.item_name, req.body.nf_total_carbohydrate,
-              req.body.nf_total_fat, 
+              req.body.nf_total_fat,
               req.body.nf_protein, req.body.nf_serving_size_unit,
               req.body.nf_serving_size_qty,
               req.body.meal_choice.toLowerCase(), req.session.user];
-            console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields) {
               console.log('Heard back from the sql server');

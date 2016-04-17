@@ -38,19 +38,19 @@ function emails(){
   cronJob = require('cron').CronJob;
 
 
-        var date = new Date;
+        var date = new Date();
         var dd = date.getDate();
         var mm = date.getMonth()+1; //January is 0!
         var yyyy = date.getFullYear();
         if(dd < 10) {
           dd = '0' + dd;
-        } 
+        }
 
         if(mm < 10) {
           mm = '0' + mm;
-        } 
+        }
         date = mm+'-'+dd+'-'+yyyy;
-        console.log("Date:" + date);
+        console.log('Date:' + date);
 
         var goalsql = 'SELECT username, phoneNumber FROM users';
         db.query(goalsql, function(err, rows, fields) {
@@ -62,7 +62,7 @@ function emails(){
           for(var i = 0; i < rows.length; i++) {
 
             phoneNumber = rows[i].phoneNumber;
-            console.log("On iteration " + i + " where phone number is " + phoneNumber);
+            console.log('On iteration ' + i + ' where phone number is ' + phoneNumber);
             var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
             var inserts = [date, rows[i].username];
             dailyExist = mysql.format(dailyExist, inserts);
@@ -73,8 +73,8 @@ function emails(){
                   }else{
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
-                        console.log("Please print" + i + phoneNumber);
-                        var textJob = new cronJob( '10 18 * * *', function(){ 
+                        console.log('Please print' + i + phoneNumber);
+                        var textJob = new cronJob( '10 18 * * *', function(){
                           client.sendMessage( { to:phoneNumber, from:'2674604107',
                           body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
                           },  null, true);
@@ -83,10 +83,10 @@ function emails(){
                 });
             }(i, phoneNumber)
           }
-          
+
         });
   /*
-  var textJob = new cronJob( '* * * * *', function(){ 
+  var textJob = new cronJob( '* * * * *', function(){
       client.sendMessage( { to:'2154701461', from:'2674604107',
         body:'Hello! Hope you’re having a good day!' }, function( err, data ) {});
       },  null, true);
