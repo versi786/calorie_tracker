@@ -5,7 +5,7 @@
 
   "port": 3446,
 
-  "https": true,
+  "https": false,
   "sslKeyFile": "/etc/letsencrypt/live/tracker.aasifversi.com/privkey.pem",
   "sslCrtFile": "/etc/letsencrypt/live/tracker.aasifversi.com/cert.pem"
 
