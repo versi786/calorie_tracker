@@ -20,6 +20,9 @@ var port = normalizePort(process.env.PORT || '80');
 if (config.https){
     port = 443;
 }
+if (!config.https){
+    port = '3000';
+}
 app.set('port', port);
 
 /**
@@ -46,11 +49,11 @@ if(config.https){
   });
   server.on('error', onError);
   server.on('listening', onListening);
-  
+
   //redirect http to https
   var hserver = http.createServer(function(req, res){
     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();	
+    res.end();
   }).listen(80);
 
 }else{
