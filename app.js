@@ -27,6 +27,26 @@ var favorites = require('./routes/favorites');
 var history = require('./routes/history');
 var mysql = require('mysql');
 
+var flickr = new Flickr({
+  api_key: "28f8fdc0e94256d11a035d8e95298cd8"
+});
+
+var Flickr = require("flickrapi"),
+    flickrOptions = {
+      api_key: "28f8fdc0e94256d11a035d8e95298cd8",
+      secret: "21ad4ae275363532"
+    };
+
+Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+  // we can now use "flickr" as our API object,
+  // but we can only call public methods and access public data
+});
+
+// Search for photos with a tag of 'badgers'
+flickr.photos.search({tags:'badgers'},  function(error, results) {
+    console.log(results);
+})
+
 var app = express();
 
 // view engine setup
