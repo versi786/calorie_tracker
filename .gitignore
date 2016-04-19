@@ -34,3 +34,6 @@ npm-debug.log
 
 credentials*.json
 .DS_Store
+
+#vim things
+*.swp

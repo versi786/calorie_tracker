@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
-var fs = require('fs');
+//var fs = require('fs');
 var https = require('https');
 //parse arguments
 var argv = require('minimist')(process.argv.slice(2));
@@ -34,7 +34,7 @@ var calculator = require('./routes/calculator');
 var search = require('./routes/search');
 var db = require('./database/database');
 var favorites = require('./routes/favorites');
-var history = require('./routes/history');
+var hist = require('./routes/history');
 var mysql = require('mysql');
 
 var app = express();
@@ -80,7 +80,7 @@ app.use('/search', search);
 app.use('/favorites', favorites);
 app.use('/newExerciseEntry', newExerciseEntry);
 app.use('/calculator', calculator);
-app.use('/history', history);
+app.use('/history', hist);
 //authenticates requests
 app.get('/houndifyAuth', houndifyNode.createAuthenticationHandler({
   clientId:  config.clientId,
