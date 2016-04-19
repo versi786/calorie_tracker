@@ -1,0 +1,13 @@
+.btn {
+  border-radius: 2px;
+}
+.btn-submit {
+  border-radius: 2px;
+  background-color: #266BC9;
+  color: #ffffff;
+}
+.btn-action {
+  border-radius: 2px;
+  background-color: #16c79e;
+  color: #ffffff;
+}

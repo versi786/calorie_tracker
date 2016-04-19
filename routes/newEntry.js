@@ -70,7 +70,7 @@ router.post('/', function(req, res, next) {
               var sql = 'INSERT INTO favorites \
                       (name, carbs, fat, protein, unit, serving, meal, username) \
                       VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
-              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input, 
+              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input,
                 req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
                 req.body.meal_choice.toLowerCase(), req.session.user];
               console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
