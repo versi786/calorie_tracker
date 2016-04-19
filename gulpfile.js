@@ -29,7 +29,8 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 
   gulp.task('eslint', function () {
-    return gulp.src(FILES)
+    return gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
+        '!./db_loader.js'])
       .pipe(eslint({}))
       .pipe(eslint.format());
   });
@@ -41,7 +42,7 @@ gulp.task('less', function() {
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes') ]
     }))
-    .pipe(gulp.dest('public/stylesheets'));
+    //.pipe(gulp.dest('public/stylesheets'));
 });
 
 
@@ -68,12 +69,13 @@ gulp.task('watch', ['browserify'], function() {
   nodemon({
     script: 'bin/www',
     ext: 'jade js less',
-    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets',
+    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets/*.less',
             'middlewares', '!public/stylesheets/*.css'],
     env: {'NODE_ENV': 'development'},
     tasks: function (changedFiles) {
       var tasks = ['less', 'lint'];
       changedFiles.forEach(function(file) {
+        console.log(file);
         // If file is from the client directory, then browserify
         if (file.lastIndexOf('client/', 0) === 0 && tasks.indexOf('browserify') < 0) {
           tasks.push('browserify');

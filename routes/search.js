@@ -97,9 +97,9 @@ router.post('/submit', function(req, res, next) {
         // add food to favorites list
         if (req.body.add_to_favorites) {
             console.log('Adding new food to favorites');
-            var sql = 'INSERT INTO favorites \
-                    (name, carbs, fat, protein, unit, serving, meal, username) \
-                    VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
+            var sql = 'INSERT INTO favorites ' +
+                    '(name, carbs, fat, protein, unit, serving, meal, username) ' +
+                    'VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
             var inserts = [req.body.item_name, req.body.nf_total_carbohydrate,
               req.body.nf_total_fat,
               req.body.nf_protein, req.body.nf_serving_size_unit,
@@ -128,7 +128,7 @@ router.post('/submit', function(req, res, next) {
         var oldEntry_object;
 
         var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
-        var inserts = [req.session.today, req.session.user];
+        inserts = [req.session.today, req.session.user];
         dailyExist = mysql.format(dailyExist, inserts);
 
 
@@ -166,7 +166,7 @@ router.post('/submit', function(req, res, next) {
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here adding new entry')
+            console.log('I got here adding new entry');
 
             var dayEntry = {};
             dayEntry.breakfast = [];
@@ -176,9 +176,9 @@ router.post('/submit', function(req, res, next) {
             dayEntry[req.body.meal_choice.toLowerCase()].push(content);
 
 
-            var sql = 'INSERT INTO FOOD_ENTRIES \
-                    (Entry_Date, username, Entry_Content) \
-                    VALUES (?, (SELECT username from users WHERE username=?), ?);';
+            var sql = 'INSERT INTO FOOD_ENTRIES ' +
+                    '(Entry_Date, username, Entry_Content) ' +
+                    'VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
             var inserts = [req.session.today, req.session.user, JSON.stringify(dayEntry)];
             sql = mysql.format(sql, inserts);
