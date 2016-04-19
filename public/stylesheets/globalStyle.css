@@ -1,6 +1,9 @@
 .btn {
   border-radius: 2px;
 }
+.form-control {
+  border-radius: 2px;
+}
 .btn-submit {
   border-radius: 2px;
   background-color: #266BC9;
@@ -8,6 +11,7 @@
 }
 .btn-action {
   border-radius: 2px;
+  border-color: #ffffff;
   background-color: #16c79e;
   color: #ffffff;
 }

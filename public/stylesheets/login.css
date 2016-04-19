@@ -1,5 +1,5 @@
 html, body {
-  background-color: #eee;
+  background-color: #16c79e;
 }
 body {
   padding-top: 40px;
@@ -30,4 +30,8 @@ body {
 
 fieldset {
   padding-bottom: 10px;
+}
+
+a {
+  color: #266BC9;
 }
