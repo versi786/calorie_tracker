@@ -73,7 +73,7 @@ router.post('/', function(req, res, next) {
               var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input,
                 req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
                 req.body.meal_choice.toLowerCase(), req.session.user];
-              console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
+
               sql = mysql.format(sql, inserts);
               db.query(sql, function(err, rows, fields) {
                 console.log('Heard back from the sql server');
@@ -114,9 +114,6 @@ router.post('/', function(req, res, next) {
           console.log('new entry flag ' + newEntry_FLAG);
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
-
-            console.log('I got here adding new entry')
-
             var dayEntry = {};
             dayEntry.breakfast = [];
             dayEntry.lunch = [];
