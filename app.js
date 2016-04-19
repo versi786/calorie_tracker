@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
 //var fs = require('fs');
-var https = require('https');
+//var https = require('https');
 //parse arguments
 var argv = require('minimist')(process.argv.slice(2));
 //"houndify" module contains both client-side ("Houndify") and server-side ("HoundifyNode") parts of SDK
@@ -27,15 +27,14 @@ var newEntryRouter = require('./routes/newEntry');
 var sessionValidateRouter = require('./middlewares/sessionValidate');
 
 var pub = require('./routes/public');
-var newEntry = require('./routes/newEntry');
 var newExerciseEntry = require('./routes/newExerciseEntry');
 var logout = require('./routes/logout');
 var calculator = require('./routes/calculator');
 var search = require('./routes/search');
-var db = require('./database/database');
+require('./database/database');
 var favorites = require('./routes/favorites');
 var hist = require('./routes/history');
-var mysql = require('mysql');
+// var mysql = require('mysql');
 
 var app = express();
 

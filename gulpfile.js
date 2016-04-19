@@ -68,7 +68,8 @@ gulp.task('watch', ['browserify'], function() {
   nodemon({
     script: 'bin/www',
     ext: 'jade js less',
-    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets', 'middlewares'],
+    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets',
+            'middlewares', '!public/stylesheets/*.css'],
     env: {'NODE_ENV': 'development'},
     tasks: function (changedFiles) {
       var tasks = ['less', 'lint'];
