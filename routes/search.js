@@ -26,6 +26,8 @@ fs.readFile('credentials.json', 'utf8', function (err, data) {
     console.log(urlfront + 'chicken' + urlend);
 });
 
+// use the flickr API without auth
+
 router.get('/', function(req, res, next) {
   console.log(req.session.user);
   if(!req.session.user){
@@ -101,7 +103,7 @@ router.post('/submit', function(req, res, next) {
                     (name, carbs, fat, protein, unit, serving, meal, username) \
                     VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
             var inserts = [req.body.item_name, req.body.nf_total_carbohydrate,
-              req.body.nf_total_fat, 
+              req.body.nf_total_fat,
               req.body.nf_protein, req.body.nf_serving_size_unit,
               req.body.nf_serving_size_qty,
               req.body.meal_choice.toLowerCase(), req.session.user];
@@ -218,20 +220,22 @@ router.post('/submit', function(req, res, next) {
   }
 });
 
-var flickr = new Flickr({
-    api_key: "1234ABCD1234ABCD1234ABCD1234ABCD",
-    progress: false
-});
 
 var Flickr = require("flickrapi"),
     flickrOptions = {
       api_key: "28f8fdc0e94256d11a035d8e95298cd8",
       secret: "21ad4ae275363532"
-    };
- 
+};
+
 Flickr.tokenOnly(flickrOptions, function(error, flickr) {
   // we can now use "flickr" as our API object,
   // but we can only call public methods and access public data
+    // Search for photos with a tag of 'badgers'
+    flickr.photos.search({tags:'badgers'},  function(error, results) {
+        console.log(results.photos.photo[0]);
+    });
+
+
 });
 
 
