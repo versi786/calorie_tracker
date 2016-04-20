@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
-var SHA3 = require('crypto-js/sha3');
 /* GET login listing. */
 
 router.get('/', function(req, res, next) {
@@ -10,7 +9,7 @@ router.get('/', function(req, res, next) {
     var save = req.session.error;
     req.session.error = null;
     res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false,
-      displayGramPerLbResults: false, calories: "", carbs: "", protein :'', fat:'', error:save});
+      displayGramPerLbResults: false, calories: '', carbs: '', protein :'', fat:'', error:save});
   }
   console.log(req.session.user);
   if(!req.session.user){
@@ -18,19 +17,19 @@ router.get('/', function(req, res, next) {
   }
   else {
     res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false,
-      displayGramPerLbResults: false, calories: "", carbs: "", protein :'', fat:'', error:save});
+      displayGramPerLbResults: false, calories: '', carbs: '', protein :'', fat:''});
   }
 });
 
 function isNormalInteger(str) {
-    var n = ~~Number(str);
+    var n = Math.floor(Number(str));
     return String(n) === str && n >= 0;
 }
 
 function isNumber(str) {
     var n = Number(str);
-    if (str !== '' && n < 1 && str.charAt(0) !== "0") {
-      var zero = "0";
+    if (str !== '' && n < 1 && str.charAt(0) !== '0') {
+      var zero = '0';
       str = zero.concat(str);
     }
     return String(n) === str && n >= 0;
@@ -65,7 +64,7 @@ router.post('/', function(req, res, next) {
       var carbs = JSON.stringify((parseInt(req.body.carbsPercent) / 100) * totalCalories);
       var protein = JSON.stringify((parseInt(req.body.proteinPercent) / 100) * totalCalories);
       var fat = JSON.stringify((parseInt(req.body.fatPercent) / 100) * totalCalories);
-      if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) == 100) {
+      if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) === 100) {
         console.log('About to render results');
         res.render('calculator',
           {username: req.session.user,

@@ -107,7 +107,7 @@ router.post('/', function(req, res, next) {
               var photo = results.photos.photo[0];
               var url = '';
               if(photo){
-                var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
+                var url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
                 content.url = url;
                 console.log(content.url);
               }
@@ -176,10 +176,10 @@ router.post('/', function(req, res, next) {
       }
     });
 
-var Flickr = require("flickrapi"),
+var Flickr = require('flickrapi'),
 flickrOptions = {
-  api_key: "28f8fdc0e94256d11a035d8e95298cd8",
-  secret: "21ad4ae275363532"
+  api_key: '28f8fdc0e94256d11a035d8e95298cd8',
+  secret: '21ad4ae275363532'
 };
 
 module.exports = router;

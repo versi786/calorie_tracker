@@ -1,11 +1,6 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-var nutritionix = {};
-var urlfront;
-var urlend;
-var request = require('request');
 var mysql = require('mysql');
 var db = require('../database/database');
 
@@ -13,20 +8,20 @@ router.get('/', function(req, res, next) {
   console.log(req.session.user);
   if(!req.session.user){
     res.redirect('/login');
-  }else{ 
+  }else{
     if(!req.query.date1 && !req.query.date2){
       var myDate = new Date(new Date().getTime() - (60*60*24*7*1000));
-      var prettyDate = ((myDate.getMonth()+1) < 10 ? '0':'') + (myDate.getMonth()+1) + 
-        '-' + ((myDate.getDate()) < 10 ? '0':'') +myDate.getDate() + 
+      var prettyDate = ((myDate.getMonth()+1) < 10 ? '0':'') + (myDate.getMonth()+1) +
+        '-' + ((myDate.getDate()) < 10 ? '0':'') +myDate.getDate() +
         '-' + myDate.getFullYear();
       req.query.date1 = prettyDate;
 
       var myDate2 = new Date(new Date().getTime());
-      var prettyDate2 = ((myDate2.getMonth()+1) < 10 ? '0':'') + (myDate2.getMonth()+1) + 
-        '-' + ((myDate2.getDate()) < 10 ? '0':'') +myDate2.getDate() + 
+      var prettyDate2 = ((myDate2.getMonth()+1) < 10 ? '0':'') + (myDate2.getMonth()+1) +
+        '-' + ((myDate2.getDate()) < 10 ? '0':'') +myDate2.getDate() +
         '-' + myDate2.getFullYear();
       req.query.date2 = prettyDate2;
-      console.log("going from " + prettyDate + " to " + prettyDate2);
+      console.log('going from ' + prettyDate + ' to ' + prettyDate2);
     }
     console.log(req.query);
     var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date >= ? AND' +
@@ -61,7 +56,7 @@ router.get('/', function(req, res, next) {
               protein += (entry.breakfast[i].protein *
                 entry.breakfast[i].quantity);
             }
-            
+
 
             for(var i = 0; i < entry.lunch.length; i++){
               fat += (entry.lunch[i].fat *
@@ -71,7 +66,7 @@ router.get('/', function(req, res, next) {
               protein += (entry.lunch[i].protein *
                 entry.lunch[i].quantity);
             }
-            
+
             for(var i = 0; i < entry.dinner.length; i++){
               fat += (entry.dinner[i].fat *
                 entry.dinner[i].quantity);
@@ -80,7 +75,7 @@ router.get('/', function(req, res, next) {
               protein += (entry.dinner[i].protein *
                 entry.dinner[i].quantity);
             }
-            
+
             for(var i = 0; i < entry.snack.length; i++){
               fat += (entry.snack[i].fat *
                 entry.snack[i].quantity);
@@ -92,15 +87,16 @@ router.get('/', function(req, res, next) {
             carbs_arr.push(carbs);
             fat_arr.push(fat);
             protein_arr.push(protein);
-            calories_arr.push(carbs * 4 + fat * 9 + protein * 4)
+            calories_arr.push(carbs * 4 + fat * 9 + protein * 4);
             console.log(rows[j].Entry_Date);
-            var date = rows[j].Entry_Date.split("-");
+            var date = rows[j].Entry_Date.split('-');
             date_arr.push(new Date(date[2], date[0]-1, date[1]));
           }
           console.log(carbs_arr);
           console.log(date_arr);
-          res.render('history',{username: req.session.user, carbs_arr, fat_arr, 
-            protein_arr, date_arr, calories_arr});  
+          res.render('history',{username: req.session.user, carbs_arr:carbs_arr,
+            fat_arr:fat_arr,
+            protein_arr:protein_arr, date_arr:date_arr, calories_arr:calories_arr});
         }
       });
   }
@@ -108,12 +104,9 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-  console.log(req.session.user)
-  console.log(req.body)
-  res.redirect('/history/?date1=' + req.body.date1 + "&date2=" +req.body.date2);
+  console.log(req.session.user);
+  console.log(req.body);
+  res.redirect('/history/?date1=' + req.body.date1 + '&date2=' +req.body.date2);
 });
-
-
-
 
 module.exports = router;

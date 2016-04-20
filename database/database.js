@@ -70,14 +70,14 @@ function emails(){
                   } else {
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
-                        var textJob = new cronJob( '10 19 * * *', function(){
+                        new cronJob( '10 19 * * *', function(){
                           client.sendMessage( { to:phoneNumber, from:'2674604107',
                           body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
                           },  null, true);
                       }
                   }
                 });
-            }(i, phoneNumber)
+            }(i, phoneNumber);
           }
           console.log('Twilio chron job set up');
         });
@@ -85,7 +85,7 @@ function emails(){
 
 
 function setUpEmailsJob(){
-  var emailjob = new cj('59 23 * * *', emails());
+  new cj('59 23 * * *', emails());
 }
 
 

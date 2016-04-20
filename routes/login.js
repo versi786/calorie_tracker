@@ -25,7 +25,6 @@ router.post('/', function(req, res, next){
     res.redirect('/login');
   }
 
-  console.log.response;
   db.query('select password from users where username = ?',
     [req.body.username.toLowerCase()], function(err, rows, fields){
       if (err) {

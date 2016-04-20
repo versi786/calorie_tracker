@@ -151,14 +151,14 @@ router.post('/submit', function(req, res, next) {
           content.quantity_meas = req.body.nf_serving_size_unit;
 
           Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-            // we can now use "flickr" as our API object,
+            // we can now use 'flickr' as our API object,
             // but we can only call public methods and access public data
               // Search for photos with a tag of 'badgers'
               flickr.photos.search({tags:content.food},  function(error, results) {
                   var photo = results.photos.photo[0];
                   console.log(photo);
-                  content.url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
-                  console.log(url);
+                  content.url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+                  console.log(content.url);
               });
           });
 
@@ -230,10 +230,10 @@ router.post('/submit', function(req, res, next) {
 });
 
 
-var Flickr = require("flickrapi"),
+var Flickr = require('flickrapi'),
     flickrOptions = {
-      api_key: "28f8fdc0e94256d11a035d8e95298cd8",
-      secret: "21ad4ae275363532"
+      api_key: '28f8fdc0e94256d11a035d8e95298cd8',
+      secret: '21ad4ae275363532'
 };
 
 
