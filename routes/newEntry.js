@@ -103,13 +103,13 @@ router.post('/', function(req, res, next) {
           //TODO: figure out asynchronous shit FIXED
 
           Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-            flickr.photos.search({tags:content.food},  function(error, results) {
+            flickr.photos.search({text:content.food, sort:'relevance', group_id:"99392030@N00"},  function(error, results) {
               var photo = results.photos.photo[0];
+              console.log('PHOTO', photo);
               var url = '';
               if(photo){
                 var url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
                 content.url = url;
-                console.log(content.url);
               }
               try
               {
@@ -148,7 +148,6 @@ router.post('/', function(req, res, next) {
               }
               res.redirect('/users/' + req.session.user);
             });
-
           } else {
 
             var newContent = JSON.parse(oldEntry_object.Entry_Content);

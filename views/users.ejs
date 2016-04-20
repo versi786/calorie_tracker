@@ -130,6 +130,7 @@
               <th>Carbs</th>
               <th>Fat</th>
               <th>Protein</th>
+              <th></th>
             </tr>
             <% for (var i = 0; i < entry.breakfast.length; i++) { %>
               <tr>
@@ -139,6 +140,7 @@
                 <td><%= entry.breakfast[i].carbs %></td>
                 <td><%= entry.breakfast[i].fat %></td>
                 <td><%= entry.breakfast[i].protein %></td>
+                <td><img src=<%=entry.breakfast[i].url%> height="75" width="75"></td>
               </tr>
             <% } %>
           </table>
