@@ -1,13 +1,25 @@
-@base-color: #16c79e;
+@base-color: #FFAA1D;
 @base-complement: #266BC9;
 @white: rgb(255, 255, 255);
+@base-border-radius: 2px;
+@light-gray: #F6F6F6;
+@dark-gray: #C5C5C5;
+@medium-gray: #EAEAEA;
+@heavy-dark-gray: #1A1A1A;
 
 .btn {
   border-radius: 2px;
+  margin-right: 10px;
 }
 
-.btn-normal {
+.btn-white {
+  .btn;
+  background-color: @white;
+  color: @heavy-dark-gray;
 
+  &:hover {
+    color: @base-complement;
+  }
 }
 
 .form-control {
@@ -18,14 +30,33 @@
   .btn;
   background-color: @base-complement;
   color: @white;
+
+  &:hover {
+    color: @heavy-dark-gray;
+  }
 }
 
 .btn-action {
   .btn;
-  border-color: @white;
   background-color: @base-color;
-  color: @white;
+  color: @heavy-dark-gray;
+
+  &:hover {
+    color: @base-complement;
+  }
 }
 
+.form-control {
+  box-shadow: none;
 
+  &:focus {
+    box-shadow: inset 0 1px 1px @base-complement;
+  }
+}
 
+.centered-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
