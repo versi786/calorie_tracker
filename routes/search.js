@@ -13,8 +13,6 @@ fs.readFile('credentials.json', 'utf8', function (err, data) {
         throw err;
     }
     var nutritionixJSON = JSON.parse(data);
-    console.log(nutritionixJSON.nutritionix_application_id);
-    console.log(nutritionixJSON.nutritionix_application_key);
     nutritionix.appId = nutritionixJSON.nutritionix_application_id;
     nutritionix.appKey =nutritionixJSON.nutritionix_application_key;
 
@@ -23,7 +21,7 @@ fs.readFile('credentials.json', 'utf8', function (err, data) {
                 nutritionix.appId +
                 '&appKey=' +
                 nutritionix.appKey;
-    console.log(urlfront + 'chicken' + urlend);
+    console.log('Nutritionix Search Database set up');
 });
 
 // use the flickr API without auth
