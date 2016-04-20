@@ -200,6 +200,6 @@ function updateURL(food, callback) {
     });
     console.log("GOT HERE FIRST");
     console.log("this is the url: ", url); // undefined
-}
+}  
 
 module.exports = router;
