@@ -25,3 +25,9 @@ First issue set
   - Our routing is poorly designed. Fix that to incorporate Facebook login
   - Logging in on Facebook needs to immedietly log the user in with a session - these need to be in sync
   -
+
+
+////// deploying
+pm2 to run shit forever
+pm2 node <main js file>
+

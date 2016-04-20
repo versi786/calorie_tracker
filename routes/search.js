@@ -97,15 +97,14 @@ router.post('/submit', function(req, res, next) {
         // add food to favorites list
         if (req.body.add_to_favorites) {
             console.log('Adding new food to favorites');
-            var sql = 'INSERT INTO favorites \
-                    (name, carbs, fat, protein, unit, serving, meal, username) \
-                    VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
+            var sql = 'INSERT INTO favorites ' +
+                    '(name, carbs, fat, protein, unit, serving, meal, username) ' +
+                    'VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
             var inserts = [req.body.item_name, req.body.nf_total_carbohydrate,
               req.body.nf_total_fat,
               req.body.nf_protein, req.body.nf_serving_size_unit,
               req.body.nf_serving_size_qty,
               req.body.meal_choice.toLowerCase(), req.session.user];
-            console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields) {
               console.log('Heard back from the sql server');
@@ -179,7 +178,7 @@ router.post('/submit', function(req, res, next) {
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here adding new entry')
+            console.log('I got here adding new entry');
 
             var dayEntry = {};
             dayEntry.breakfast = [];
@@ -189,9 +188,9 @@ router.post('/submit', function(req, res, next) {
             dayEntry[req.body.meal_choice.toLowerCase()].push(content);
 
 
-            var sql = 'INSERT INTO FOOD_ENTRIES \
-                    (Entry_Date, username, Entry_Content) \
-                    VALUES (?, (SELECT username from users WHERE username=?), ?);';
+            var sql = 'INSERT INTO FOOD_ENTRIES ' +
+                    '(Entry_Date, username, Entry_Content) ' +
+                    'VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
             var inserts = [req.session.today, req.session.user, JSON.stringify(dayEntry)];
             sql = mysql.format(sql, inserts);
@@ -212,8 +211,8 @@ router.post('/submit', function(req, res, next) {
             var newContent = JSON.parse(oldEntry_object.Entry_Content);
             newContent[req.body.meal_choice.toLowerCase()].push(content);
 
-            var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? \
-                    WHERE (Entry_Date = ?) AND (username = ?);';
+            var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? ' +
+                    'WHERE (Entry_Date = ?) AND (username = ?);';
 
             var inserts = [JSON.stringify(newContent), req.session.today, req.session.user];
             updateSql = mysql.format(updateSql, inserts);

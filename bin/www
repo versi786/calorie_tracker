@@ -7,27 +7,61 @@
 var app = require('../app');
 var debug = require('debug')('clonebook:server');
 var http = require('http');
-
+var https = require('https');
+var express = require('express');
+var configFile = 'config';
+var config = require(__dirname + '/../' + configFile);
+var fs = require('fs');
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '80');
+if (config.https){
+    port = 443;
+}
+if (!config.https){
+    port = '3000';
+}
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+if(config.https){
+   //ssl credentials
+  var privateKey = fs.readFileSync(config.sslKeyFile);
+  var certificate = fs.readFileSync(config.sslCrtFile);
+  var credentials = { key: privateKey, cert: certificate };
+
+  //https server
+  var server = https.createServer(credentials, app);
+  server.listen(port, function() {
+    console.log("HTTPS server running on port", port);
+    console.log("Open https://localhost:" + port, "in the browser to view the Web SDK demo");
+  });
+  server.on('error', onError);
+  server.on('listening', onListening);
+
+  //redirect http to https
+  var hserver = http.createServer(function(req, res){
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+  }).listen(80);
+
+}else{
+  var server = http.createServer(app);
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.

@@ -22,7 +22,6 @@ router.get('/:username', function(req, res, next) {
     }else{
       date = req.query.date;
     }
-    console.log("Date" + date);
     var goalsql = 'SELECT carbs, fat, protein FROM users WHERE username = ?';
     var inserts = [req.params.username];
     goalsql = mysql.format(goalsql, inserts);
@@ -63,21 +62,16 @@ router.get('/:username', function(req, res, next) {
                     var protein = (rows1[0].protein===null?0:rows1[0].protein);
 
                     var entry = (rows.length===1) ? JSON.parse(rows[0].Entry_Content) : {
-                      "breakfast":[],
-                      "lunch":[],
-                      "dinner":[],
-                      "snack":[],
+                      'breakfast':[],
+                      'lunch':[],
+                      'dinner':[],
+                      'snack':[],
                     };
-
-                    var breakfastEntries = entry.breakfast;
-                    var lunchEntries = entry.lunch;
-                    var dinnerEntries = entry.dinner;
-                    console.log("Lunch entries: " + lunchEntries);
 
                     /*
                     if (lunchEntries.length == 0) {
-                      console.log("In there");
-                      var textJob = new cronJob( '* * * * *', function(){ 
+                      console.log('In there');
+                      var textJob = new cronJob( '* * * * *', function(){
                         client.sendMessage( { to:'2154701461', from:'2674604107',
                          body:'Hello! Hope you’re having a good day!' }, function( err, data ) {});
                         },  null, true);
@@ -85,7 +79,7 @@ router.get('/:username', function(req, res, next) {
                     */
 
                     var entry2 = (rows2.length===1) ? JSON.parse(rows2[0].Entry_Content) : {
-                      "exercises":[],
+                      'exercises':[],
                     };
 
                     for(var i = 0; i < entry.breakfast.length; i++){
@@ -96,9 +90,9 @@ router.get('/:username', function(req, res, next) {
                       protein -= (entry.breakfast[i].protein *
                         entry.breakfast[i].quantity);
                     }
-                    
 
-                    for(var i = 0; i < entry.lunch.length; i++){
+
+                    for(i = 0; i < entry.lunch.length; i++){
                       fat -= (entry.lunch[i].fat *
                         entry.lunch[i].quantity);
                       carbs -= (entry.lunch[i].carbs *
@@ -106,8 +100,8 @@ router.get('/:username', function(req, res, next) {
                       protein -= (entry.lunch[i].protein *
                         entry.lunch[i].quantity);
                     }
-                    
-                    for(var i = 0; i < entry.dinner.length; i++){
+
+                    for(i = 0; i < entry.dinner.length; i++){
                       fat -= (entry.dinner[i].fat *
                         entry.dinner[i].quantity);
                       carbs -= (entry.dinner[i].carbs *
@@ -115,8 +109,8 @@ router.get('/:username', function(req, res, next) {
                       protein -= (entry.dinner[i].protein *
                         entry.dinner[i].quantity);
                     }
-                    
-                    for(var i = 0; i < entry.snack.length; i++){
+
+                    for(i = 0; i < entry.snack.length; i++){
                       fat -= (entry.snack[i].fat *
                         entry.snack[i].quantity);
                       carbs -= (entry.snack[i].carbs *
@@ -124,8 +118,8 @@ router.get('/:username', function(req, res, next) {
                       protein -= (entry.snack[i].protein *
                         entry.snack[i].quantity);
                     }
-                    
-                    for(var i = 0; i < entry2.exercises.length; i++){
+
+                    for(i = 0; i < entry2.exercises.length; i++){
                       fat += (entry2.exercises[i].fat *
                         entry2.exercises[i].quantity_input);
                       carbs += (entry2.exercises[i].carbs *
@@ -133,7 +127,7 @@ router.get('/:username', function(req, res, next) {
                       protein += (entry2.exercises[i].protein *
                         entry2.exercises[i].quantity_input);
                     }
-                    
+
                     res.render('users', {fat: fat,
                       carbs: carbs,
                       protein: protein,

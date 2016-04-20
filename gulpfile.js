@@ -7,16 +7,25 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var uglify = require('gulp-uglify');
 var cache = require('gulp-cached');
-
+var eslint = require('gulp-eslint');
+var less = require('gulp-less');
+var path = require('path');
 var source = require('vinyl-source-stream'); // Used to stream bundle for further handling etc.
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
 
+var FILES = [
+  './*.js',
+  './**/*.js',
+  '!node_modules/**',
+  '!public/**',
+  '!./db_loader.js'
+];
 
+// LINTING TASK
 gulp.task('lint', function () {
-  gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
-        '!./db_loader.js'])
+  gulp.src(FILES)
         .pipe(cache('jshint'))
         .on('error', function(err) {
           console.error('JSX ERROR in ' + err.fileName);
@@ -25,15 +34,27 @@ gulp.task('lint', function () {
         })
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
-        // .pipe(jshint.reporter('fail'));
+
+  gulp.task('eslint', function () {
+    return gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
+        '!./db_loader.js'])
+      .pipe(eslint({}))
+      .pipe(eslint.format());
+  });
 });
 
-var customOpts = {
-//  entries: './client/app.jsx',
-  debug: true,
-  // defining transforms here will avoid crashing your stream
-};
-var b = watchify(browserify(customOpts));
+// COMPILE LESS TASK
+gulp.task('less', function() {
+  return gulp.src('public/stylesheets/less/*.less')
+    .pipe(less({
+      paths: [path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('public/stylesheets'));
+});
+
+
+
+var b = watchify(browserify( {debug: true} ));
 b.on('update', bundle); // on any dep update, runs the bundler
 b.on('log', gutil.log); // output build logs to terminal
 
@@ -46,7 +67,7 @@ function bundle() {
         .pipe(uglify())
         .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./public/javascripts/'));
+    .pipe(gulp.dest('public/javascripts'));
 }
 
 gulp.task('browserify', bundle); // so you can run `gulp js` to build the file
@@ -55,20 +76,21 @@ gulp.task('watch', ['browserify'], function() {
   nodemon({
     script: 'bin/www',
     ext: 'jade js less',
-    watch: ['app.js', 'routes', 'database', 'bin'],
+    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets/less/*.less',
+            'middlewares'],
     env: {'NODE_ENV': 'development'},
     tasks: function (changedFiles) {
-      var tasks = ['lint'];
+      var tasks = ['less', 'lint'];
       changedFiles.forEach(function(file) {
+        console.log(file);
         // If file is from the client directory, then browserify
         if (file.lastIndexOf('client/', 0) === 0 && tasks.indexOf('browserify') < 0) {
           tasks.push('browserify');
         }
       });
-
       return tasks;
     }
   });
 });
 
-gulp.task('default', ['lint', 'watch']);
+gulp.task('default', ['lint', 'less', 'watch']);

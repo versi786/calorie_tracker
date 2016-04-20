@@ -1,0 +1,12 @@
+{
+
+  "clientId": "JyD40CQl16l4NO-Mz-PKJQ==",
+  "clientKey": "zfNKvRAJCqfP53yG1uC4YKIvwWYr_MNkVb-fqrmBNJk-Hzy8wYybmb1fg2rp1-6EdZLb8fvXYCf4zsTsgGR5dA==",
+
+  "port": 3446,
+
+  "https": false,
+  "sslKeyFile": "/etc/letsencrypt/live/tracker.aasifversi.com/privkey.pem",
+  "sslCrtFile": "/etc/letsencrypt/live/tracker.aasifversi.com/cert.pem"
+
+}

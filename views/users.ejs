@@ -10,8 +10,10 @@
         <!-- Include bootstrap JS from CDN-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+        <link rel='stylesheet' href='/stylesheets/globalStyle.css' />
         <link rel="stylesheet" href="/stylesheets/datepicker.css">
         <link rel="stylesheet" href="/stylesheets/users.css">
+
         <script src="/javascripts/bootstrap-datepicker.js"></script>
         <script src="../javascripts/pt.min.js"></script>
         <script src="/javascripts/users.js"></script>
@@ -38,22 +40,22 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
-                <button type="button" id="new_food_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newEntry';">New Manual Entry</button>
+                <button type="button" id="new_food_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newEntry';">New Manual Entry</button>
             </li>
             <li class="active">
-                <button type="button" id="new_search_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/search';">New Search Entry</button>
+                <button type="button" id="new_search_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/search';">New Search Entry</button>
             </li>
             <li class="active">
-                <button type="button" id="new_fav_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
+                <button type="button" id="new_fav_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
             </li>
             <li>
-                <button type="button" id="new_exercise_entry_button" class="btn btn-primary navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+                <button type="button" id="new_exercise_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
             </li>
             <li class="active">
-                <button type="button" id="calculator_button" class="btn btn-primary navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+                <button type="button" id="calculator_button" class="btn btn-action navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
             </li>
             <li class="active">
-                <button type="button" id="history_button" class="btn btn-primary navbar-btn" onclick="location.href='/history';">History</button>
+                <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -80,7 +82,7 @@
             <div class="form-group">
               <input type="text" class="form-control" name="date" id="datepicker">
             </div>
-            <button type="submit" class="btn btn-default">Go</button>
+            <button type="submit" class="btn btn-submit">Go</button>
           </form>
         </div>
         </div>

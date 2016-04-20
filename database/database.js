@@ -38,7 +38,7 @@ function emails(){
   cronJob = require('cron').CronJob;
 
 
-        var date = new Date;
+        var date = new Date();
         var dd = date.getDate();
         var mm = date.getMonth()+1; //January is 0!
         var yyyy = date.getFullYear();
@@ -50,7 +50,6 @@ function emails(){
           mm = '0' + mm;
         }
         date = mm+'-'+dd+'-'+yyyy;
-
         var goalsql = 'SELECT username, phoneNumber FROM users';
         db.query(goalsql, function(err, rows, fields) {
           if(err){
@@ -66,9 +65,9 @@ function emails(){
             dailyExist = mysql.format(dailyExist, inserts);
             !function outer(i, phoneNumber){
                 db.query(dailyExist, function inner(err, rows1, fields) {
-                  if(err){
+                  if (err) {
                     console.log('food entry database error');
-                  }else{
+                  } else {
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
                         var textJob = new cronJob( '10 19 * * *', function(){
@@ -82,8 +81,9 @@ function emails(){
           }
           console.log('Twilio chron job set up');
         });
-
 }
+
+
 function setUpEmailsJob(){
   var emailjob = new cj('59 23 * * *', emails());
 }
