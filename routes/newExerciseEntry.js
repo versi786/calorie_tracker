@@ -93,7 +93,7 @@ router.post('/', function(req, res, next) {
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here adding new entry')
+            console.log('I got here adding new entry');
 
             var dayEntry = {};
             dayEntry.exercises = [content];
@@ -116,7 +116,7 @@ router.post('/', function(req, res, next) {
           } else {
 
             var newContent = JSON.parse(oldEntry_object.Entry_Content);
-            newContent['exercises'].push(content);
+            newContent.exercises.push(content);
 
             var updateSql = 'UPDATE exercise SET Entry_Content = ? \
             WHERE (Entry_Date = ?) AND (username = ?);';
