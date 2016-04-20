@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   if(req.session.error){
     var save = req.session.error;
     req.session.error = null;
-    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false,
       displayGramPerLbResults: false, calories: "", carbs: "", protein :'', fat:'', error:save});
   }
   console.log(req.session.user);
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   else {
-    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false, 
+    res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false,
       displayGramPerLbResults: false, calories: "", carbs: "", protein :'', fat:'', error:save});
   }
 });
@@ -46,17 +46,17 @@ router.post('/', function(req, res, next) {
     req.body.fatPercent !== undefined &&
     req.body.proteinPercent !== undefined) {
     // if any non numbers were entered
-    if (!isNormalInteger(req.body.calories) || 
-        !isNormalInteger(req.body.carbsPercent) || 
-        !isNormalInteger(req.body.fatPercent) || 
+    if (!isNormalInteger(req.body.calories) ||
+        !isNormalInteger(req.body.carbsPercent) ||
+        !isNormalInteger(req.body.fatPercent) ||
         !isNormalInteger(req.body.proteinPercent)) {
       console.log('Percentages must be integers adding to 100');
       req.session.error = 'Percentages must be integers adding to 100';
-      res.render('calculator', 
-        {username: req.session.user, 
-          displayCalorieResults: false, 
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
           displayGramResults: false,
-          displayGramPerLbResults: false, 
+          displayGramPerLbResults: false,
           error:req.session.error});
     }
     else {
@@ -67,42 +67,42 @@ router.post('/', function(req, res, next) {
       var fat = JSON.stringify((parseInt(req.body.fatPercent) / 100) * totalCalories);
       if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) == 100) {
         console.log('About to render results');
-        res.render('calculator', 
-          {username: req.session.user, 
-            displayCalorieResults: true, 
+        res.render('calculator',
+          {username: req.session.user,
+            displayCalorieResults: true,
             displayGramResults: false,
-            displayGramPerLbResults: false, 
-            calories: req.body.calories, 
+            displayGramPerLbResults: false,
+            calories: req.body.calories,
             carbs: carbs,
-            protein: protein, 
-            fat: fat, 
+            protein: protein,
+            fat: fat,
             error:null});
       } else {
         req.session.error = 'Percentages must add up to 100';
         console.log('Percentages must add up to 100');
-        res.render('calculator', 
-          {username: req.session.user, 
-            displayCalorieResults: false, 
-            displayGramResults: false, 
+        res.render('calculator',
+          {username: req.session.user,
+            displayCalorieResults: false,
+            displayGramResults: false,
             displayGramPerLbResults: false,
             error:req.session.error});
       }
     }
   }
-  // if grams form was submitted 
+  // if grams form was submitted
   else if (req.body.carbsGrams !== undefined &&
       req.body.fatGrams !== undefined &&
       req.body.proteinGrams !== undefined) {
         // if any non numbers were entered
-    if (!isNormalInteger(req.body.carbsGrams) || 
-        !isNormalInteger(req.body.proteinGrams) || 
+    if (!isNormalInteger(req.body.carbsGrams) ||
+        !isNormalInteger(req.body.proteinGrams) ||
         !isNormalInteger(req.body.fatGrams)) {
       req.session.error = 'Grams must be integers';
       console.log('Grams must be integers');
-      res.render('calculator', 
-        {username: req.session.user, 
-          displayCalorieResults: false, 
-          displayGramResults: false, 
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: false,
           displayGramPerLbResults: false,
           error:req.session.error});
     }
@@ -110,14 +110,14 @@ router.post('/', function(req, res, next) {
       var carbs = JSON.stringify((parseInt(req.body.carbsGrams)) * 4);
       var protein = JSON.stringify((parseInt(req.body.proteinGrams)) * 4);
       var fat = JSON.stringify((parseInt(req.body.fatGrams)) * 9);
-      res.render('calculator', 
-        {username: req.session.user, 
-          displayCalorieResults: false, 
-          displayGramResults: true, 
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: true,
           displayGramPerLbResults: false,
           carbs: carbs,
-          protein: protein, 
-          fat: fat, 
+          protein: protein,
+          fat: fat,
           error:null});
     }
   }
@@ -127,16 +127,16 @@ router.post('/', function(req, res, next) {
       req.body.fatGramsPerLb !== undefined &&
       req.body.proteinGramsPerLb !== undefined) {
     // if any non numbers were entered
-    if (!isNumber(req.body.bodyweight) || 
-        !isNumber(req.body.carbsGramsPerLb) || 
-        !isNumber(req.body.proteinGramsPerLb) || 
+    if (!isNumber(req.body.bodyweight) ||
+        !isNumber(req.body.carbsGramsPerLb) ||
+        !isNumber(req.body.proteinGramsPerLb) ||
         !isNumber(req.body.fatGramsPerLb)) {
       req.session.error = 'Grams per lb must be non-negative numbers';
       console.log('Grams per lb must be non-negative numbers');
-      res.render('calculator', 
-        {username: req.session.user, 
-          displayCalorieResults: false, 
-          displayGramResults: false, 
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: false,
           displayGramPerLbResults: false,
           error:req.session.error});
     }
@@ -145,14 +145,14 @@ router.post('/', function(req, res, next) {
       var carbs = JSON.stringify((parseFloat(req.body.carbsGramsPerLb)) * bw );
       var protein = JSON.stringify((parseFloat(req.body.proteinGramsPerLb)) * bw);
       var fat = JSON.stringify((parseFloat(req.body.fatGramsPerLb)) * bw);
-      res.render('calculator', 
-        {username: req.session.user, 
-          displayCalorieResults: false, 
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
           displayGramResults: false,
           displayGramPerLbResults: true,
           carbs: carbs,
-          protein: protein, 
-          fat: fat, 
+          protein: protein,
+          fat: fat,
           error:null});
     }
   }
@@ -171,8 +171,8 @@ router.post('/submit', function(req, res, next) {
       if (rows.length === 1){
         console.log('Updating goals of ' + username);
       // update carbs column
-      db.query('UPDATE users SET carbs = ? WHERE users.username = ?', 
-        [req.body.carbs, username], 
+      db.query('UPDATE users SET carbs = ? WHERE users.username = ?',
+        [req.body.carbs, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating carbs column' + err);
@@ -182,8 +182,8 @@ router.post('/submit', function(req, res, next) {
           }
         });
       // update protein column
-      db.query('UPDATE users SET protein = ? WHERE users.username = ?', 
-        [req.body.protein, username], 
+      db.query('UPDATE users SET protein = ? WHERE users.username = ?',
+        [req.body.protein, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating database' + err);
@@ -193,8 +193,8 @@ router.post('/submit', function(req, res, next) {
           }
         });
       // update fat column
-      db.query('UPDATE users SET fat = ? WHERE users.username = ?', 
-        [req.body.fat, username], 
+      db.query('UPDATE users SET fat = ? WHERE users.username = ?',
+        [req.body.fat, username],
         function(err, rows, fields){
           if(err){
             console.log('Error updating fat column' + err);
@@ -203,7 +203,7 @@ router.post('/submit', function(req, res, next) {
             console.log('Updated database');
           }
         });
-    } 
+    }
     else {
       req.session.error = 'database error';
       res.redirect('/users/' + req.session.user);

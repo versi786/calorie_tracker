@@ -70,7 +70,7 @@ router.post('/', function(req, res, next) {
               var sql = 'INSERT INTO favorites \
                       (name, carbs, fat, protein, unit, serving, meal, username) \
                       VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
-              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input, 
+              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input,
                 req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
                 req.body.meal_choice.toLowerCase(), req.session.user];
               console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
@@ -100,20 +100,18 @@ router.post('/', function(req, res, next) {
           content.food = req.body.food_input;
           content.quantity_meas = req.body.quantity_measure;
 
-          //TODO: figure out asynchronous shit
+          //TODO: figure out asynchronous shit FIXED
 
-          // I want to get the url for the picture that comes up when you search for content.food
-          // so I call updateURL (at bottom of this file) and pass in a callback function that sets content.url to the url parameter of the function
-          // what actually happens though is the code in the callback function isn't excuted until after everything else is done
-          updateURL(content.food, function(url) {
-              content.url = url; 
-              console.log("GOT HERE FOURTH/LAST"); 
-              console.log(content.url); // properly defined
-          });
-          console.log("GOT HERE THIRD");
-          console.log("content.url: ", content.url); // undefined
-
-          try
+          Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+          flickr.photos.search({tags:content.food},  function(error, results) {
+              var photo = results.photos.photo[0];
+              var url = '';
+              if(photo){
+                var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
+              content.url = url;
+              console.log(content.url);
+              }
+try
           {
             content.quantity = parseInt(req.body.quantity_choose);
             content.fat = parseInt(req.body.fat_input);
@@ -173,6 +171,9 @@ router.post('/', function(req, res, next) {
               res.redirect('/users/' + req.session.user);
             });
           }
+          });
+    });
+
         });
         // NEW ENTRY
   }
@@ -183,23 +184,5 @@ var Flickr = require("flickrapi"),
       api_key: "28f8fdc0e94256d11a035d8e95298cd8",
       secret: "21ad4ae275363532"
 };
-
-function updateURL(food, callback) {
-    var url;
-    // find the photo and make the url
-    Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-          flickr.photos.search({tags:food},  function(error, results) {
-              var photo = results.photos.photo[0];
-              url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
-              // call the calback function with the assembled url
-              callback(url);
-          });
-          // this shit is just to help me figure out the order things are being done in
-          console.log("GOT HERE SECOND");
-          console.log("this is the url: ", url); // undefined
-    });
-    console.log("GOT HERE FIRST");
-    console.log("this is the url: ", url); // undefined
-}  
 
 module.exports = router;
