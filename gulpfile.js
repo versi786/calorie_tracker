@@ -15,10 +15,17 @@ var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
 
+var FILES = [
+  './*.js',
+  './**/*.js',
+  '!node_modules/**',
+  '!public/**',
+  '!./db_loader.js'
+];
+
 // LINTING TASK
 gulp.task('lint', function () {
-  gulp.src(['./*.js', './**/*.js', '!node_modules/**', '!public/**',
-        '!./db_loader.js'])
+  gulp.src(FILES)
         .pipe(cache('jshint'))
         .on('error', function(err) {
           console.error('JSX ERROR in ' + err.fileName);
@@ -38,11 +45,11 @@ gulp.task('lint', function () {
 
 // COMPILE LESS TASK
 gulp.task('less', function() {
-  return gulp.src('public/stylesheets/*.less')
+  return gulp.src('public/stylesheets/less/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes') ]
     }))
-    //.pipe(gulp.dest('public/stylesheets'));
+    .pipe(gulp.dest('public/stylesheets'));
 });
 
 
@@ -69,8 +76,8 @@ gulp.task('watch', ['browserify'], function() {
   nodemon({
     script: 'bin/www',
     ext: 'jade js less',
-    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets/*.less',
-            'middlewares', '!public/stylesheets/*.css'],
+    watch: ['app.js', 'routes', 'database', 'bin', 'public/stylesheets/less/*.less',
+            'middlewares'],
     env: {'NODE_ENV': 'development'},
     tasks: function (changedFiles) {
       var tasks = ['less', 'lint'];

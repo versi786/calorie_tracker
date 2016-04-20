@@ -2,9 +2,8 @@
 <html>
   <head>
     <title>Login</title>
-    <link rel="stylesheet" href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/login.css' />
-    <link rel='stylesheet' href='/stylesheets/globalStyle.css' />
+    <link rel="stylesheet" href='/stylesheets/bootstrap/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/loginPage.css' />
     <!-- JQuery -->
     <script src="/javascripts/jquery-1.12.2.min.js"></script>
     <!-- Parsley -->
@@ -41,18 +40,24 @@
                   <input class = "form-control" id="password" type="password" name="password"
                   data-parsley-required minlength="4">
                 </div>
-                <button class="btn primary btn-submit" type="submit">Sign in</button>
+
+                <div class="row centered-row">
+                  <button class="btn primary btn-submit" type="submit">Sign in</button>
+
+                  <button type="button" class="btn btn-default btn-white">
+                    <a href = "/signup">Sign up</a>
+                  </button>
+
+                  <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false"
+                  data-auto-logout-link="false" onlogin='storeCredentials();' data-scope='public_profile'>
+                  </div>
+                </div>
+
               </fieldset>
             </form>
             <p>
-              <a href = "/signup">Sign up</a>
+
             </p>
-          </div>
-           <!-- Facebook Login Button -->
-          <div id = "facebook_button">
-            <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
-            data-auto-logout-link="false" onlogin='storeCredentials();' data-scope='public_profile'>
-            </div>
           </div>
 
         <script>

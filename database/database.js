@@ -68,9 +68,9 @@ function emails(){
             dailyExist = mysql.format(dailyExist, inserts);
             !function outer(i, phoneNumber){
                 db.query(dailyExist, function inner(err, rows1, fields) {
-                  if(err){
+                  if (err) {
                     console.log('food entry database error');
-                  }else{
+                  } else {
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
                         console.log('Please print' + i + phoneNumber);
