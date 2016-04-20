@@ -128,7 +128,7 @@ router.post('/submit', function(req, res, next) {
         var oldEntry_object;
 
         var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
-        inserts = [req.session.today, req.session.user];
+        var inserts = [req.session.today, req.session.user];
         dailyExist = mysql.format(dailyExist, inserts);
 
 
@@ -199,8 +199,8 @@ router.post('/submit', function(req, res, next) {
             var newContent = JSON.parse(oldEntry_object.Entry_Content);
             newContent[req.body.meal_choice.toLowerCase()].push(content);
 
-            var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? \
-                    WHERE (Entry_Date = ?) AND (username = ?);';
+            var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? ' +
+                    'WHERE (Entry_Date = ?) AND (username = ?);';
 
             var inserts = [JSON.stringify(newContent), req.session.today, req.session.user];
             updateSql = mysql.format(updateSql, inserts);
