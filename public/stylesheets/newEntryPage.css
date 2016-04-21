@@ -45,12 +45,19 @@
   align-items: center;
   justify-content: center;
 }
+#header-container {
+  background-color: #266BC9;
+  font-weight: bold;
+}
+#header-container a {
+  color: #ffffff;
+}
+#header-container .btn-action {
+  color: #ffffff;
+}
 html,
 body {
   background-color: #ffffff;
-}
-body {
-  padding-top: 40px;
 }
 .container {
   width: 300px;
