@@ -156,7 +156,7 @@ router.post('/submit', function(req, res, next) {
             // we can now use 'flickr' as our API object,
             // but we can only call public methods and access public data
               // Search for photos with a tag of 'badgers'
-              flickr.photos.search({tags:content.food},  function(error, results) {
+              flickr.photos.search({text:content.food, sort:'relevance', group_id:'99392030@N00'},  function(error, results) {
                   var photo = results.photos.photo[0];
                   console.log(photo);
                   content.url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
