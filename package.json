@@ -17,6 +17,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
+    "flickrapi": "^0.4.2",
     "fs": "0.0.2",
     "houndify": "file:houndify-0.3.2.tgz",
     "joi": "^7.1.0",

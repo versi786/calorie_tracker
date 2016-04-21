@@ -18,12 +18,12 @@ connection.connect(function(err){
         console.error('couldn\'t connect',err);
     }
     else{
-        console.log('mysql connected');
+        // console.log('mysql connected');
         connection.query('USE cis350_database', function(err, rows, fields){
         if(err) {
           throw err;
         }
-      console.log('Using cis350_database');
+      console.log('Databse connection successful');
       setUpEmailsJob();
       });
     }
@@ -50,8 +50,6 @@ function emails(){
           mm = '0' + mm;
         }
         date = mm+'-'+dd+'-'+yyyy;
-        console.log('Date:' + date);
-
         var goalsql = 'SELECT username, phoneNumber FROM users';
         db.query(goalsql, function(err, rows, fields) {
           if(err){
@@ -62,7 +60,6 @@ function emails(){
           for(var i = 0; i < rows.length; i++) {
 
             phoneNumber = rows[i].phoneNumber;
-            console.log('On iteration ' + i + ' where phone number is ' + phoneNumber);
             var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
             var inserts = [date, rows[i].username];
             dailyExist = mysql.format(dailyExist, inserts);
@@ -73,28 +70,22 @@ function emails(){
                   } else {
                       newEntry_FLAG = (rows1.length === 0 ? true : false);
                       if (newEntry_FLAG) {
-                        console.log('Please print' + i + phoneNumber);
-                        var textJob = new cronJob( '10 18 * * *', function(){
+                        new cronJob( '10 19 * * *', function(){
                           client.sendMessage( { to:phoneNumber, from:'2674604107',
                           body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
                           },  null, true);
                       }
                   }
                 });
-            }(i, phoneNumber)
+            }(i, phoneNumber);
           }
-
+          console.log('Twilio chron job set up');
         });
-  /*
-  var textJob = new cronJob( '* * * * *', function(){
-      client.sendMessage( { to:'2154701461', from:'2674604107',
-        body:'Hello! Hope you’re having a good day!' }, function( err, data ) {});
-      },  null, true);
-  */
-
 }
+
+
 function setUpEmailsJob(){
-  var emailjob = new cj('59 23 * * *', emails());
+  new cj('59 23 * * *', emails());
 }
 
 

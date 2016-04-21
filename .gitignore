@@ -35,10 +35,13 @@ npm-debug.log
 credentials*.json
 .DS_Store
 
+<<<<<<< HEAD
+=======
 #vim things
 *.swp
 
 #flickr things
+>>>>>>> master
 /data/*
 
 #The tar file for the Docker image

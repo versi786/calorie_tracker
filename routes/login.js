@@ -24,6 +24,7 @@ router.post('/', function(req, res, next){
     req.session.error = 'All fields must be filled in';
     res.redirect('/login');
   }
+
   db.query('select password from users where username = ?',
     [req.body.username.toLowerCase()], function(err, rows, fields){
       if (err) {
