@@ -17,7 +17,6 @@ var houndifyNode = require('houndify').HoundifyNode;
 //config file for houndify
 var configFile = argv.config || 'config';
 var config = require(__dirname + '/' + configFile);
-var Blob = require('blob');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
