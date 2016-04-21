@@ -60,6 +60,7 @@ router.post('/', function(req, res, next) {
   console.log(req.session.user);
   console.log('/search/?searchTerm=' + req.body.searchTerm);
   res.redirect('/search/?searchTerm=' + req.body.searchTerm);
+  console.log('redirected');
 });
 
 router.post('/submit', function(req, res, next) {

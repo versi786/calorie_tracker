@@ -53,7 +53,7 @@ router.get('/:username', function(req, res, next) {
               req.session.error = 'database error';
               console.log('exercise database error');
               res.redirect('/');
-            }else{
+            }else if(rows1[0]){
                     //calculate the number of calories remainging
                     var fat = (rows1[0].fat===null?0:rows1[0].fat);
 
