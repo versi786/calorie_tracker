@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   }
   else {
     res.render('calculator', {username: req.session.user, displayCalorieResults: false, displayGramResults: false,
-      displayGramPerLbResults: false, calories: '', carbs: '', protein :'', fat:''});
+      displayGramPerLbResults: false, calories: '', carbs: '', protein :'', fat:'', error:''});
   }
 });
 
