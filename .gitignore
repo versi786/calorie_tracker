@@ -40,3 +40,6 @@ credentials*.json
 
 #flickr things
 /data/*
+
+#The tar file for the Docker image
+calorieTracker.tar
