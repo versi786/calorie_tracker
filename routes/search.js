@@ -240,8 +240,4 @@ var Flickr = require('flickrapi'),
       secret: '21ad4ae275363532'
 };
 
-
-
-
-
 module.exports = router;
