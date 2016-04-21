@@ -33,16 +33,14 @@ node_modules
 npm-debug.log
 
 credentials*.json
-.DS_Store
+*DS_Store
 
-<<<<<<< HEAD
-=======
 #vim things
 *.swp
 
 #flickr things
->>>>>>> master
 /data/*
 
 #The tar file for the Docker image
 calorieTracker.tar
+
