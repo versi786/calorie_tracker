@@ -5,9 +5,8 @@
    <!--  Include bootstrap from CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!--  Custom Style sheets -->
-    <link rel='stylesheet' href='/stylesheets/globalStyle.css' />
-    <link rel='stylesheet' href='/stylesheets/userPage.css' />
     <link rel='stylesheet' href='/stylesheets/loginPage.css' />
+    <link rel='stylesheet' href='/stylesheets/users.css' />
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -16,6 +15,58 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
   <body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Food Tracker</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active">
+                <button type="button" id="new_food_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newEntry';">New Manual Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="new_search_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/search';">New Search Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="new_fav_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
+            </li>
+            <li>
+                <button type="button" id="new_exercise_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="calculator_button" class="btn btn-action navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+            </li>
+            <li class="active">
+                <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/edit">Edit</a></li>
+                <li><a href="/public/<%= username %>">Public View</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
     <div class="container">
     <div class="content">
       <div class="row">
