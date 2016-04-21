@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/edit.css' />
+</head>
+<body>
+    <div class="container">
+    <div class="content">
+      <div class="row">
+        <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
+          <div>
+            <h2 id ="header">Weight</h2>
+            <form action="/weight" method="post">
+              <fieldset>
+                <div class="form-group">
+                  <label for='weight'>Weight:</label>
+                  <input class = "form-control" id="weight" type="text" name="weight">
+                </div>                
+                <button class="btn primary" type="submit">Update</button>
+              </fieldset>
+            </form>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>

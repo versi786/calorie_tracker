@@ -40,6 +40,7 @@ router.post('/', function(req, res, next) {
     res.redirect('edit');
   }
 
+  
   //check to see if user exists
   db.query('SELECT username from users where username=?',[username.toLowerCase()],
     function(err, rows, fields){
