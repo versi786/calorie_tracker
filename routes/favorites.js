@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
-var SHA3 = require('crypto-js/sha3');
 var mysql = require('mysql');
 /* GET. */
 router.get('/', function(req, res, next) {
@@ -14,7 +13,7 @@ router.get('/', function(req, res, next) {
 	  var sql = 'SELECT * FROM favorites WHERE username = ?';
 	  var inserts = [req.session.user];
 	  sql = mysql.format(sql, inserts);
-	  console.log("getting favorites for " + req.session.user)
+	  console.log('getting favorites for ' + req.session.user);
 	  db.query(sql, function(err, rows, fields) {
 	    if(err) {
 	        req.session.error = 'database error';
@@ -25,7 +24,7 @@ router.get('/', function(req, res, next) {
 	    else {
 	    		res.render('favorites', {rows:rows});
 	    }
-	  })
+	  });
 	}
 });
 
@@ -106,7 +105,7 @@ router.post('/', function(req, res, next) {
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here adding new entry')
+            console.log('I got here adding new entry');
 
             var dayEntry = {};
             dayEntry.breakfast = [];

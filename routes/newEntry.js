@@ -12,10 +12,10 @@ router.get('/', function(req, res, next) {
       res.redirect('../');
     }else{
       res.render('newEntry',{username: req.session.user,
-                  error: req.session.error});
+        error: req.session.error});
       req.session.error = null;
     }
-});
+  });
 
 router.post('/', function(req, res, next) {
 
@@ -46,8 +46,8 @@ router.post('/', function(req, res, next) {
     req.body.meal_choice === '') {
 
     req.session.error = 'All fields must be filled in';
-    res.redirect('/users/' + req.session.user);
-  } else {
+  res.redirect('/users/' + req.session.user);
+} else {
         // Form completed correctly
         console.log('Server received valid form submission');
 
@@ -70,10 +70,10 @@ router.post('/', function(req, res, next) {
               var sql = 'INSERT INTO favorites \
                       (name, carbs, fat, protein, unit, serving, meal, username) \
                       VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT username from users WHERE username=?));';
-              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input, 
+              var inserts = [req.body.food_input, req.body.carbs_input, req.body.fat_input,
                 req.body.protein_input, req.body.quantity_measure, req.body.quantity_choose,
                 req.body.meal_choice.toLowerCase(), req.session.user];
-              console.log("MEAL CHOICE: " + req.body.meal_choice.toLowerCase())
+
               sql = mysql.format(sql, inserts);
               db.query(sql, function(err, rows, fields) {
                 console.log('Heard back from the sql server');
@@ -100,23 +100,31 @@ router.post('/', function(req, res, next) {
           content.food = req.body.food_input;
           content.quantity_meas = req.body.quantity_measure;
 
-          try
-          {
-            content.quantity = parseInt(req.body.quantity_choose);
-            content.fat = parseInt(req.body.fat_input);
-            content.protein = parseInt(req.body.protein_input);
-            content.carbs = parseInt(req.body.carbs_input);
-          } catch (e) {
-            req.session.error = 'numerical fields must be numbers';
-            res.redirect('/newEntry');
-            return;
-          }
-          console.log('new entry flag ' + newEntry_FLAG);
+          //TODO: figure out asynchronous shit FIXED
+
+          Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+            flickr.photos.search({text:content.food, sort:'relevance', group_id:'99392030@N00'},  function(error, results) {
+              var photo = results.photos.photo[0];
+              console.log('PHOTO', photo);
+              var url = '';
+              if(photo){
+                var url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+                content.url = url;
+              }
+              try
+              {
+                content.quantity = parseInt(req.body.quantity_choose);
+                content.fat = parseInt(req.body.fat_input);
+                content.protein = parseInt(req.body.protein_input);
+                content.carbs = parseInt(req.body.carbs_input);
+              } catch (e) {
+                req.session.error = 'numerical fields must be numbers';
+                res.redirect('/newEntry');
+                return;
+              }
+              console.log('new entry flag ' + newEntry_FLAG);
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
-
-            console.log('I got here adding new entry')
-
             var dayEntry = {};
             dayEntry.breakfast = [];
             dayEntry.lunch = [];
@@ -126,8 +134,8 @@ router.post('/', function(req, res, next) {
 
 
             var sql = 'INSERT INTO FOOD_ENTRIES \
-                    (Entry_Date, username, Entry_Content) \
-                    VALUES (?, (SELECT username from users WHERE username=?), ?);';
+            (Entry_Date, username, Entry_Content) \
+            VALUES (?, (SELECT username from users WHERE username=?), ?);';
 
             var inserts = [req.session.today, req.session.user, JSON.stringify(dayEntry)];
             sql = mysql.format(sql, inserts);
@@ -140,14 +148,13 @@ router.post('/', function(req, res, next) {
               }
               res.redirect('/users/' + req.session.user);
             });
-
           } else {
 
             var newContent = JSON.parse(oldEntry_object.Entry_Content);
             newContent[req.body.meal_choice.toLowerCase()].push(content);
 
             var updateSql = 'UPDATE FOOD_ENTRIES SET Entry_Content = ? \
-                    WHERE (Entry_Date = ?) AND (username = ?);';
+            WHERE (Entry_Date = ?) AND (username = ?);';
 
             var inserts = [JSON.stringify(newContent), req.session.today, req.session.user];
             updateSql = mysql.format(updateSql, inserts);
@@ -161,8 +168,15 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-        // NEW ENTRY
+      });
+    });      // NEW ENTRY
   }
 });
+
+var Flickr = require('flickrapi'),
+flickrOptions = {
+  api_key: '28f8fdc0e94256d11a035d8e95298cd8',
+  secret: '21ad4ae275363532'
+};
 
 module.exports = router;

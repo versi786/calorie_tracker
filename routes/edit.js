@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
-var SHA3 = require('crypto-js/sha3');
 /* GET login listing. */
 router.get('/', function(req, res, next) {
   console.log(req.session.user);
@@ -16,7 +15,7 @@ router.get('/', function(req, res, next) {
       if(err){
         console.log(err);
       }else{
-        var phoneNumber = (rows[0].phoneNumber) ? rows[0].phoneNumber : ''; 
+        var phoneNumber = (rows[0].phoneNumber) ? rows[0].phoneNumber : '';
         res.render('edit', {error: null, food: rows[0].food, goals: rows[0].goals,
          carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein,
          phoneNumber: phoneNumber});

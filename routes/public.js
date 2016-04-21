@@ -46,10 +46,10 @@ router.get('/:username', function(req, res, next) {
 
             var protein = (rows1[0].protein===null?0:rows1[0].protein);
             var entry = (rows.length===1) ? JSON.parse(rows[0].Entry_Content) : {
-                            "breakfast":[],
-                            "lunch":[],
-                            "dinner":[],
-                            "snack":[]
+                            'breakfast':[],
+                            'lunch':[],
+                            'dinner':[],
+                            'snack':[]
                           };
 
             res.render('public', {fat: fat,

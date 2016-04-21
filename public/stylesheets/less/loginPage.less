@@ -1,0 +1,46 @@
+@import "globalStyle.less";
+
+html, body {
+  background-color: @white;
+}
+// body {
+//   padding-top: 40px;
+// }
+.container {
+  width: 300px;
+}
+
+#login-form {
+  color: @heavy-dark-gray;
+  border: 1px solid @medium-gray;
+  border-radius: @base-border-radius;
+  background: @light-gray;
+  width: 300px;
+  margin: 0 auto;
+  transform: translateY(5px);
+  margin-bottom: 10px;
+}
+
+#header{
+  text-align: center;
+}
+
+fieldset {
+  padding-bottom: 10px;
+}
+
+a {
+  color: @heavy-dark-gray;
+
+  &:hover {
+    color: @base-complement;
+  }
+}
+
+// Button row
+.centered-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
