@@ -103,7 +103,7 @@ router.post('/', function(req, res, next) {
           //TODO: figure out asynchronous shit FIXED
 
           Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-            flickr.photos.search({text:content.food, sort:'relevance', group_id:"99392030@N00"},  function(error, results) {
+            flickr.photos.search({text:content.food, sort:'relevance', group_id:'99392030@N00'},  function(error, results) {
               var photo = results.photos.photo[0];
               console.log('PHOTO', photo);
               var url = '';
@@ -168,12 +168,10 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-          });
-
-        });
-        // NEW ENTRY
-      }
-    });
+      });
+    });      // NEW ENTRY
+  }
+});
 
 var Flickr = require('flickrapi'),
 flickrOptions = {
