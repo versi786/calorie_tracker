@@ -81,13 +81,8 @@ app.use('/search', search);
 app.use('/favorites', favorites);
 app.use('/newExerciseEntry', newExerciseEntry);
 app.use('/calculator', calculator);
-<<<<<<< HEAD
-app.use('/history', history);
-
-
-=======
 app.use('/history', hist);
->>>>>>> 6fda9550148a374f72636ec652a9a63e87d62486
+
 //authenticates requests
 app.get('/houndifyAuth', houndifyNode.createAuthenticationHandler({
   clientId:  config.clientId,
