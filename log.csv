@@ -1,0 +1,103 @@
+afde1ce,James,14 hours ago,fixed users.ejs for pics
+a14952e,James,14 hours ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+816ae53,emitch001,14 hours ago,merge bugs fixed
+ac91994,emitch001,14 hours ago,parsed output file
+d240207,emitch001,14 hours ago,Downloaded file parsed properly
+0ae9425,goodmattg,15 hours ago,weight page has correct navbar
+8e347bf,goodmattg,15 hours ago,lots of design issues resolved. Consistent navbar on all pages
+c8de6e7,goodmattg,15 hours ago,fixing views. Favorites issue resolved.
+5adf046,emitch001,16 hours ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+949b17f,emitch001,16 hours ago,graphing weight
+9bec1f1,Aasif Versi,16 hours ago,fixed calculator crash
+705b2b0,Aasif Versi,16 hours ago,removed blob
+c72960f,emitch001,16 hours ago,bug fixes
+ab3f55f,emitch001,18 hours ago,merged things
+b78b279,emitch001,18 hours ago,weights and output file are done
+12e4d32,James,20 hours ago,pics shown for every meal
+6fda955,Aasif Versi,21 hours ago,flickr works
+aa0ce72,James,21 hours ago,more fix
+e91b3c5,James,21 hours ago,fixed flickr query for search page
+8808c76,Aasif Versi,21 hours ago,fixed houdify
+af666f5,James,22 hours ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+9197291,James,22 hours ago,flickr things
+0bfd832,goodmattg,22 hours ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+ae55b5c,goodmattg,22 hours ago,changing more styles
+0f43eb9,James,22 hours ago,modified search
+c83f585,James,22 hours ago,added pics for entries from search
+9b820d1,goodmattg,2 days ago,Docker file created. Other misc edits
+91314b4,James,2 days ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+fe644c8,James,2 days ago,added flickr pics
+0d770d2,versi786,2 days ago,Merge pull request #8 from cis-upenn/flickr
+42dcb7f,Aasif Versi,2 days ago,fixed most gulp problems except the one I did not want to
+30dfdf8,Aasif Versi,2 days ago,merged from master to flickr
+6106d25,Aasif Versi,2 days ago,temp save after merging master
+45470a1,Aasif Versi,2 days ago,fixed bad indentation
+c58fab0,Aasif Versi,2 days ago,fixed the url bug
+0716d22,Aasif Versi,3 days ago,Merge branch 'master' of github.com:cis-upenn/10-Calorie-Tracker-App
+2a7cb40,Aasif Versi,3 days ago,removed reusing variable from jshintrc
+fff7d2d,goodmattg,3 days ago,cosmetic edits - purely layout not functional
+b09a897,James,3 days ago,attempted to do asynchronous stuff in newEntry.js
+47f60ec,James,3 days ago,Merge branch 'flickr' of https://github.com/cis-upenn/10-Calorie-Tracker-App into flickr
+3ac7067,James,3 days ago,attempted asyncrhonous call in newEntry.js
+cbbaecd,goodmattg,3 days ago,cosmetic changes to code - addressing linting multistr
+550b00f,goodmattg,3 days ago,correct mergefile
+b28721c,goodmattg,3 days ago,less directory craeted. Gulpfile looping on less save resolved
+b371880,Aasif Versi,3 days ago,fixed minor things and stopped gulp loop again
+af237ea,Aasif Versi,3 days ago,removed flickr things
+856f6c0,Aasif Versi,3 days ago,git ignore
+78add93,Aasif Versi,3 days ago,fixed gulp loop
+901da57,Aasif Versi,3 days ago,removed extra print statements at begining
+66d7309,goodmattg,3 days ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+65da9bd,goodmattg,3 days ago,updated gulp and began adding styles
+10e21af,Aasif Versi,4 days ago,removed flicker things from git
+ea3db70,Aasif Versi,4 days ago,api started
+d2b8db8,Aasif Versi,4 days ago,minor changes
+d75dd14,James,4 days ago,tried to use flickr API
+39051ec,Aasif Versi,4 days ago,Merge branch 'master' of github.com:cis-upenn/10-Calorie-Tracker-App
+153436c,Aasif Versi,4 days ago,updated git ignore
+ebb8f13,goodmattg,5 days ago,eslint rules should be ignored
+e06c452,goodmattg,5 days ago,updated gitignore
+69333b4,goodmattg,5 days ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+239f3e4,goodmattg,5 days ago,ignore lint rules
+4655ed2,Aasif Versi,5 days ago,Merge branch 'master' of github.com:cis-upenn/10-Calorie-Tracker-App
+ed67084,Aasif Versi,5 days ago,fixed port
+680d0f8,goodmattg,5 days ago,added linting
+84140dd,Aasif Versi,5 days ago,changed config file for local config
+95d330e,root,8 days ago,https now works on the server
+d8c3160,James,10 days ago,wrote some code to load Flcikr API
+04fcb87,Aasif Versi,12 days ago,got speach to text work
+aa1a0e6,James,2 weeks ago,Merge branch 'attempt-to-share'
+c3fa93c,James,2 weeks ago,aasif saved the day
+26aca2f,Aasif Versi,2 weeks ago,share to twitter
+0ccf5ec,James,2 weeks ago,updating
+0541dfa,James,2 weeks ago,trying to make button work
+da999de,Aasif Versi,2 weeks ago,phone number visible
+b022daa,James,2 weeks ago,added grams-per-lb-bodyweight calc
+a425389,James,2 weeks ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+ff9d706,James,2 weeks ago,added gram-to-calorie calc
+4a8eeaa,emitch001,2 weeks ago,Merge branch 'master' of https://github.com/cis-upenn/10-Calorie-Tracker-App
+403dd12,emitch001,2 weeks ago,added texting support
+c9b6998,goodmattg,2 weeks ago,Konami code added to user page with visualization
+6b30da5,Aasif Versi,3 weeks ago,can view history in graph form
+59dc3bc,Aasif Versi,4 weeks ago,can add favorites from search
+32211ca,Aasif Versi,4 weeks ago,fixed merge conflicts
+1c259ae,goodmattg,4 weeks ago,search validation done
+83c7d69,goodmattg,4 weeks ago,search validation done
+679a0d4,Aasif Versi,4 weeks ago,multiplication does what it is supposed to
+3e5cdb4,versi786,4 weeks ago,Merge pull request #7 from cis-upenn/aasif-datepicker
+ff14cef,Aasif Versi,4 weeks ago,added date picker
+5781d30,James,4 weeks ago,fixed rest of merge conflicts
+dad0aec,James,4 weeks ago,fixed merge conflict in app.js
+dda70f9,James,4 weeks ago,add food from favorites list
+4305815,Aasif Versi,4 weeks ago,changed some interface stuff
+33e98a4,Aasif Versi,4 weeks ago,changed view of facebook login button
+45fff8c,versi786,4 weeks ago,Merge pull request #6 from cis-upenn/enrique2
+3749e39,Aasif Versi,4 weeks ago,removed merge thing
+0257ec0,Aasif Versi,4 weeks ago,merged from master into local
+2944047,emitch001,4 weeks ago,Calculator one displays results and asks to update database
+e8f1ad1,goodmattg,4 weeks ago,signup has validation
+e740035,goodmattg,4 weeks ago,login has simple validation
+55936c7,goodmattg,4 weeks ago,validation on new entry form improved. Swapped to stored version of jQuery
+8209e69,emitch001,4 weeks ago,exercises displayed on users page and factored into calories left
+3ed8651,versi786,4 weeks ago,Merge pull request #5 from cis-upenn/matt
+264e71a,goodmattg,4 weeks ago,fixed fb login and user page

@@ -36,6 +36,8 @@ router.get('/', function(req, res, next) {
         'searchTerm': req.query.searchTerm,
         'searchResultsArr': null});
     }else{
+        console.log('Making request');
+        console.log(urlfront+req.query.searchTerm + urlend)
         //actually do the search in the databse and show the results
         request({
             url: urlfront + req.query.searchTerm + urlend,
@@ -48,6 +50,10 @@ router.get('/', function(req, res, next) {
             'searchTerm': req.query.searchTerm,
             'searchResultsArr': resultArr}
             );
+        }else{
+          req.session.error = 'nutritionix errror';
+          console.log('nutritionix error');
+          res.redirect('/');
         }
 
         });
