@@ -149,8 +149,7 @@
                 <td><%= entry.breakfast[i].protein %></td>
                 <% if (entry.breakfast[i].url) { %>
                   <td><img src=<%=entry.breakfast[i].url%> height="75" width="75"></td>
-                <% } %>
-                <% else { %>
+                <% } else { %>
                   <td></td>
                 <% } %>
               </tr>
@@ -179,10 +178,9 @@
                 <td><%= entry.lunch[i].carbs %></td>
                 <td><%= entry.lunch[i].fat %></td>
                 <td><%= entry.lunch[i].protein %></td>
-                <% if (entry.breakfast[i].url) { %>
-                  <td><img src=<%=entry.breakfast[i].url%> height="75" width="75"></td>
-                <% } %>
-                <% else { %>
+                <% if (entry.lunch[i].url) { %>
+                  <td><img src=<%=entry.lunch[i].url%> height="75" width="75"></td>
+                <% } else { %>
                   <td></td>
                 <% } %>
               </tr>
@@ -211,11 +209,11 @@
                 <td><%= entry.dinner[i].carbs %></td>
                 <td><%= entry.dinner[i].fat %></td>
                 <td><%= entry.dinner[i].protein %></td>
-                <% if (entry.breakfast[i].url) { %>
-                  <td><img src=<%=entry.breakfast[i].url%> height="75" width="75"></td>
-                <% } %>
-                <% else { %>
+                <% if (entry.dinner[i].url) { %>
+                  <td><img src=<%=entry.dinner[i].url%> height="75" width="75"></td>
+                <% } else { %>
                   <td></td>
+                <% } %>
               </tr>
             <% } %>
           </table>
@@ -242,11 +240,11 @@
                 <td><%= entry.snack[i].carbs %></td>
                 <td><%= entry.snack[i].fat %></td>
                 <td><%= entry.snack[i].protein %></td>
-                <% if (entry.breakfast[i].url) { %>
-                  <td><img src=<%=entry.breakfast[i].url%> height="75" width="75"></td>
-                <% } %>
-                <% else { %>
+                <% if (entry.snack[i].url) { %>
+                  <td><img src=<%=entry.snack[i].url%> height="75" width="75"></td>
+                <% } else { %>
                   <td></td>
+                <% } %>
               </tr>
             <% } %>
           </table>
