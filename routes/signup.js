@@ -36,10 +36,10 @@ router.post('/fblogin', function (req, res) {
         function(err, rows, fields){
           if (err) {
             req.session.error = 'database error';
+            console.log(err);
             res.send({redirect: '/signup'});
           } else {
             req.session.user = req.body.username;
-            console.log(err);
             res.send({redirect: '/'});
           }
         });
