@@ -18,9 +18,9 @@
   </head>
   <body>
 
-<!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container-fluid" id="header-container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -53,6 +53,15 @@
             <li class="active">
                 <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
             </li>
+            <li class="active">
+                <button type="button" id="weight_button" class="btn btn-primary navbar-btn" onclick="location.href='/weight';">Weight</button>
+            </li>
+            <li class="active">
+              <form action="/users" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Download History</button>
+            </form>
+
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -68,7 +77,6 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-
     <div class="container">
     <div class="content">
 

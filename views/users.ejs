@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Food Tracker</a>
+          <a class="navbar-brand" href="/">Food Tracker</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,6 +55,15 @@
             </li>
             <li class="active">
                 <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
+            </li>
+            <li class="active">
+                <button type="button" id="weight_button" class="btn btn-primary navbar-btn" onclick="location.href='/weight';">Weight</button>
+            </li>
+            <li class="active">
+              <form action="/users" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Download History</button>
+            </form>
+
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -86,7 +95,7 @@
         </div>
       </div>
 
-  <script src='/javascripts/resolveLoginCredentialsFacebook.js'></script> 
+  <script src='/javascripts/resolveLoginCredentialsFacebook.js'></script>
 
   </div>
       <div class="row">

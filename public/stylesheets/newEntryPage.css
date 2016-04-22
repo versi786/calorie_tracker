@@ -50,6 +50,12 @@
   font-weight: bold;
 }
 #header-container a {
+  color: #1A1A1A;
+}
+#header-container .dropdown-toggle {
+  color: #ffffff;
+}
+#header-container .navbar-brand {
   color: #ffffff;
 }
 #header-container .btn-action {
@@ -91,6 +97,9 @@ a:hover {
   justify-content: center;
 }
 #login-form {
+  width: 350px;
+}
+#edit-form {
   width: 350px;
 }
 .centered-items {

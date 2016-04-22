@@ -17,7 +17,6 @@ var houndifyNode = require('houndify').HoundifyNode;
 //config file for houndify
 var configFile = argv.config || 'config';
 var config = require(__dirname + '/' + configFile);
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
@@ -33,6 +32,7 @@ var calculator = require('./routes/calculator');
 var search = require('./routes/search');
 require('./database/database');
 var favorites = require('./routes/favorites');
+var weight = require('./routes/weight');
 var hist = require('./routes/history');
 // var mysql = require('mysql');
 
@@ -75,11 +75,13 @@ app.use('/edit', editGoalsRouter);
 app.use('/public', pub);
 app.use('/newEntry', newEntryRouter);
 app.use('/logout', logout);
+app.use('/weight', weight);
 app.use('/search', search);
 app.use('/favorites', favorites);
 app.use('/newExerciseEntry', newExerciseEntry);
 app.use('/calculator', calculator);
 app.use('/history', hist);
+
 //authenticates requests
 app.get('/houndifyAuth', houndifyNode.createAuthenticationHandler({
   clientId:  config.clientId,

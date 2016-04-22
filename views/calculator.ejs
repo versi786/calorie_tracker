@@ -1,16 +1,21 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+  <link rel='stylesheet' href='/stylesheets/newEntryPage.css' />
   <link rel='stylesheet' href='/stylesheets/users.css' />
-  <link rel='stylesheet' href='/stylesheets/loginPage.css' />
-
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <!-- Include bootstrap JS from CDN-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
+
 <body>
-  <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container-fluid" id="header-container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -43,6 +48,15 @@
             <li class="active">
                 <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
             </li>
+            <li class="active">
+                <button type="button" id="weight_button" class="btn btn-primary navbar-btn" onclick="location.href='/weight';">Weight</button>
+            </li>
+            <li class="active">
+              <form action="/users" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Download History</button>
+            </form>
+
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -59,7 +73,7 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
+  <div class="form-container">
     <div class="content">
       <div class="row">
         <div id="edit-form" class='col-sm-offset-4 col-sm-4'>

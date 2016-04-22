@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Login</title>
-   <!--  Include bootstrap from CDN-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <!--  Custom Style sheets -->
-    <link rel='stylesheet' href='/stylesheets/loginPage.css' />
-    <link rel='stylesheet' href='/stylesheets/users.css' />
+ <head>
+    <title>User Page</title>
+        <!--  Include bootstrap from file-->
+        <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+        <!-- JQuery -->
+        <script src="/javascripts/jquery-1.12.2.min.js"></script>
+        <!-- Include bootstrap JS from CDN-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- plotting lib -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-    <!-- Include bootstrap JS from CDN-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="/stylesheets/datepicker.css">
+        <link rel="stylesheet" href="/stylesheets/users.css">
+        <link rel="stylesheet" href="/stylesheets/globalStyle.css">
+
+        <script src="/javascripts/bootstrap-datepicker.js"></script>
+        <script src="/javascripts/weight.js"></script>
+
   </head>
+
   <body>
 
-        <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
       <div class="container-fluid" id="header-container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -75,70 +85,49 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+    <!-- Show "analytics" - currently just remaining goals -->
 
+
+<body>
     <div class="container">
     <div class="content">
       <div class="row">
-        <div id="login-form" class='col-sm-offset-4 col-sm-4'>
+        <div id="edit-form" class='col-sm-offset-4 col-sm-4'>
           <div>
-            <h2 id ="header">New Exercise Entry</h2>
-            <%if (error) { %>
-            <font color="red"><%= error %></font><p>
-            <% } %>
-            <form action='/newExerciseEntry' method='post' id='foodEntryFORM'>
-            <!-- Food entry -->
-            <fieldset>
-            <div class="form-group">
-                <label for="food_input" class="form-control-label">Exercise</label>
-                <div>
-                    <input type="text" class="form-control" id="exercise_input" placeholder="Activity" name="exercise_input">
+            <h2 id ="header">Weight</h2>
+            <form action="/weight" method="post">
+              <fieldset>
+                <div class="form-group">
+                  <label for='weight'>Weight:</label>
+                  <input class = "form-control" id="weight" type="text" name="weight" value= <%= lastWeight %>>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="quantity_measure" class="form-control-label">Time</label>
-                <div>
-                    <select class="form-control" id="quantity_measure" name="quantity_measure">
-                        <option>Minutes</option>
-                        <option>Hours</option>
-                        <option>Miles</option>
-                        <option>Kilometers</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="quantity_input" class="form-control-label">Quantity</label>
-                <div>
-                    <input type="text" class="form-control" id="quantity_input" placeholder="Amount" name="quantity_input">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="fat_input" class="form-control-label">Fat per unit</label>
-                <div>
-                    <input type="text" class="form-control" id="fat_input" placeholder="Fat" name="fat_input">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="protein_input" class="form-control-label">Protein per unit</label>
-                <div>
-                    <input type="text" class="form-control" id="protein_input" placeholder="Protein" name="protein_input">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="carbs_input" class="form-control-label">Carbs per unit</label>
-                <div>
-                    <input type="text" class="form-control" id="carbs_input" placeholder="Carbs" name="carbs_input">
-                </div>
-            </div>
-            <div class="form-group centered-row">
-                <button id="completed_food_entry" class="btn btn-submit" type="submit">Complete</button>
-            </div>
-            </fieldset>
-        </form>
+                <button class="btn primary" type="submit">Update</button>
+              </fieldset>
+            </form>
             <p></p>
           </div>
         </div>
       </div>
+
+
+      <div class = "row">
+        <div class="col-sm-10 col-sm-offset-1">
+          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+      </div>
+    </div> <!-- container fluid -->
+<pre id="csv" style="display:none">
+
+Date, Weight
+<% for (var i = 0; i < date_arr.length; i++){ %>
+<%= date_arr[i] %>,<%= weight_arr[i] %>
+<% } %>
+</pre>
+    <script src="../javascripts/userVis.js"></script>
+    <!-- <script src="../javascripts/userVis.js"></script> -->
+
+
     </div>
   </div>
-  </body>
+</body>
 </html>
