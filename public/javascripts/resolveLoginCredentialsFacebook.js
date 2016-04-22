@@ -54,7 +54,7 @@ function share() {
     }
   });
 }
- de
+
 
  // Facebook required boilerplate - minified
 (function(d, s, id) {
