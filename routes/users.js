@@ -155,7 +155,7 @@ router.post('/date', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log("method is called");
+  console.log('method is called');
   var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (username = ?);';
       var inserts = [req.session.user];
       dailyExist = mysql.format(dailyExist, inserts);
@@ -166,56 +166,56 @@ router.post('/', function(req, res, next) {
           console.log('food entry database error');
           res.redirect('/');
         }else{
-          var text = "";
+          var text = '';
 
           for(var i = 0; i < rows.length; i++){
-            text += "Date " + rows[i].Entry_Date + "\n\n";
-            var entry = (rows[i].length != 0) ? JSON.parse(rows[i].Entry_Content) : {
+            text += 'Date ' + rows[i].Entry_Date + '\n\n';
+            var entry = (rows[i].length !== 0) ? JSON.parse(rows[i].Entry_Content) : {
                       'breakfast':[],
                       'lunch':[],
                       'dinner':[],
                       'snack':[],
                     };
-            text += "\t Breakfast \n";
+            text += '\t Breakfast \n';
             for (var j = 0; j < entry.breakfast.length; j++) {
-              text += "\t\t *" + JSON.stringify(entry.breakfast[j].quantity) + " ";
-              text += JSON.stringify(entry.breakfast[j].quantity_meas) + " ";
-              text += "of " + JSON.stringify(entry.breakfast[j].food) + " " + "\n";
+              text += '\t\t *' + JSON.stringify(entry.breakfast[j].quantity) + ' ';
+              text += JSON.stringify(entry.breakfast[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' ' + '\n';
             }
-            text += "\n";
+            text += '\n';
 
-            text += "\t Lunch \n";
+            text += '\t Lunch \n';
             for (var j = 0; j < entry.lunch.length; j++) {
-              text += "\t\t *" + JSON.stringify(entry.lunch[j].quantity) + " ";
-              text += JSON.stringify(entry.lunch[j].quantity_meas) + " ";
-              text += "of " + JSON.stringify(entry.lunch[j].food) + " " + "\n";
+              text += '\t\t *' + JSON.stringify(entry.lunch[j].quantity) + ' ';
+              text += JSON.stringify(entry.lunch[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' ' + '\n';
             }
-            text += "\n";
+            text += '\n';
 
-            text += "\t Dinner \n";
+            text += '\t Dinner \n';
             for (var j = 0; j < entry.dinner.length; j++) {
-              text += "\t\t *" + JSON.stringify(entry.dinner[j].quantity) + " ";
-              text += JSON.stringify(entry.dinner[j].quantity_meas) + " ";
-              text += "of " + JSON.stringify(entry.dinner[j].food) + " " + "\n";
+              text += '\t\t *' + JSON.stringify(entry.dinner[j].quantity) + ' ';
+              text += JSON.stringify(entry.dinner[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' ' + '\n';
             }
-            text += "\n";
+            text += '\n';
 
-            text += "\t Snack \n";
+            text += '\t Snack \n';
             for (var j = 0; j < entry.snack.length; j++) {
-              text += "\t\t *" +JSON.stringify(entry.snack[j].quantity) + " ";
-              text += JSON.stringify(entry.snack[j].quantity_meas) + " ";
-              text += "of " + JSON.stringify(entry.snack[j].food) + " " + "\n";
+              text += '\t\t *' +JSON.stringify(entry.snack[j].quantity) + ' ';
+              text += JSON.stringify(entry.snack[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.snack[j].food) + ' ' + '\n';
             }
-            text += "\n";
+            text += '\n';
           }
 
-          text = text.replace(/['"]+/g, '');
+          text = text.replace(/['']+/g, '');
           
           fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
             if (err) {
               return console.error(err);
             }
-            console.log("File opened successfully!");     
+            console.log('File opened successfully!');     
           });
 
           fs.writeFileSync(__dirname + '/history.txt', text);

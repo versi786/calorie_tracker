@@ -2,8 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
-var SHA3 = require('crypto-js/sha3');
-var mysql = require('mysql')
+var mysql = require('mysql');
 
 
 /* GET login listing. */
@@ -13,40 +12,40 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   else {
+    var dailyExist = 'SELECT * FROM weight WHERE (username = ?);';
+    var inserts = [req.session.user];
+    dailyExist = mysql.format(dailyExist, inserts);
+    console.log(dailyExist);
+     db.query(dailyExist, function(err, rows, fields) {
+        if(err){
+          req.session.error = 'database error';
+          console.log('food entry database error');
+          console.log(err);
+          res.redirect('/');
+        }else{
+          //console.log(rows);
+          var weight_arr = [];
+          var date_arr = [];
+          for(var j = 0; j < rows.length; j++){
+            var weight = parseInt(rows[j].userWeight);
+            console.log(weight);
+            weight_arr.push(weight);
+            var date = rows[j].Entry_Date.split('-');
+            date_arr.push(new Date(date[2], date[0]-1, date[1]));
+          }
+          console.log(weight_arr);
+          console.log(date_arr);
 
-
-
-
-
-
-
-
-    
-    res.render('weight', {error: null});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          var lastWeight = rows.length === 0 ? '0' : rows[rows.length - 1].userWeight;
+          res.render('weight',{username: req.session.user, weight_arr:weight_arr,
+           date_arr:date_arr, lastWeight: lastWeight});
+        }
+      });
   }
 });
 
 router.post('/', function(req, res, next) {
 
-  console.log(req.body);
-  var weight = req.body.weight;
-  console.log(weight);
   // Always confirm request is part of a session.
   if (!req.session.user) {
     res.redirect('../');
@@ -90,7 +89,7 @@ router.post('/', function(req, res, next) {
 
           try {
             console.log(req.body.weight);
-            var newWeight = parseInt(weight);
+            var newWeight = parseInt(req.body.weight);
           } catch (e) {
             req.session.error = 'numerical fields must be numbers';
             res.redirect('/weight');
@@ -100,7 +99,7 @@ router.post('/', function(req, res, next) {
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
 
-            console.log('I got here adding new entry')
+            console.log('I got here adding new entry');
 
             var sql = 'INSERT INTO weight \
             (Entry_Date, username, userWeight) \
