@@ -99,6 +99,9 @@ a:hover {
 #login-form {
   width: 350px;
 }
+#edit-form {
+  width: 350px;
+}
 .centered-items {
   display: flex;
   flex-direction: row;
