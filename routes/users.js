@@ -176,40 +176,85 @@ router.post('/', function(req, res, next) {
                       'dinner':[],
                       'snack':[],
                     };
-            text += '\t Breakfast \n';
+            text += ' Breakfast \n';
+          
+            if (entry.breakfast.length === 0) {
+                text += ' No breakfast recorded \n';
+            }
             for (var j = 0; j < entry.breakfast.length; j++) {
-              text += '\t\t *' + JSON.stringify(entry.breakfast[j].quantity) + ' ';
+              var quant = parseInt(entry.breakfast[j].quantity);
+              var fat = parseInt(entry.breakfast[j].fat);
+              var carbs = parseInt(entry.breakfast[j].carbs);
+              var protein = parseInt(entry.breakfast[j].protein);
+              
+              text += ' *' + JSON.stringify(entry.breakfast[j].quantity) + ' ';
               text += JSON.stringify(entry.breakfast[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' ' + '\n';
+              text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' ';
+              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
+              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
             text += '\n';
 
-            text += '\t Lunch \n';
+            text += ' Lunch \n';
+            if (entry.lunch.length === 0) {
+                text += ' No lunch recorded \n';
+            }
             for (var j = 0; j < entry.lunch.length; j++) {
-              text += '\t\t *' + JSON.stringify(entry.lunch[j].quantity) + ' ';
+              var quant = parseInt(entry.lunch[j].quantity);
+              var fat = parseInt(entry.lunch[j].fat);
+              var carbs = parseInt(entry.lunch[j].carbs);
+              var protein = parseInt(entry.lunch[j].protein);
+              
+              text += ' *' + JSON.stringify(entry.lunch[j].quantity) + ' ';
               text += JSON.stringify(entry.lunch[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' ' + '\n';
+              text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' ';
+              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
+              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
             text += '\n';
 
-            text += '\t Dinner \n';
+            text += ' Dinner \n';
+            if (entry.dinner.length === 0) {
+                text += ' No dinner recorded \n';
+            }
             for (var j = 0; j < entry.dinner.length; j++) {
-              text += '\t\t *' + JSON.stringify(entry.dinner[j].quantity) + ' ';
+              var quant = parseInt(entry.dinner[j].quantity);
+              var fat = parseInt(entry.dinner[j].fat);
+              var carbs = parseInt(entry.dinner[j].carbs);
+              var protein = parseInt(entry.dinner[j].protein);
+              
+              text += ' *' + JSON.stringify(entry.dinner[j].quantity) + ' ';
               text += JSON.stringify(entry.dinner[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' ' + '\n';
+              text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' ';
+              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
+              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
             text += '\n';
 
-            text += '\t Snack \n';
+            text += ' Snack \n';
+            if (entry.snack.length === 0) {
+                text += ' No snack recorded \n';
+            }
             for (var j = 0; j < entry.snack.length; j++) {
-              text += '\t\t *' +JSON.stringify(entry.snack[j].quantity) + ' ';
+              var quant = parseInt(entry.snack[j].quantity);
+              var fat = parseInt(entry.snack[j].fat);
+              var carbs = parseInt(entry.snack[j].carbs);
+              var protein = parseInt(entry.snack[j].protein);
+              
+              text += ' *' + JSON.stringify(entry.snack[j].quantity) + ' ';
               text += JSON.stringify(entry.snack[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.snack[j].food) + ' ' + '\n';
+              text += 'of ' + JSON.stringify(entry.snack[j].food) + ' ';
+              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
+              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
             text += '\n';
           }
 
-          text = text.replace(/['']+/g, '');
+          text = text.replace(/['"]+/g, '');
           
           fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
             if (err) {
@@ -223,7 +268,6 @@ router.post('/', function(req, res, next) {
           var file = __dirname + '/history.txt';
           res.download(file);
           
-          console.log(text);
         }
       });
 
