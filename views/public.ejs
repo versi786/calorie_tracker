@@ -12,9 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container-fluid" id="header-container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -30,6 +30,31 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
+                <button type="button" id="new_food_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newEntry';">New Manual Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="new_search_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/search';">New Search Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="new_fav_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/favorites';">New Entry From Favorites</button>
+            </li>
+            <li>
+                <button type="button" id="new_exercise_entry_button" class="btn btn-action navbar-btn" onclick="location.href='/newExerciseEntry';">New Exercise Entry</button>
+            </li>
+            <li class="active">
+                <button type="button" id="calculator_button" class="btn btn-action navbar-btn" onclick="location.href='/calculator';">Calorie Calculator</button>
+            </li>
+            <li class="active">
+                <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
+            </li>
+            <li class="active">
+                <button type="button" id="weight_button" class="btn btn-primary navbar-btn" onclick="location.href='/weight';">Weight</button>
+            </li>
+            <li class="active">
+              <form action="/users" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Download History</button>
+            </form>
+
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">

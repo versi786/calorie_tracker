@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
         var phoneNumber = (rows[0].phoneNumber) ? rows[0].phoneNumber : '';
         res.render('edit', {error: null, food: rows[0].food, goals: rows[0].goals,
          carbs: rows[0].carbs, fat: rows[0].fat, protein: rows[0].protein,
-         phoneNumber: phoneNumber});
+         phoneNumber: phoneNumber, username: req.session.user});
       }
     });
   }
@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
     res.redirect('edit');
   }
 
-  
+
   //check to see if user exists
   db.query('SELECT username from users where username=?',[username.toLowerCase()],
     function(err, rows, fields){

@@ -254,20 +254,30 @@ router.post('/', function(req, res, next) {
             text += '\n';
           }
 
+<<<<<<< HEAD
           text = text.replace(/['"]+/g, '');
           
+=======
+          text = text.replace(/['']+/g, '');
+
+>>>>>>> 0ae9425178506ec82f61aa6e4eecaddd2e53964a
           fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
             if (err) {
               return console.error(err);
             }
-            console.log('File opened successfully!');     
+            console.log('File opened successfully!');
           });
 
           fs.writeFileSync(__dirname + '/history.txt', text);
-    
+
           var file = __dirname + '/history.txt';
           res.download(file);
+<<<<<<< HEAD
           
+=======
+
+          console.log(text);
+>>>>>>> 0ae9425178506ec82f61aa6e4eecaddd2e53964a
         }
       });
 
