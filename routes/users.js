@@ -210,19 +210,19 @@ router.post('/', function(req, res, next) {
           }
 
           text = text.replace(/['']+/g, '');
-          
+
           fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
             if (err) {
               return console.error(err);
             }
-            console.log('File opened successfully!');     
+            console.log('File opened successfully!');
           });
 
           fs.writeFileSync(__dirname + '/history.txt', text);
-    
+
           var file = __dirname + '/history.txt';
           res.download(file);
-          
+
           console.log(text);
         }
       });

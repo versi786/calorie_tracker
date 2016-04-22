@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 	        return;
 	    }
 	    else {
-	    		res.render('favorites', {rows:rows});
+	    		res.render('favorites', {username: req.session.user, rows:rows});
 	    }
 	  });
 	}

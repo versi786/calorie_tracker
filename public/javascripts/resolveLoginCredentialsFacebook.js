@@ -25,7 +25,7 @@ function storeCredentials() {
 
   FB.api('/me', {fields: 'last_name, first_name, id'}, function (response) {
     $.ajax({
-      url: 'http://localhost:3000/signup/fblogin',
+      url: 'http://tracker.aasifversi.com/signup/fblogin',
       method: 'POST',
       contentType: 'application/json',
       cache: false,
@@ -54,7 +54,7 @@ function share() {
     }
   });
 }
-
+ de
 
  // Facebook required boilerplate - minified
 (function(d, s, id) {

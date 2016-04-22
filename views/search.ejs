@@ -9,21 +9,22 @@
         <!-- Include bootstrap JS from CDN-->
         <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css"></link>
         <link rel="stylesheet" href="/stylesheets/semantic.min.css">
-        <link rel="stylesheet" href="/stylesheets/users.css">
         <link rel="stylesheet" href="/stylesheets/globalStyle.css">
+        <link rel="stylesheet" href="/stylesheets/users.css">
+
         <script src="/javascripts/houndify-web-sdk.min.js"></script>
   </head>
 
   <body>
 
-    <div class="alert alert-success alert-dismissable" id="meal_logged">
+<!--     <div class="alert alert-success alert-dismissable" id="meal_logged">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Great job! Keep logging your meals.
-    </div>
+    </div> -->
 
-<!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container-fluid" id="header-container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -55,6 +56,15 @@
             </li>
             <li class="active">
                 <button type="button" id="history_button" class="btn btn-action navbar-btn" onclick="location.href='/history';">History</button>
+            </li>
+            <li class="active">
+                <button type="button" id="weight_button" class="btn btn-primary navbar-btn" onclick="location.href='/weight';">Weight</button>
+            </li>
+            <li class="active">
+              <form action="/users" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Download History</button>
+            </form>
+
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -192,8 +202,8 @@
 
     </div> <!-- container fluid -->
 
-    <script src="../javascripts/userVis.js"></script>
-    <script>
+<!--     <script src="../javascripts/userVis.js"></script>
+ -->    <script>
 
       //HTML ELEMENTS FOR DISPLAYING RESPONSE AND INFO JSON's
       var jsonElet = document.getElementById("responseJSON");
