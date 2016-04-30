@@ -1,3 +1,5 @@
+// Script to provide useful feedback upon form validation.
+
 'use strict';
 
 $(document).ready(function () {

@@ -12,6 +12,7 @@ var conf = {
   databse  : 'cis350_database'
 };
 
+// Establish persistent connection to mySQL database
 var connection = mysql.createConnection(conf);
 connection.connect(function(err){
     if (err){
@@ -37,58 +38,55 @@ function emails(){
   client = twilio('AC4b693216486edfad0ee1c1a63afcb418', 'e7b0e6695decd126b2bae81facf11d16'),
   cronJob = require('cron').CronJob;
 
+    var date = new Date();
+    var dd = date.getDate();
+    var mm = date.getMonth()+1; //January is 0!
+    var yyyy = date.getFullYear();
+    if(dd < 10) {
+      dd = '0' + dd;
+    }
 
-        var date = new Date();
-        var dd = date.getDate();
-        var mm = date.getMonth()+1; //January is 0!
-        var yyyy = date.getFullYear();
-        if(dd < 10) {
-          dd = '0' + dd;
-        }
+    if(mm < 10) {
+      mm = '0' + mm;
+    }
+    date = mm+'-'+dd+'-'+yyyy;
+    var goalsql = 'SELECT username, phoneNumber FROM users';
+    db.query(goalsql, function(err, rows, fields) {
+      if(err){
+        console.log(err);
+      }
+      var phoneNumber;
+      var newEntry_FLAG;
+      for(var i = 0; i < rows.length; i++) {
 
-        if(mm < 10) {
-          mm = '0' + mm;
-        }
-        date = mm+'-'+dd+'-'+yyyy;
-        var goalsql = 'SELECT username, phoneNumber FROM users';
-        db.query(goalsql, function(err, rows, fields) {
-          if(err){
-            console.log(err);
-          }
-          var phoneNumber;
-          var newEntry_FLAG;
-          for(var i = 0; i < rows.length; i++) {
-
-            phoneNumber = rows[i].phoneNumber;
-            var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
-            var inserts = [date, rows[i].username];
-            dailyExist = mysql.format(dailyExist, inserts);
-            !function outer(i, phoneNumber){
-                db.query(dailyExist, function inner(err, rows1, fields) {
-                  if (err) {
-                    console.log('food entry database error');
-                  } else {
-                      newEntry_FLAG = (rows1.length === 0 ? true : false);
-                      if (newEntry_FLAG) {
-                        new cronJob( '10 19 * * *', function(){
-                          client.sendMessage( { to:phoneNumber, from:'2674604107',
-                          body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
-                          },  null, true);
-                      }
+        phoneNumber = rows[i].phoneNumber;
+        var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
+        var inserts = [date, rows[i].username];
+        dailyExist = mysql.format(dailyExist, inserts);
+        !function outer(i, phoneNumber){
+            db.query(dailyExist, function inner(err, rows1, fields) {
+              if (err) {
+                console.log('food entry database error');
+              } else {
+                  newEntry_FLAG = (rows1.length === 0 ? true : false);
+                  if (newEntry_FLAG) {
+                    new cronJob( '10 19 * * *', function(){
+                      client.sendMessage( { to:phoneNumber, from:'2674604107',
+                      body:'You have not logged your food today! Please log your food!'}, function( err, data ) {});
+                      },  null, true);
                   }
-                });
-            }(i, phoneNumber);
-          }
-          console.log('Twilio chron job set up');
-        });
+              }
+            });
+        }(i, phoneNumber);
+      }
+      console.log('Twilio chron job set up');
+    });
 }
 
 
 function setUpEmailsJob(){
   new cj('59 23 * * *', emails());
 }
-
-
 
 module.exports = connection;
 

@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+Javascript used to login and signup users with Facebook.
+*/
 
 $(function() {
   $( "#facebook_share_button" ).click(function() {
@@ -9,7 +12,10 @@ $(function() {
 });
 
 
-
+/*
+Boilerplate to connect facebook login button on site to the corresponding
+facebook app.
+*/
 
 window.fbAsyncInit = function() {
   FB.init({
@@ -20,6 +26,11 @@ window.fbAsyncInit = function() {
     version    : 'v2.5' // use graph api version 2.5
   });
 };
+
+/*
+Callback that stores the users credentials in our server so that facebook
+login persists across sessions.
+*/
 
 function storeCredentials() {
 
@@ -55,8 +66,7 @@ function share() {
   });
 }
 
-
- // Facebook required boilerplate - minified
+ // Facebook required boilerplate to render button on page - minified
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;

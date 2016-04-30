@@ -1,3 +1,8 @@
+/*
+Various pieces of code to improve user experience on main user page.
+Includes Konami code and date picker.
+*/
+
 // Date picker
 $(function() {
   $('#datepicker').datepicker({
