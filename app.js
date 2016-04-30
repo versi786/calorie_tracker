@@ -51,6 +51,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Establish session middleware for the site
 app.use(session({
   genid: function(req) {
     return uuid.v1();

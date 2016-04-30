@@ -2,15 +2,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* Route handles user login. */
 router.get('/', function(req, res, next) {
-  //if(req.session.user) req.session.user.password = null;
   console.log(req.session.user);
+  // Can only visit user page if logged in. Redirect to login.
   if (!req.session.user) {
     res.redirect('/login');
   } else {
     //render homepage for user
-    //res.render('index', { title: 'Express', username: req.session.user });
   	res.redirect('/users/'+req.session.user);
   }
 });

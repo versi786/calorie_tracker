@@ -6,6 +6,7 @@ var db = require('../database/database');
 var SHA3 = require('crypto-js/sha3');
 /* GET login listing. */
 
+// Handles AJAX requests from the facebook login button.
 router.post('/fblogin', function (req, res) {
   console.log('Facebook login was reflected in server');
   console.log(req.body.username);
@@ -54,10 +55,7 @@ router.post('/fblogin', function (req, res) {
 
 
 
-
-
-
-
+// If user logged in redirect to user page. Else render signup page.
 router.get('/', function(req, res, next) {
   if (req.session.error) {
     res.render('signup', {error: req.session.error});
@@ -70,12 +68,11 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-
-
+// Handles attempts to fill in the signup form.
 router.post('/', function(req, res, next){
   console.log(req.body);
   console.log(req.session.error);
+  // All fields must be filled in
   if(req.body.username === '' ||
     req.body.password === '' ||
     req.body.c_password === '' ||
