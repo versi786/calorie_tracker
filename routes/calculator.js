@@ -41,9 +41,95 @@ router.post('/', function(req, res, next) {
   console.log(req.body);
   // if calories form was submitted
   if (req.body.calories !== undefined &&
-    req.body.carbsPercent !== undefined &&
-    req.body.fatPercent !== undefined &&
-    req.body.proteinPercent !== undefined) {
+      req.body.carbsPercent !== undefined &&
+      req.body.fatPercent !== undefined &&
+      req.body.proteinPercent !== undefined) {
+    caloriesform(req, res);
+  }
+  // if grams form was submitted
+  else if (req.body.carbsGrams !== undefined &&
+        req.body.fatGrams !== undefined &&
+        req.body.proteinGrams !== undefined) {
+    gramsform(req, res);
+  }
+  // if grams per lb form was submitted
+  else if (req.body.bodyweight !== undefined &&
+      req.body.carbsGramsPerLb !== undefined &&
+      req.body.fatGramsPerLb !== undefined &&
+      req.body.proteinGramsPerLb !== undefined) {
+    gramsperlbform(req, res);
+  }
+});
+
+function gramsperlbform(req, res) {
+    var username = req.session.user;
+    // if any non numbers were entered display error
+    if (!isNumber(req.body.bodyweight) ||
+        !isNumber(req.body.carbsGramsPerLb) ||
+        !isNumber(req.body.proteinGramsPerLb) ||
+        !isNumber(req.body.fatGramsPerLb)) {
+      req.session.error = 'Grams per lb must be non-negative numbers';
+      console.log('Grams per lb must be non-negative numbers');
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: false,
+          displayGramPerLbResults: false,
+          error:req.session.error});
+    }
+    // otherwise display calculations
+    else {
+      var bw = JSON.stringify(parseFloat(req.body.bodyweight));
+      var carbs = JSON.stringify((parseFloat(req.body.carbsGramsPerLb)) * bw );
+      var protein = JSON.stringify((parseFloat(req.body.proteinGramsPerLb)) * bw);
+      var fat = JSON.stringify((parseFloat(req.body.fatGramsPerLb)) * bw);
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: false,
+          displayGramPerLbResults: true,
+          carbs: carbs,
+          protein: protein,
+          fat: fat,
+          error:null});
+    }
+  }
+
+
+function gramsform(req, res) {
+    var username = req.session.user;
+    // if any non numbers were entered
+    if (!isNormalInteger(req.body.carbsGrams) ||
+        !isNormalInteger(req.body.proteinGrams) ||
+        !isNormalInteger(req.body.fatGrams)) {
+      req.session.error = 'Grams must be integers';
+      console.log('Grams must be integers');
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: false,
+          displayGramPerLbResults: false,
+          error:req.session.error});
+    }
+    // otherwise display calculations
+    else {
+      var carbs = JSON.stringify((parseInt(req.body.carbsGrams)) * 4);
+      var protein = JSON.stringify((parseInt(req.body.proteinGrams)) * 4);
+      var fat = JSON.stringify((parseInt(req.body.fatGrams)) * 9);
+      res.render('calculator',
+        {username: req.session.user,
+          displayCalorieResults: false,
+          displayGramResults: true,
+          displayGramPerLbResults: false,
+          carbs: carbs,
+          protein: protein,
+          fat: fat,
+          error:null});
+    }
+}
+
+function caloriesform(req, res) {
+    var username = req.session.user;
     // if any non numbers were entered
     if (!isNormalInteger(req.body.calories) ||
         !isNormalInteger(req.body.carbsPercent) ||
@@ -90,77 +176,7 @@ router.post('/', function(req, res, next) {
             error:req.session.error});
       }
     }
-  }
-  // if grams form was submitted
-  else if (req.body.carbsGrams !== undefined &&
-      req.body.fatGrams !== undefined &&
-      req.body.proteinGrams !== undefined) {
-    // if any non numbers were entered
-    if (!isNormalInteger(req.body.carbsGrams) ||
-        !isNormalInteger(req.body.proteinGrams) ||
-        !isNormalInteger(req.body.fatGrams)) {
-      req.session.error = 'Grams must be integers';
-      console.log('Grams must be integers');
-      res.render('calculator',
-        {username: req.session.user,
-          displayCalorieResults: false,
-          displayGramResults: false,
-          displayGramPerLbResults: false,
-          error:req.session.error});
-    }
-    // otherwise display calculations
-    else {
-      var carbs = JSON.stringify((parseInt(req.body.carbsGrams)) * 4);
-      var protein = JSON.stringify((parseInt(req.body.proteinGrams)) * 4);
-      var fat = JSON.stringify((parseInt(req.body.fatGrams)) * 9);
-      res.render('calculator',
-        {username: req.session.user,
-          displayCalorieResults: false,
-          displayGramResults: true,
-          displayGramPerLbResults: false,
-          carbs: carbs,
-          protein: protein,
-          fat: fat,
-          error:null});
-    }
-  }
-  // if grams per lb form was submitted
-  else if (req.body.bodyweight !== undefined &&
-      req.body.carbsGramsPerLb !== undefined &&
-      req.body.fatGramsPerLb !== undefined &&
-      req.body.proteinGramsPerLb !== undefined) {
-    // if any non numbers were entered display error
-    if (!isNumber(req.body.bodyweight) ||
-        !isNumber(req.body.carbsGramsPerLb) ||
-        !isNumber(req.body.proteinGramsPerLb) ||
-        !isNumber(req.body.fatGramsPerLb)) {
-      req.session.error = 'Grams per lb must be non-negative numbers';
-      console.log('Grams per lb must be non-negative numbers');
-      res.render('calculator',
-        {username: req.session.user,
-          displayCalorieResults: false,
-          displayGramResults: false,
-          displayGramPerLbResults: false,
-          error:req.session.error});
-    }
-    // otherwise display calculations
-    else {
-      var bw = JSON.stringify(parseFloat(req.body.bodyweight));
-      var carbs = JSON.stringify((parseFloat(req.body.carbsGramsPerLb)) * bw );
-      var protein = JSON.stringify((parseFloat(req.body.proteinGramsPerLb)) * bw);
-      var fat = JSON.stringify((parseFloat(req.body.fatGramsPerLb)) * bw);
-      res.render('calculator',
-        {username: req.session.user,
-          displayCalorieResults: false,
-          displayGramResults: false,
-          displayGramPerLbResults: true,
-          carbs: carbs,
-          protein: protein,
-          fat: fat,
-          error:null});
-    }
-  }
-});
+}
 
 
 router.post('/submit', function(req, res, next) {
