@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
   }
 });
 
+// Validate login of user
 router.post('/', function(req, res, next){
   console.log(req.body);
   console.log(req.error);

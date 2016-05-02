@@ -5,7 +5,7 @@ var db = require('../database/database');
 var mysql = require('mysql');
 
 
-/* GET login listing. */
+/* GET weight listing. */
 router.get('/', function(req, res, next) {
   console.log(req.session.user);
   if(!req.session.user){
@@ -44,6 +44,7 @@ router.get('/', function(req, res, next) {
   }
 });
 
+// download the history of the user
 router.post('/', function(req, res, next) {
 
   // Always confirm request is part of a session.
@@ -86,10 +87,10 @@ router.post('/', function(req, res, next) {
           }
 
           newEntry_FLAG = (rows.length === 0 ? true : false);
-
+          var newWeight;
           try {
             console.log(req.body.weight);
-            var newWeight = parseInt(req.body.weight);
+            newWeight = parseInt(req.body.weight);
           } catch (e) {
             req.session.error = 'numerical fields must be numbers';
             res.redirect('/weight');
@@ -135,12 +136,6 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-
-        // NEW ENTRY
-
-
-
-
       }
     });
 

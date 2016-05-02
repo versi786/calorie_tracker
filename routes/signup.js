@@ -4,8 +4,9 @@ var router = express.Router();
 //var user = require('../models/user');
 var db = require('../database/database');
 var SHA3 = require('crypto-js/sha3');
-/* GET login listing. */
 
+
+/* Authenticate fb signup. */
 router.post('/fblogin', function (req, res) {
   console.log('Facebook login was reflected in server');
   console.log(req.body.username);
@@ -57,7 +58,7 @@ router.post('/fblogin', function (req, res) {
 
 
 
-
+// render signup page
 router.get('/', function(req, res, next) {
   if (req.session.error) {
     res.render('signup', {error: req.session.error});

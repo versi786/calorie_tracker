@@ -70,16 +70,6 @@ router.get('/:username', function(req, res, next) {
                       'snack':[],
                     };
 
-                    /*
-                    if (lunchEntries.length == 0) {
-                      console.log('In there');
-                      var textJob = new cronJob( '* * * * *', function(){
-                        client.sendMessage( { to:'2154701461', from:'2674604107',
-                         body:'Hello! Hope you’re having a good day!' }, function( err, data ) {});
-                        },  null, true);
-                    }
-                    */
-
                     var entry2 = (rows2.length===1) ? JSON.parse(rows2[0].Entry_Content) : {
                       'exercises':[],
                     };
@@ -150,10 +140,13 @@ router.get('/:username', function(req, res, next) {
     });
   });
 
+//redirect to user adte range
 router.post('/date', function(req, res, next) {
   res.redirect('/users/'+req.session.user+'?'+'date=' + req.body.date);
 });
 
+//TODO refactor
+// downlaod history 
 router.post('/', function(req, res, next) {
   console.log('method is called');
   var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (username = ?);';
