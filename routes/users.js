@@ -18,7 +18,7 @@ router.get('/:username', function(req, res, next) {
       req.session.error = null;
     }
     var date;
-    if(!req.query.date){
+    if (!req.query.date) {
       date = req.session.today;
     }else{
       date = req.query.date;
@@ -170,7 +170,7 @@ router.post('/', function(req, res, next) {
                       'snack':[],
                     };
             text += ' Breakfast \n';
-          
+
             if (entry.breakfast.length === 0) {
                 text += ' No breakfast recorded \n';
             }
@@ -179,7 +179,7 @@ router.post('/', function(req, res, next) {
               var fat = parseInt(entry.breakfast[j].fat);
               var carbs = parseInt(entry.breakfast[j].carbs);
               var protein = parseInt(entry.breakfast[j].protein);
-              
+
               text += ' *' + JSON.stringify(entry.breakfast[j].quantity) + ' ';
               text += JSON.stringify(entry.breakfast[j].quantity_meas) + ' ';
               text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' ';
@@ -198,7 +198,7 @@ router.post('/', function(req, res, next) {
               var fat = parseInt(entry.lunch[j].fat);
               var carbs = parseInt(entry.lunch[j].carbs);
               var protein = parseInt(entry.lunch[j].protein);
-              
+
               text += ' *' + JSON.stringify(entry.lunch[j].quantity) + ' ';
               text += JSON.stringify(entry.lunch[j].quantity_meas) + ' ';
               text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' ';
@@ -217,7 +217,7 @@ router.post('/', function(req, res, next) {
               var fat = parseInt(entry.dinner[j].fat);
               var carbs = parseInt(entry.dinner[j].carbs);
               var protein = parseInt(entry.dinner[j].protein);
-              
+
               text += ' *' + JSON.stringify(entry.dinner[j].quantity) + ' ';
               text += JSON.stringify(entry.dinner[j].quantity_meas) + ' ';
               text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' ';
@@ -236,7 +236,7 @@ router.post('/', function(req, res, next) {
               var fat = parseInt(entry.snack[j].fat);
               var carbs = parseInt(entry.snack[j].carbs);
               var protein = parseInt(entry.snack[j].protein);
-              
+
               text += ' *' + JSON.stringify(entry.snack[j].quantity) + ' ';
               text += JSON.stringify(entry.snack[j].quantity_meas) + ' ';
               text += 'of ' + JSON.stringify(entry.snack[j].food) + ' ';

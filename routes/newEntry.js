@@ -103,8 +103,7 @@ router.post('/', function(req, res, next) {
           content.food = req.body.food_input;
           content.quantity_meas = req.body.quantity_measure;
 
-          //TODO: figure out asynchronous shit FIXED
-
+          // make request to Flickr for picture related to new food entry
           Flickr.tokenOnly(flickrOptions, function(error, flickr) {
             flickr.photos.search({text:content.food, sort:'relevance', group_id:'99392030@N00'},  function(error, results) {
               var photo = results.photos.photo[0];

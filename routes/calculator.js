@@ -64,6 +64,7 @@ router.post('/', function(req, res, next) {
       var carbs = JSON.stringify((parseInt(req.body.carbsPercent) / 100) * totalCalories);
       var protein = JSON.stringify((parseInt(req.body.proteinPercent) / 100) * totalCalories);
       var fat = JSON.stringify((parseInt(req.body.fatPercent) / 100) * totalCalories);
+      // if the percentages add up to 100, display the calculations
       if (parseInt(req.body.carbsPercent) + parseInt(req.body.proteinPercent) + parseInt(req.body.fatPercent) === 100) {
         console.log('About to render results');
         res.render('calculator',
@@ -76,7 +77,9 @@ router.post('/', function(req, res, next) {
             protein: protein,
             fat: fat,
             error:null});
-      } else {
+      } 
+      // otherwise throw error
+      else {
         req.session.error = 'Percentages must add up to 100';
         console.log('Percentages must add up to 100');
         res.render('calculator',
@@ -92,7 +95,7 @@ router.post('/', function(req, res, next) {
   else if (req.body.carbsGrams !== undefined &&
       req.body.fatGrams !== undefined &&
       req.body.proteinGrams !== undefined) {
-        // if any non numbers were entered
+    // if any non numbers were entered
     if (!isNormalInteger(req.body.carbsGrams) ||
         !isNormalInteger(req.body.proteinGrams) ||
         !isNormalInteger(req.body.fatGrams)) {
@@ -105,6 +108,7 @@ router.post('/', function(req, res, next) {
           displayGramPerLbResults: false,
           error:req.session.error});
     }
+    // otherwise display calculations
     else {
       var carbs = JSON.stringify((parseInt(req.body.carbsGrams)) * 4);
       var protein = JSON.stringify((parseInt(req.body.proteinGrams)) * 4);
@@ -125,7 +129,7 @@ router.post('/', function(req, res, next) {
       req.body.carbsGramsPerLb !== undefined &&
       req.body.fatGramsPerLb !== undefined &&
       req.body.proteinGramsPerLb !== undefined) {
-    // if any non numbers were entered
+    // if any non numbers were entered display error
     if (!isNumber(req.body.bodyweight) ||
         !isNumber(req.body.carbsGramsPerLb) ||
         !isNumber(req.body.proteinGramsPerLb) ||
@@ -139,6 +143,7 @@ router.post('/', function(req, res, next) {
           displayGramPerLbResults: false,
           error:req.session.error});
     }
+    // otherwise display calculations
     else {
       var bw = JSON.stringify(parseFloat(req.body.bodyweight));
       var carbs = JSON.stringify((parseFloat(req.body.carbsGramsPerLb)) * bw );

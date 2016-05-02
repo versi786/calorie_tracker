@@ -42,5 +42,5 @@ credentials*.json
 /data/*
 
 #The tar file for the Docker image
-calorieTracker.tar
+*.tar
 
