@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
     res.redirect('edit');
   }
 
-
+  //TODO this can all be written in 1 query @James
   //check to see if user exists
   db.query('SELECT username from users where username=?',[username.toLowerCase()],
     function(err, rows, fields){

@@ -3,7 +3,9 @@ var express = require('express');
 var router = express.Router();
 var db = require('../database/database');
 var mysql = require('mysql');
-/* GET. */
+
+
+//render the favorites page
 router.get('/', function(req, res, next) {
   if(!req.session.user || req.session.error){
     var save = req.session.error;
@@ -28,6 +30,7 @@ router.get('/', function(req, res, next) {
 	}
 });
 
+//Add the favorite to the user
 router.post('/', function(req, res, next) {
 
     // Always confirm request is part of a session.

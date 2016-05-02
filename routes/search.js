@@ -24,8 +24,7 @@ fs.readFile('credentials.json', 'utf8', function (err, data) {
     console.log('Nutritionix Search Database set up');
 });
 
-// use the flickr API without auth
-
+// search for the food that the person wnats
 router.get('/', function(req, res, next) {
   console.log(req.session.user);
   if(!req.session.user){
@@ -37,7 +36,7 @@ router.get('/', function(req, res, next) {
         'searchResultsArr': null});
     }else{
         console.log('Making request');
-        console.log(urlfront+req.query.searchTerm + urlend)
+        console.log(urlfront+req.query.searchTerm + urlend);
         //actually do the search in the databse and show the results
         request({
             url: urlfront + req.query.searchTerm + urlend,
@@ -61,7 +60,7 @@ router.get('/', function(req, res, next) {
   }
 });
 
-
+// redirect user using input
 router.post('/', function(req, res, next) {
   console.log(req.session.user);
   console.log('/search/?searchTerm=' + req.body.searchTerm);
@@ -69,6 +68,7 @@ router.post('/', function(req, res, next) {
   console.log('redirected');
 });
 
+// create new food entry from search
 router.post('/submit', function(req, res, next) {
 
     // Always confirm request is part of a session.

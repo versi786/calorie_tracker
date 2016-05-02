@@ -4,7 +4,6 @@ var router = express.Router();
 //var user = require('../models/user');
 var db = require('../database/database');
 var SHA3 = require('crypto-js/sha3');
-/* GET login listing. */
 
 // Handles AJAX requests from the facebook login button.
 router.post('/fblogin', function (req, res) {

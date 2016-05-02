@@ -17,6 +17,9 @@ router.get('/', function(req, res, next) {
     }
   });
 
+
+// Create a new entry for the user
+//TODO refactor
 router.post('/', function(req, res, next) {
 
   console.log(req.body);
