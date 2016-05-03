@@ -146,127 +146,84 @@ router.post('/date', function(req, res, next) {
 });
 
 //TODO refactor
-// downlaod history 
+// download history 
 router.post('/', function(req, res, next) {
-  console.log('method is called');
   var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (username = ?);';
       var inserts = [req.session.user];
       dailyExist = mysql.format(dailyExist, inserts);
-
       db.query(dailyExist, function(err, rows, fields) {
         if(err){
           req.session.error = 'database error';
-          console.log('food entry database error');
           res.redirect('/');
         }else{
           var text = '';
-
           for(var i = 0; i < rows.length; i++){
             text += 'Date ' + rows[i].Entry_Date + '\n\n';
-            var entry = (rows[i].length !== 0) ? JSON.parse(rows[i].Entry_Content) : {
-                      'breakfast':[],
-                      'lunch':[],
-                      'dinner':[],
-                      'snack':[],
-                    };
-            text += ' Breakfast \n';
-
-            if (entry.breakfast.length === 0) {
-                text += ' No breakfast recorded \n';
-            }
+            var entry = (rows[i].length !== 0) ? JSON.parse(rows[i].Entry_Content) : { 'breakfast':[], 'lunch':[], 'dinner':[], 'snack':[] };
+            text += '\n Breakfast \n';
+            if (entry.breakfast.length === 0) { text += ' No breakfast recorded \n'; }
             for (var j = 0; j < entry.breakfast.length; j++) {
               var quant = parseInt(entry.breakfast[j].quantity);
               var fat = parseInt(entry.breakfast[j].fat);
               var carbs = parseInt(entry.breakfast[j].carbs);
               var protein = parseInt(entry.breakfast[j].protein);
-
-              text += ' *' + JSON.stringify(entry.breakfast[j].quantity) + ' ';
-              text += JSON.stringify(entry.breakfast[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' ';
-              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
-              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
-              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
+              text += ' *' + JSON.stringify(entry.breakfast[j].quantity) + JSON.stringify(entry.breakfast[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.breakfast[j].food) + ' with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
-            text += '\n';
-
-            text += ' Lunch \n';
-            if (entry.lunch.length === 0) {
-                text += ' No lunch recorded \n';
-            }
+            text += '\n Lunch \n';
+            if (entry.lunch.length === 0) { text += ' No lunch recorded \n'; }
             for (var j = 0; j < entry.lunch.length; j++) {
               var quant = parseInt(entry.lunch[j].quantity);
               var fat = parseInt(entry.lunch[j].fat);
               var carbs = parseInt(entry.lunch[j].carbs);
               var protein = parseInt(entry.lunch[j].protein);
-
-              text += ' *' + JSON.stringify(entry.lunch[j].quantity) + ' ';
-              text += JSON.stringify(entry.lunch[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' ';
-              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
-              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
-              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
+              text += ' *' + JSON.stringify(entry.lunch[j].quantity) + JSON.stringify(entry.lunch[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.lunch[j].food) + ' with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
-            text += '\n';
-
-            text += ' Dinner \n';
-            if (entry.dinner.length === 0) {
-                text += ' No dinner recorded \n';
-            }
+            text += '\n Dinner \n';
+            if (entry.dinner.length === 0) { text += ' No dinner recorded \n'; }
             for (var j = 0; j < entry.dinner.length; j++) {
               var quant = parseInt(entry.dinner[j].quantity);
               var fat = parseInt(entry.dinner[j].fat);
               var carbs = parseInt(entry.dinner[j].carbs);
               var protein = parseInt(entry.dinner[j].protein);
-
-              text += ' *' + JSON.stringify(entry.dinner[j].quantity) + ' ';
-              text += JSON.stringify(entry.dinner[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' ';
-              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
-              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
-              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
+              text += ' *' + JSON.stringify(entry.dinner[j].quantity) + JSON.stringify(entry.dinner[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.dinner[j].food) + ' with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
-            text += '\n';
-
-            text += ' Snack \n';
-            if (entry.snack.length === 0) {
-                text += ' No snack recorded \n';
-            }
+            text += '\n Snack \n';
+            if (entry.snack.length === 0) { text += ' No snack recorded \n';}
             for (var j = 0; j < entry.snack.length; j++) {
               var quant = parseInt(entry.snack[j].quantity);
               var fat = parseInt(entry.snack[j].fat);
               var carbs = parseInt(entry.snack[j].carbs);
               var protein = parseInt(entry.snack[j].protein);
-
-              text += ' *' + JSON.stringify(entry.snack[j].quantity) + ' ';
-              text += JSON.stringify(entry.snack[j].quantity_meas) + ' ';
-              text += 'of ' + JSON.stringify(entry.snack[j].food) + ' ';
-              text += 'with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
-              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, ';
-              text += 'and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
+              text += ' *' + JSON.stringify(entry.snack[j].quantity) + JSON.stringify(entry.snack[j].quantity_meas) + ' ';
+              text += 'of ' + JSON.stringify(entry.snack[j].food) + ' with a total of ' + JSON.stringify(fat * quant * 9) + ' calories of fat, ';
+              text += + JSON.stringify(carbs * quant * 4) + ' calories of carbs, and ' + JSON.stringify(protein * quant * 4) + ' calories of protein. \n';
             }
             text += '\n';
           }
-
           text = text.replace(/['"]+/g, '');
+          download(text, res);
+        }
+      });
+});
 
-
-          fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
+//function to write to file
+function download(text, res) {
+  fs.openSync(__dirname + '/history.txt', 'w+', function(err, fd) {
             if (err) {
               return console.error(err);
             }
-            console.log('File opened successfully!');
           });
-
           fs.writeFileSync(__dirname + '/history.txt', text);
 
           var file = __dirname + '/history.txt';
           res.download(file);
-        }
-      });
-
-
-});
-
+}
 
 router.get('/', function(req, res, next) {
   res.redirect('/users/'+req.session.user);

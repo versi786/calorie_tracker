@@ -20,7 +20,7 @@ router.get('/:username', function(req, res, next) {
     var goalsql = 'SELECT carbs, fat, protein, goals, food FROM users WHERE username = ?';
     var inserts = [req.params.username];
     goalsql = mysql.format(goalsql, inserts);
-
+    //Query the user goals
     db.query(goalsql, function(err, rows1, fields) {
       if(err) {
           req.session.error = 'database error';
@@ -28,6 +28,7 @@ router.get('/:username', function(req, res, next) {
           res.redirect('/');
           return;
       }
+      // Check whether there are food entries
       var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
         var inserts = [req.session.today, req.session.user];
         dailyExist = mysql.format(dailyExist, inserts);
@@ -41,10 +42,9 @@ router.get('/:username', function(req, res, next) {
           }else{
             //calculate the number of calories remainging
             var fat = (rows1[0].fat===null?0:rows1[0].fat);
-
             var carbs = (rows1[0].carbs===null?0:rows1[0].carbs);
-
             var protein = (rows1[0].protein===null?0:rows1[0].protein);
+            
             var entry = (rows.length===1) ? JSON.parse(rows[0].Entry_Content) : {
                             'breakfast':[],
                             'lunch':[],

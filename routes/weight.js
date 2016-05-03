@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   else {
+    // Get all weight entries
     var dailyExist = 'SELECT * FROM weight WHERE (username = ?);';
     var inserts = [req.session.user];
     dailyExist = mysql.format(dailyExist, inserts);
@@ -23,9 +24,10 @@ router.get('/', function(req, res, next) {
           console.log(err);
           res.redirect('/');
         }else{
-          //console.log(rows);
+
           var weight_arr = [];
           var date_arr = [];
+          //populate the weight array for chart
           for(var j = 0; j < rows.length; j++){
             var weight = parseInt(rows[j].userWeight);
             console.log(weight);
@@ -33,9 +35,6 @@ router.get('/', function(req, res, next) {
             var date = rows[j].Entry_Date.split('-');
             date_arr.push(new Date(date[2], date[0]-1, date[1]));
           }
-          console.log(weight_arr);
-          console.log(date_arr);
-
           var lastWeight = rows.length === 0 ? '0' : rows[rows.length - 1].userWeight;
           res.render('weight',{username: req.session.user, weight_arr:weight_arr,
            date_arr:date_arr, lastWeight: lastWeight});
@@ -85,11 +84,10 @@ router.post('/', function(req, res, next) {
           if(err) {
             req.session.error = 'database error';
           }
-
+          // See if entry for today already exists
           newEntry_FLAG = (rows.length === 0 ? true : false);
           var newWeight;
           try {
-            console.log(req.body.weight);
             newWeight = parseInt(req.body.weight);
           } catch (e) {
             req.session.error = 'numerical fields must be numbers';
@@ -99,8 +97,6 @@ router.post('/', function(req, res, next) {
 
           // CREATE NEW DAY ENTRY
           if (newEntry_FLAG) {
-
-            console.log('I got here adding new entry');
 
             var sql = 'INSERT INTO weight \
             (Entry_Date, username, userWeight) \
@@ -120,7 +116,7 @@ router.post('/', function(req, res, next) {
             });
 
           } else {
-
+            // Update old entry to reflect new data
             var updateSql = 'UPDATE weight SET userWeight = ? \
             WHERE (Entry_Date = ?) AND (username = ?);';
 

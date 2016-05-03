@@ -32,6 +32,7 @@ connection.connect(function(err){
 
 var db = connection;
 
+// Function to send emails to all users that haven't logged food
 function emails(){
 
   var twilio = require('twilio'),
@@ -60,6 +61,7 @@ function emails(){
       for(var i = 0; i < rows.length; i++) {
 
         phoneNumber = rows[i].phoneNumber;
+        // See what users have logged food
         var dailyExist = 'SELECT * FROM FOOD_ENTRIES WHERE (Entry_Date = ?) AND (username = ?);';
         var inserts = [date, rows[i].username];
         dailyExist = mysql.format(dailyExist, inserts);

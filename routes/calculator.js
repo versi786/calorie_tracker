@@ -26,6 +26,7 @@ function isNormalInteger(str) {
     return String(n) === str && n >= 0;
 }
 
+// Check if input is a number
 function isNumber(str) {
     var n = Number(str);
     if (str !== '' && n < 1 && str.charAt(0) !== '0') {

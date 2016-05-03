@@ -68,10 +68,9 @@ router.post('/', function(req, res, next) {
             req.session.error = 'database error';
           }
 
+          //Determine whether there's already an entry
           newEntry_FLAG = (rows.length === 0 ? true : false);
-          console.log('New Entry: ' + newEntry_FLAG);
           oldEntry_object = ( newEntry_FLAG ? undefined : rows[0]);
-          console.log(newEntry_FLAG);
 
           // BUILD THE NEW EXERCISE ENTRY
           var content = {};
@@ -133,12 +132,6 @@ router.post('/', function(req, res, next) {
             });
           }
         });
-
-        // NEW ENTRY
-
-
-
-
       }
     });
 
