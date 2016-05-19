@@ -1,5 +1,8 @@
 # 10-Calorie-Tracker-App
 
+###Screenshots of running site
+[User Manual](/UserManual.pdf)
+
 ###How to run website:
 * need to install nodejs on your computer
 * run `npm install` in this folder
